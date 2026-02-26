@@ -4,15 +4,11 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useInvoice, useCreatePayment } from '@/features/billing/hooks';
 import type { PaymentMethod } from '@/features/billing/types';
+import { formatAmount } from '@/features/billing/utils';
 import { Skeleton } from '@/shared/ui';
 import { createStyles } from '@/shared/theme/createStyles';
 import { useScreenView } from '@/features/analytics/tracker';
 import { SPACING } from '@/shared/theme/types';
-
-function formatAmount(amount: number, currency: string) {
-  if (currency === 'RUB') return `${amount.toLocaleString('ru-RU')} \u20BD`;
-  return `${amount} ${currency}`;
-}
 
 export default function PaymentMethodScreen() {
   const { invoiceId } = useLocalSearchParams<{ invoiceId: string }>();

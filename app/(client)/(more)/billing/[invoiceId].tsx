@@ -2,39 +2,11 @@ import { View, Text, ScrollView, Pressable } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useInvoice } from '@/features/billing/hooks';
-import type { InvoiceStatus } from '@/features/billing/types';
-import { Badge, Button, Skeleton } from '@/shared/ui';
+import { formatAmount, formatDateFull, statusBadge, isPayable } from '@/features/billing/utils';
+import { Badge, Button, ErrorState, Skeleton } from '@/shared/ui';
 import { createStyles } from '@/shared/theme/createStyles';
 import { useScreenView } from '@/features/analytics/tracker';
 import { SPACING } from '@/shared/theme/types';
-
-function formatAmount(amount: number, currency: string) {
-  if (currency === 'RUB') return `${amount.toLocaleString('ru-RU')} \u20BD`;
-  return `${amount} ${currency}`;
-}
-
-function formatDate(iso: string) {
-  return new Date(iso).toLocaleDateString('ru-RU', {
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric',
-  });
-}
-
-function statusBadge(status: InvoiceStatus): { text: string; variant: 'warning' | 'success' | 'error' | 'info' } {
-  switch (status) {
-    case 'open':
-      return { text: 'Открыт', variant: 'warning' };
-    case 'paid':
-      return { text: 'Оплачен', variant: 'success' };
-    case 'overdue':
-      return { text: 'Просрочен', variant: 'error' };
-    case 'cancelled':
-      return { text: 'Отменен', variant: 'info' };
-    default:
-      return { text: status, variant: 'info' };
-  }
-}
 
 export default function InvoiceDetailScreen() {
   const { invoiceId } = useLocalSearchParams<{ invoiceId: string }>();
@@ -42,7 +14,20 @@ export default function InvoiceDetailScreen() {
   const router = useRouter();
   const styles = useStyles();
 
-  const { data: invoice, isLoading } = useInvoice(invoiceId || '');
+  const { data: invoice, isLoading, isError, refetch } = useInvoice(invoiceId || '');
+
+  if (isError) {
+    return (
+      <SafeAreaView style={styles.container} edges={['top']}>
+        <View style={styles.header}>
+          <Pressable onPress={() => router.back()} hitSlop={12}>
+            <Text style={styles.backButton}>{'<'} Назад</Text>
+          </Pressable>
+        </View>
+        <ErrorState message="Не удалось загрузить счет" onRetry={refetch} />
+      </SafeAreaView>
+    );
+  }
 
   if (isLoading || !invoice) {
     return (
@@ -106,24 +91,24 @@ export default function InvoiceDetailScreen() {
         <View style={styles.metaSection}>
           <View style={styles.metaRow}>
             <Text style={styles.metaLabel}>Дата выставления</Text>
-            <Text style={styles.metaValue}>{formatDate(invoice.createdAt)}</Text>
+            <Text style={styles.metaValue}>{formatDateFull(invoice.createdAt)}</Text>
           </View>
           <View style={styles.metaRow}>
             <Text style={styles.metaLabel}>Срок оплаты</Text>
-            <Text style={styles.metaValue}>{formatDate(invoice.dueDate)}</Text>
+            <Text style={styles.metaValue}>{formatDateFull(invoice.dueDate)}</Text>
           </View>
           {invoice.status === 'paid' && invoice.paidAt && (
             <View style={styles.metaRow}>
               <Text style={styles.metaLabel}>Оплачен</Text>
               <View style={styles.paidRow}>
                 <Text style={styles.paidCheck}>{'\u2705'}</Text>
-                <Text style={styles.metaValue}>{formatDate(invoice.paidAt)}</Text>
+                <Text style={styles.metaValue}>{formatDateFull(invoice.paidAt)}</Text>
               </View>
             </View>
           )}
         </View>
 
-        {invoice.status === 'open' && (
+        {isPayable(invoice.status) && (
           <View style={styles.paySection}>
             <Button
               title="Оплатить"

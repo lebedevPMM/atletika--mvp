@@ -35,7 +35,7 @@ export default function CardPayScreen() {
         params: { paymentId: payment.id },
       });
     }
-  }, [payment?.status]);
+  }, [payment?.status, payment?.id, router]);
 
   return (
     <SafeAreaView style={styles.container} edges={['top']}>

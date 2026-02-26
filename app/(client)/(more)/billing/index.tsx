@@ -4,40 +4,14 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { useInvoices } from '@/features/billing/hooks';
 import type { Invoice, InvoiceStatus } from '@/features/billing/types';
-import { Card, Badge, SegmentedControl, EmptyState, Skeleton } from '@/shared/ui';
+import { formatAmount, formatDateShort, statusBadge } from '@/features/billing/utils';
+import { Card, Badge, SegmentedControl, EmptyState, ErrorState, Skeleton } from '@/shared/ui';
 import { createStyles } from '@/shared/theme/createStyles';
 import { useScreenView } from '@/features/analytics/tracker';
 import { SPACING } from '@/shared/theme/types';
 
 const SEGMENTS = ['Открытые', 'Оплаченные'];
 const STATUS_MAP: InvoiceStatus[] = ['open', 'paid'];
-
-function formatAmount(amount: number, currency: string) {
-  if (currency === 'RUB') return `${amount.toLocaleString('ru-RU')} \u20BD`;
-  return `${amount} ${currency}`;
-}
-
-function formatDate(iso: string) {
-  return new Date(iso).toLocaleDateString('ru-RU', {
-    day: 'numeric',
-    month: 'short',
-  });
-}
-
-function statusBadge(status: InvoiceStatus): { text: string; variant: 'warning' | 'success' | 'error' | 'info' } {
-  switch (status) {
-    case 'open':
-      return { text: 'Открыт', variant: 'warning' };
-    case 'paid':
-      return { text: 'Оплачен', variant: 'success' };
-    case 'overdue':
-      return { text: 'Просрочен', variant: 'error' };
-    case 'cancelled':
-      return { text: 'Отменен', variant: 'info' };
-    default:
-      return { text: status, variant: 'info' };
-  }
-}
 
 function InvoiceCard({ invoice, onPress }: { invoice: Invoice; onPress: () => void }) {
   const styles = useStyles();
@@ -55,8 +29,8 @@ function InvoiceCard({ invoice, onPress }: { invoice: Invoice; onPress: () => vo
         <Text style={styles.amount}>{formatAmount(invoice.amount, invoice.currency)}</Text>
         <Text style={styles.date}>
           {invoice.status === 'paid' && invoice.paidAt
-            ? `Оплачен ${formatDate(invoice.paidAt)}`
-            : `До ${formatDate(invoice.dueDate)}`}
+            ? `Оплачен ${formatDateShort(invoice.paidAt)}`
+            : `До ${formatDateShort(invoice.dueDate)}`}
         </Text>
       </View>
     </Card>
@@ -81,7 +55,7 @@ export default function BillingListScreen() {
   const [segmentIndex, setSegmentIndex] = useState(0);
 
   const status = STATUS_MAP[segmentIndex];
-  const { data: invoices, isLoading, refetch, isRefetching } = useInvoices(status);
+  const { data: invoices, isLoading, isError, refetch, isRefetching } = useInvoices(status);
 
   const handlePress = useCallback(
     (invoiceId: string) => {
@@ -114,7 +88,9 @@ export default function BillingListScreen() {
         />
       </View>
 
-      {isLoading ? (
+      {isError ? (
+        <ErrorState message="Не удалось загрузить счета" onRetry={refetch} />
+      ) : isLoading ? (
         <LoadingSkeleton />
       ) : (
         <FlatList

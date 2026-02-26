@@ -2,7 +2,6 @@ import { View, Text } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter, useLocalSearchParams } from 'expo-router';
 import { createStyles } from '@/shared/theme/createStyles';
-import { useTheme } from '@/shared/theme/useTheme';
 import { Button, Card, Skeleton, ErrorState } from '@/shared/ui';
 import { useScreenView } from '@/features/analytics/tracker';
 import { usePaymentStatus } from '@/features/billing/hooks';
@@ -16,7 +15,6 @@ export default function PaymentFailedScreen() {
 
   const router = useRouter();
   const styles = useStyles();
-  const { colors } = useTheme();
 
   const { data: payment, isLoading, isError, refetch } = usePaymentStatus(paymentId || '');
 

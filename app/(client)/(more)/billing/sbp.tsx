@@ -30,7 +30,7 @@ export default function SbpPayScreen() {
         params: { paymentId: payment.id },
       });
     }
-  }, [payment?.status]);
+  }, [payment?.status, payment?.id, router]);
 
   const isPolling = payment?.status === 'pending' || payment?.status === 'processing';
 
