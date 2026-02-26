@@ -1,6 +1,7 @@
 import { Tabs } from 'expo-router';
 import { useTheme } from '@/shared/theme/useTheme';
 import { LAYOUT } from '@/shared/theme/types';
+import { House, CalendarBlank, Users, DotsThreeOutline } from 'phosphor-react-native';
 
 export default function TrainerLayout() {
   const { colors } = useTheme();
@@ -21,19 +22,31 @@ export default function TrainerLayout() {
     >
       <Tabs.Screen
         name="(home)"
-        options={{ title: 'Home' }}
+        options={{
+          title: 'Главная',
+          tabBarIcon: ({ color, size }) => <House size={size} color={color} weight="fill" />,
+        }}
       />
       <Tabs.Screen
         name="(schedule)"
-        options={{ title: 'Schedule' }}
+        options={{
+          title: 'Расписание',
+          tabBarIcon: ({ color, size }) => <CalendarBlank size={size} color={color} weight="fill" />,
+        }}
       />
       <Tabs.Screen
         name="(clients)"
-        options={{ title: 'Clients' }}
+        options={{
+          title: 'Клиенты',
+          tabBarIcon: ({ color, size }) => <Users size={size} color={color} weight="fill" />,
+        }}
       />
       <Tabs.Screen
         name="(more)"
-        options={{ title: 'More' }}
+        options={{
+          title: 'Ещё',
+          tabBarIcon: ({ color, size }) => <DotsThreeOutline size={size} color={color} weight="fill" />,
+        }}
       />
     </Tabs>
   );

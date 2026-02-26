@@ -8,7 +8,7 @@ interface ErrorStateProps {
 }
 
 export function ErrorState({
-  message = 'Something went wrong',
+  message = 'Что-то пошло не так',
   onRetry,
 }: ErrorStateProps) {
   const styles = useStyles();
@@ -18,7 +18,7 @@ export function ErrorState({
       <Text style={styles.icon}>⚠️</Text>
       <Text style={styles.message}>{message}</Text>
       {onRetry && (
-        <Button title="Retry" onPress={onRetry} variant="secondary" size="small" />
+        <Button title="Повторить" onPress={onRetry} variant="secondary" size="small" />
       )}
     </View>
   );

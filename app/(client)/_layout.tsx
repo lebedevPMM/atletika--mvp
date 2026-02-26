@@ -1,6 +1,7 @@
 import { Tabs } from 'expo-router';
 import { useTheme } from '@/shared/theme/useTheme';
 import { LAYOUT } from '@/shared/theme/types';
+import { House, CalendarBlank, QrCode, ListChecks, DotsThreeOutline } from 'phosphor-react-native';
 
 export default function ClientLayout() {
   const { colors } = useTheme();
@@ -21,23 +22,38 @@ export default function ClientLayout() {
     >
       <Tabs.Screen
         name="(home)"
-        options={{ title: 'Home' }}
+        options={{
+          title: 'Главная',
+          tabBarIcon: ({ color, size }) => <House size={size} color={color} weight="fill" />,
+        }}
       />
       <Tabs.Screen
         name="(booking)"
-        options={{ title: 'Book' }}
+        options={{
+          title: 'Запись',
+          tabBarIcon: ({ color, size }) => <CalendarBlank size={size} color={color} weight="fill" />,
+        }}
       />
       <Tabs.Screen
         name="(qr)"
-        options={{ title: 'QR' }}
+        options={{
+          title: 'QR',
+          tabBarIcon: ({ color, size }) => <QrCode size={size} color={color} weight="fill" />,
+        }}
       />
       <Tabs.Screen
         name="(schedule)"
-        options={{ title: 'Schedule' }}
+        options={{
+          title: 'Расписание',
+          tabBarIcon: ({ color, size }) => <ListChecks size={size} color={color} weight="fill" />,
+        }}
       />
       <Tabs.Screen
         name="(more)"
-        options={{ title: 'More' }}
+        options={{
+          title: 'Ещё',
+          tabBarIcon: ({ color, size }) => <DotsThreeOutline size={size} color={color} weight="fill" />,
+        }}
       />
     </Tabs>
   );

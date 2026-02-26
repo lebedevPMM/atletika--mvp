@@ -51,7 +51,7 @@ async function request<T>(path: string, options: RequestOptions = {}): Promise<T
   if (response.status === 401) {
     const { useAuthStore } = require('@/features/auth/store');
     useAuthStore.getState().logout();
-    throw new ApiError(401, 'UNAUTHORIZED', 'Session expired');
+    throw new ApiError(401, 'UNAUTHORIZED', 'Сессия истекла');
   }
 
   if (!response.ok) {
@@ -59,7 +59,7 @@ async function request<T>(path: string, options: RequestOptions = {}): Promise<T
     throw new ApiError(
       response.status,
       error.code || 'UNKNOWN',
-      error.message || 'Server error',
+      error.message || 'Ошибка сервера',
       error.details,
     );
   }

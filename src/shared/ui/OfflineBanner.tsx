@@ -10,7 +10,7 @@ export function OfflineBanner() {
 
   return (
     <View style={styles.banner}>
-      <Text style={styles.text}>No connection</Text>
+      <Text style={styles.text}>Нет подключения</Text>
     </View>
   );
 }

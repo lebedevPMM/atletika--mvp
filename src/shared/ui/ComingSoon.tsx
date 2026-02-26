@@ -9,8 +9,8 @@ interface ComingSoonProps {
 
 export function ComingSoon({
   icon = '🚧',
-  title = 'Coming soon',
-  description = 'This section is under development',
+  title = 'Скоро',
+  description = 'Этот раздел в разработке',
 }: ComingSoonProps) {
   const styles = useStyles();
 

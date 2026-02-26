@@ -8,7 +8,7 @@ export const authHandlers = [
     const body = await request.json() as { phone: string };
     if (!body.phone || body.phone.length < 10) {
       return HttpResponse.json(
-        { code: 'INVALID_PHONE', message: 'Invalid phone number' },
+        { code: 'INVALID_PHONE', message: 'Некорректный номер' },
         { status: 400 },
       );
     }
@@ -26,7 +26,7 @@ export const authHandlers = [
 
     if (body.code !== VALID_OTP) {
       return HttpResponse.json(
-        { code: 'INVALID_OTP', message: 'Invalid OTP code' },
+        { code: 'INVALID_OTP', message: 'Неверный код' },
         { status: 400 },
       );
     }

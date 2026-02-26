@@ -5,7 +5,7 @@ export default function HomeScreen() {
   const styles = useStyles();
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Home (S1)</Text>
+      <Text style={styles.text}>Главная (S1)</Text>
     </View>
   );
 }
