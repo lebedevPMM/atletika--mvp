@@ -3,6 +3,7 @@ import { View, Text, ActivityIndicator } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { ErrorState } from '@/shared/ui';
+import { useAuthStore } from '@/features/auth/store';
 import { useClubStore } from '@/features/club/store';
 import { clubApi } from '@/features/club/api';
 import { useScreenView } from '@/features/analytics/tracker';
@@ -14,6 +15,7 @@ export default function ClubLoadingScreen() {
   const router = useRouter();
   const styles = useStyles();
 
+  const userRole = useAuthStore((s) => s.user?.role);
   const clubId = useClubStore((s) => s.clubId);
   const branchId = useClubStore((s) => s.branchId);
 
@@ -27,13 +29,18 @@ export default function ClubLoadingScreen() {
       }
       const config = await clubApi.getConfig();
       useClubStore.getState().setConfig(config);
-      router.replace('/(client)/(home)');
+
+      if (userRole === 'trainer') {
+        router.replace('/(trainer)/(home)');
+      } else {
+        router.replace('/(client)/(home)');
+      }
     } catch (err: unknown) {
       const message =
         err instanceof Error ? err.message : 'Не удалось загрузить клуб';
       setError(message);
     }
-  }, [clubId, branchId, router]);
+  }, [clubId, branchId, userRole, router]);
 
   useEffect(() => {
     loadClub();

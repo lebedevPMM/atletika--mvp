@@ -96,6 +96,9 @@ export default function OtpScreen() {
         // Navigate based on response flags
         if (response.firstLogin || response.docsUpdated) {
           router.replace('/(auth)/offer' as never);
+        } else if (response.user.role === 'trainer') {
+          // Trainers skip club-loading and go directly to trainer home
+          router.replace('/(trainer)/(home)');
         } else {
           router.replace('/(auth)/club-loading');
         }
