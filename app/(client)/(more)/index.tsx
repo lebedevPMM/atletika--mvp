@@ -1,5 +1,6 @@
 import { View, Text, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useRouter } from 'expo-router';
 import { Card, Button } from '@/shared/ui';
 import { createStyles } from '@/shared/theme/createStyles';
 import { useLogout } from '@/features/auth/useLogout';
@@ -7,14 +8,16 @@ import { useScreenView } from '@/features/analytics/tracker';
 import { SPACING } from '@/shared/theme/types';
 
 const menuItems = [
-  { label: 'Профиль', icon: '👤' },
-  { label: 'Настройки', icon: '⚙️' },
-  { label: 'О клубе', icon: 'ℹ️' },
-  { label: 'Поддержка', icon: '💬' },
+  { label: 'Счета', icon: '\uD83D\uDCB3', route: '/(client)/(more)/billing' },
+  { label: 'Профиль', icon: '\uD83D\uDC64', route: null },
+  { label: 'Настройки', icon: '\u2699\uFE0F', route: null },
+  { label: 'О клубе', icon: '\u2139\uFE0F', route: null },
+  { label: 'Поддержка', icon: '\uD83D\uDCAC', route: null },
 ] as const;
 
 export default function MoreScreen() {
   useScreenView('client_more');
+  const router = useRouter();
   const logout = useLogout();
   const styles = useStyles();
 
@@ -29,17 +32,23 @@ export default function MoreScreen() {
     );
   };
 
+  const handleMenuPress = (route: string | null) => {
+    if (route) {
+      router.push(route as never);
+    }
+  };
+
   return (
     <SafeAreaView style={styles.container} edges={['top']}>
       <Text style={styles.title}>Ещё</Text>
 
       <View style={styles.menu}>
         {menuItems.map((item) => (
-          <Card key={item.label} onPress={() => {}} style={styles.menuItem}>
+          <Card key={item.label} onPress={() => handleMenuPress(item.route)} style={styles.menuItem}>
             <View style={styles.menuRow}>
               <Text style={styles.menuIcon}>{item.icon}</Text>
               <Text style={styles.menuLabel}>{item.label}</Text>
-              <Text style={styles.chevron}>›</Text>
+              <Text style={styles.chevron}>{'\u203A'}</Text>
             </View>
           </Card>
         ))}
@@ -78,8 +87,8 @@ const useStyles = createStyles((t) => ({
     paddingHorizontal: SPACING[4],
   },
   menuRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: 'row' as const,
+    alignItems: 'center' as const,
   },
   menuIcon: {
     fontSize: 20,
