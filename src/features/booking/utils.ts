@@ -33,6 +33,14 @@ export function formatPrice(price: number, currency: string = 'RUB'): string {
   return `${price} ${currency}`;
 }
 
+/** Format a local Date as YYYY-MM-DD without UTC conversion */
+function toLocalISODate(d: Date): string {
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  return `${y}-${m}-${day}`;
+}
+
 export function generateWeekDates(startDate?: Date): Array<{ date: string; label: string; isToday: boolean }> {
   const start = startDate || new Date();
   start.setHours(0, 0, 0, 0);
@@ -44,7 +52,7 @@ export function generateWeekDates(startDate?: Date): Array<{ date: string; label
     const d = new Date(start);
     d.setDate(d.getDate() + i);
     return {
-      date: d.toISOString().split('T')[0],
+      date: toLocalISODate(d),
       label: d.getTime() === today.getTime() ? 'Сегодня' : `${days[d.getDay()]}, ${d.getDate()}`,
       isToday: d.getTime() === today.getTime(),
     };
