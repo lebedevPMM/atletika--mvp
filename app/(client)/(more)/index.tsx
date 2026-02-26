@@ -14,8 +14,8 @@ const menuItems = [
   { label: 'Каталог', icon: '\uD83D\uDCE6', route: '/(client)/(more)/catalog' },
   { label: 'Профиль', icon: '\uD83D\uDC64', route: '/(client)/(more)/profile' },
   { label: 'Настройки', icon: '\u2699\uFE0F', route: '/(client)/(more)/settings' },
-  { label: 'О клубе', icon: '\u2139\uFE0F', route: null },
-  { label: 'Поддержка', icon: '\uD83D\uDCAC', route: null },
+  { label: 'О клубе', icon: '\u2139\uFE0F', route: '/(client)/(more)/club' },
+  { label: 'Поддержка', icon: '\uD83D\uDCAC', route: '/(client)/(more)/support' },
 ] as const;
 
 export default function MoreScreen() {
