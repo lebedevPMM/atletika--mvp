@@ -9,3 +9,6 @@ export { ErrorState } from './ErrorState';
 export { OfflineBanner } from './OfflineBanner';
 export { Badge } from './Badge';
 export { ComingSoon } from './ComingSoon';
+export { SegmentedControl } from './SegmentedControl';
+export { FilterChips } from './FilterChips';
+export { SlotCard } from './SlotCard';
