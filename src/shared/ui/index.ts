@@ -1,6 +1,8 @@
 export { Button } from './Button';
 export { Card } from './Card';
 export { Input } from './Input';
+export { PhoneInput } from './PhoneInput';
+export { OTPInput } from './OTPInput';
 export { Skeleton } from './Skeleton';
 export { EmptyState } from './EmptyState';
 export { ErrorState } from './ErrorState';
