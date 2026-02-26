@@ -5,6 +5,7 @@ import { scheduleHandlers } from './schedule';
 import { billingHandlers } from './billing';
 import { membershipHandlers } from './membership';
 import { catalogHandlers } from './catalog';
+import { qrHandlers } from './qr';
 
 export const handlers = [
   ...authHandlers,
@@ -14,4 +15,5 @@ export const handlers = [
   ...billingHandlers,
   ...membershipHandlers,
   ...catalogHandlers,
+  ...qrHandlers,
 ];
