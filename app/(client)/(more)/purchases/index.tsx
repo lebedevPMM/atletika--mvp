@@ -5,7 +5,7 @@ import { useRouter } from 'expo-router';
 import { usePurchases } from '@/features/catalog/hooks';
 import type { PurchasedService, PurchaseType } from '@/features/catalog/types';
 import { formatDateShort } from '@/features/billing/utils';
-import { Card, Badge, Button, SegmentedControl, EmptyState, ErrorState, Skeleton } from '@/shared/ui';
+import { Card, Badge, Button, ProgressBar, SegmentedControl, EmptyState, ErrorState, Skeleton } from '@/shared/ui';
 import { createStyles } from '@/shared/theme/createStyles';
 import { useScreenView } from '@/features/analytics/tracker';
 import { useTheme } from '@/shared/theme/useTheme';
@@ -29,18 +29,6 @@ function typeLabel(type: PurchaseType): { text: string; variant: 'accent' | 'suc
     default:
       return { text: type, variant: 'info' };
   }
-}
-
-function ProgressBar({ current, total, color }: { current: number; total: number; color: string }) {
-  const styles = useStyles();
-  const { colors } = useTheme();
-  const progress = total > 0 ? Math.min(current / total, 1) : 0;
-
-  return (
-    <View style={[styles.progressTrack, { backgroundColor: colors.bg.surface }]}>
-      <View style={[styles.progressFill, { width: `${progress * 100}%`, backgroundColor: color }]} />
-    </View>
-  );
 }
 
 function PurchaseCard({ purchase }: { purchase: PurchasedService }) {
@@ -219,15 +207,6 @@ const useStyles = createStyles((t) => ({
     ...t.typography.bodySm,
     color: t.colors.text.secondary,
     marginBottom: SPACING[1],
-  },
-  progressTrack: {
-    height: 6,
-    borderRadius: 3,
-    overflow: 'hidden' as const,
-  },
-  progressFill: {
-    height: '100%' as const,
-    borderRadius: 3,
   },
   cardFooter: {
     flexDirection: 'row' as const,

@@ -7,6 +7,7 @@ import Animated, {
   withTiming,
   Easing,
 } from 'react-native-reanimated';
+import * as Brightness from 'expo-brightness';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { createStyles } from '@/shared/theme/createStyles';
 import { useTheme } from '@/shared/theme/useTheme';
@@ -111,6 +112,28 @@ export default function QRScreen() {
   const { data: qrPass, isLoading, isError, refetch, dataUpdatedAt } = useQRPass();
 
   const [lastRefreshTime, setLastRefreshTime] = useState<string>('');
+  const [brightnessSet, setBrightnessSet] = useState(false);
+
+  // Brightness control — max while screen is visible, restore on unmount
+  useEffect(() => {
+    let previousBrightness: number | undefined;
+
+    (async () => {
+      try {
+        previousBrightness = await Brightness.getBrightnessAsync();
+        await Brightness.setBrightnessAsync(1); // max
+        setBrightnessSet(true);
+      } catch {
+        // Web or simulator may not support brightness
+      }
+    })();
+
+    return () => {
+      if (previousBrightness !== undefined) {
+        Brightness.setBrightnessAsync(previousBrightness).catch(() => {});
+      }
+    };
+  }, []);
 
   // Glow animation
   const glowOpacity = useSharedValue(0.3);
@@ -209,10 +232,12 @@ export default function QRScreen() {
       <View style={styles.content}>
         <Text style={styles.headerTitle}>QR-пропуск</Text>
 
-        {/* Brightness notice */}
-        <View style={styles.brightnessNotice}>
-          <Text style={styles.brightnessText}>☀️ Яркость экрана увеличена</Text>
-        </View>
+        {/* Brightness notice — only after brightness is actually set */}
+        {brightnessSet && (
+          <View style={styles.brightnessNotice}>
+            <Text style={styles.brightnessText}>☀️ Яркость экрана увеличена</Text>
+          </View>
+        )}
 
         {/* QR Card with glow */}
         <View style={styles.cardContainer}>

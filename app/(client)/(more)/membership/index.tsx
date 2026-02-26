@@ -3,37 +3,23 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { useMembership } from '@/features/membership/hooks';
 import type { MembershipStatus } from '@/features/membership/types';
-import { Card, Badge, Button, Skeleton, EmptyState, ErrorState } from '@/shared/ui';
+import { getMembershipStatusText, getDaysLeftColor, formatVisitsProgress } from '@/features/membership/utils';
+import { pluralize } from '@/shared/lib/pluralize';
+import { Card, Badge, Button, ProgressBar, Skeleton, EmptyState, ErrorState } from '@/shared/ui';
 import { createStyles } from '@/shared/theme/createStyles';
 import { useScreenView } from '@/features/analytics/tracker';
 import { useTheme } from '@/shared/theme/useTheme';
 import { SPACING } from '@/shared/theme/types';
 
 function statusBadge(status: MembershipStatus): { text: string; variant: 'success' | 'error' | 'info' | 'warning' } {
-  switch (status) {
-    case 'active':
-      return { text: 'Активен', variant: 'success' };
-    case 'expired':
-      return { text: 'Истёк', variant: 'error' };
-    case 'frozen':
-      return { text: 'Заморожен', variant: 'info' };
-    case 'none':
-      return { text: 'Нет тарифа', variant: 'warning' };
-    default:
-      return { text: status, variant: 'info' };
-  }
-}
-
-function ProgressBar({ current, total, color }: { current: number; total: number; color: string }) {
-  const styles = useStyles();
-  const { colors } = useTheme();
-  const progress = total > 0 ? Math.min(current / total, 1) : 0;
-
-  return (
-    <View style={[styles.progressTrack, { backgroundColor: colors.bg.surface }]}>
-      <View style={[styles.progressFill, { width: `${progress * 100}%`, backgroundColor: color }]} />
-    </View>
-  );
+  const text = getMembershipStatusText(status);
+  const variantMap: Record<MembershipStatus, 'success' | 'error' | 'info' | 'warning'> = {
+    active: 'success',
+    expired: 'error',
+    frozen: 'info',
+    none: 'warning',
+  };
+  return { text, variant: variantMap[status] };
 }
 
 function LoadingSkeleton() {
@@ -136,19 +122,13 @@ export default function MembershipScreen() {
           <View style={styles.daysRow}>
             <Text style={styles.daysNumber}>{membership.daysLeft}</Text>
             <Text style={styles.daysLabel}>
-              {membership.daysLeft === 1 ? 'день' : membership.daysLeft < 5 ? 'дня' : 'дней'} осталось
+              {pluralize(membership.daysLeft, ['день', 'дня', 'дней'])} осталось
             </Text>
           </View>
           <ProgressBar
             current={membership.daysLeft}
             total={totalDays}
-            color={
-              membership.daysLeft <= 7
-                ? colors.semantic.error.main
-                : membership.daysLeft <= 14
-                  ? colors.semantic.warning.main
-                  : colors.semantic.success.main
-            }
+            color={colors.semantic[getDaysLeftColor(membership.daysLeft)].main}
           />
         </Card>
 
@@ -160,7 +140,7 @@ export default function MembershipScreen() {
           <View style={styles.limitRow}>
             <Text style={styles.limitLabel}>Посещения</Text>
             <Text style={styles.limitValue}>
-              {membership.visitsLeft === null ? 'Безлимит' : `${membership.visitsLeft} из ${membership.visitsTotal}`}
+              {formatVisitsProgress(membership.visitsLeft, membership.visitsTotal)}
             </Text>
           </View>
           {membership.visitsLeft !== null && membership.visitsTotal !== null && (
@@ -201,11 +181,7 @@ export default function MembershipScreen() {
             <Text style={styles.sectionTitle}>Заморозка</Text>
             <Text style={styles.freezeText}>
               {membership.freezeDaysLeft}{' '}
-              {membership.freezeDaysLeft === 1
-                ? 'день'
-                : membership.freezeDaysLeft < 5
-                  ? 'дня'
-                  : 'дней'}{' '}
+              {pluralize(membership.freezeDaysLeft, ['день', 'дня', 'дней'])}{' '}
               доступно
             </Text>
           </Card>
@@ -308,15 +284,6 @@ const useStyles = createStyles((t) => ({
   daysLabel: {
     ...t.typography.body,
     color: t.colors.text.secondary,
-  },
-  progressTrack: {
-    height: 6,
-    borderRadius: 3,
-    overflow: 'hidden' as const,
-  },
-  progressFill: {
-    height: '100%' as const,
-    borderRadius: 3,
   },
   limitRow: {
     flexDirection: 'row' as const,

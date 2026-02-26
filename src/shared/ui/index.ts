@@ -12,3 +12,4 @@ export { ComingSoon } from './ComingSoon';
 export { SegmentedControl } from './SegmentedControl';
 export { FilterChips } from './FilterChips';
 export { SlotCard } from './SlotCard';
+export { ProgressBar } from './ProgressBar';
