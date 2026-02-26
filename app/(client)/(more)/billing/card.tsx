@@ -3,15 +3,11 @@ import { View, Text, Pressable, ActivityIndicator } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { usePaymentStatus } from '@/features/billing/hooks';
+import { formatAmount } from '@/features/billing/utils';
 import { Button } from '@/shared/ui';
 import { createStyles } from '@/shared/theme/createStyles';
 import { useScreenView } from '@/features/analytics/tracker';
 import { SPACING } from '@/shared/theme/types';
-
-function formatAmount(amount: number, currency: string) {
-  if (currency === 'RUB') return `${amount.toLocaleString('ru-RU')} \u20BD`;
-  return `${amount} ${currency}`;
-}
 
 export default function CardPayScreen() {
   const { paymentId } = useLocalSearchParams<{ paymentId: string }>();
@@ -35,7 +31,7 @@ export default function CardPayScreen() {
       });
     } else if (payment.status === 'failed') {
       router.replace({
-        pathname: '/(client)/(more)/billing/payment-result',
+        pathname: '/(client)/(more)/billing/payment-failed',
         params: { paymentId: payment.id },
       });
     }
