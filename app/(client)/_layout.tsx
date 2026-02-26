@@ -2,8 +2,11 @@ import { Tabs } from 'expo-router';
 import { useTheme } from '@/shared/theme/useTheme';
 import { LAYOUT } from '@/shared/theme/types';
 import { House, CalendarBlank, QrCode, ListChecks, DotsThreeOutline } from 'phosphor-react-native';
+import { useAuthGuard } from '@/features/auth/hooks';
 
 export default function ClientLayout() {
+  useAuthGuard();
+
   const { colors } = useTheme();
 
   return (
