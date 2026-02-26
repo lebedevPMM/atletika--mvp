@@ -3,25 +3,11 @@ import { View, Text, Pressable, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { useProfile, useUpdateProfile } from '@/features/profile/hooks';
+import { getInitials, formatBirthDate, formatMemberSince } from '@/features/profile/utils';
 import { Card, Button, Input, Skeleton, ErrorState } from '@/shared/ui';
 import { createStyles } from '@/shared/theme/createStyles';
 import { useScreenView } from '@/features/analytics/tracker';
 import { SPACING } from '@/shared/theme/types';
-
-function getInitials(firstName: string, lastName: string): string {
-  return `${firstName.charAt(0)}${lastName.charAt(0)}`.toUpperCase();
-}
-
-function formatDate(dateStr: string | null): string {
-  if (!dateStr) return 'Не указана';
-  const d = new Date(dateStr);
-  return d.toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' });
-}
-
-function formatMemberSince(dateStr: string): string {
-  const d = new Date(dateStr);
-  return d.toLocaleDateString('ru-RU', { month: 'long', year: 'numeric' });
-}
 
 function LoadingSkeleton() {
   const styles = useStyles();
@@ -169,7 +155,7 @@ export default function ProfileScreen() {
           {/* Birth date */}
           <Card style={styles.infoCard}>
             <Text style={styles.infoLabel}>Дата рождения</Text>
-            <Text style={styles.infoValue}>{formatDate(profile.birthDate)}</Text>
+            <Text style={styles.infoValue}>{formatBirthDate(profile.birthDate)}</Text>
           </Card>
 
           {/* Member since */}

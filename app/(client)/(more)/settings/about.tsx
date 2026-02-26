@@ -1,4 +1,4 @@
-import { View, Text, Pressable } from 'react-native';
+import { View, Text, Pressable, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { Card } from '@/shared/ui';
@@ -6,10 +6,20 @@ import { createStyles } from '@/shared/theme/createStyles';
 import { useScreenView } from '@/features/analytics/tracker';
 import { SPACING } from '@/shared/theme/types';
 
+const legalItems = [
+  { label: 'Пользовательское соглашение', action: 'terms' },
+  { label: 'Политика конфиденциальности', action: 'privacy' },
+  { label: 'Лицензии', action: 'licenses' },
+] as const;
+
 export default function AboutScreen() {
   useScreenView('client_about');
   const styles = useStyles();
   const router = useRouter();
+
+  const handleLegalPress = (_action: string) => {
+    Alert.alert('Документ откроется в браузере');
+  };
 
   return (
     <SafeAreaView style={styles.container} edges={['top']}>
@@ -33,8 +43,19 @@ export default function AboutScreen() {
 
         <Card style={styles.infoCard}>
           <Text style={styles.label}>Контакты поддержки</Text>
-          <Text style={styles.value}>support@atletika.app</Text>
+          <Text style={styles.value}>support@atletika.ru</Text>
         </Card>
+
+        {legalItems.map((item) => (
+          <Pressable key={item.action} onPress={() => handleLegalPress(item.action)}>
+            <Card style={styles.legalCard}>
+              <View style={styles.legalRow}>
+                <Text style={styles.legalLabel}>{item.label}</Text>
+                <Text style={styles.chevron}>{'\u203A'}</Text>
+              </View>
+            </Card>
+          </Pressable>
+        ))}
       </View>
     </SafeAreaView>
   );
@@ -85,5 +106,22 @@ const useStyles = createStyles((t) => ({
   value: {
     ...t.typography.body,
     color: t.colors.text.primary,
+  },
+  legalCard: {
+    paddingVertical: SPACING[3],
+    paddingHorizontal: SPACING[4],
+  },
+  legalRow: {
+    flexDirection: 'row' as const,
+    justifyContent: 'space-between' as const,
+    alignItems: 'center' as const,
+  },
+  legalLabel: {
+    ...t.typography.body,
+    color: t.colors.text.accent,
+  },
+  chevron: {
+    fontSize: 20,
+    color: t.colors.text.tertiary,
   },
 }));

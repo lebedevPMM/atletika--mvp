@@ -4,11 +4,6 @@ export function getInitials(firstName: string, lastName: string): string {
   return `${firstName.charAt(0)}${lastName.charAt(0)}`.toUpperCase();
 }
 
-export function formatPhone(phone: string): string {
-  // Already formatted in mock, just return
-  return phone;
-}
-
 export function formatMemberSince(iso: string): string {
   return new Date(iso).toLocaleDateString('ru-RU', { month: 'long', year: 'numeric' });
 }

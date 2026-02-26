@@ -1,6 +1,5 @@
 import {
   getInitials,
-  formatPhone,
   formatMemberSince,
   formatBirthDate,
   isProfileComplete,
@@ -24,14 +23,6 @@ describe('getInitials', () => {
 
   it('handles Latin characters', () => {
     expect(getInitials('Anna', 'Smith')).toBe('AS');
-  });
-});
-
-// === formatPhone ===
-
-describe('formatPhone', () => {
-  it('returns phone string as is', () => {
-    expect(formatPhone('+7 (999) 123-45-67')).toBe('+7 (999) 123-45-67');
   });
 });
 

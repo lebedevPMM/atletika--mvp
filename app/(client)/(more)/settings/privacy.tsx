@@ -172,7 +172,7 @@ const useStyles = createStyles((t) => ({
   toggleDescription: {
     ...t.typography.bodySm,
     color: t.colors.text.secondary,
-    marginTop: 2,
+    marginTop: SPACING['0.5'],
   },
   actions: {
     gap: SPACING[3],

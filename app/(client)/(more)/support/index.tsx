@@ -19,7 +19,7 @@ export default function SupportScreen() {
   const [subject, setSubject] = useState('');
   const [description, setDescription] = useState('');
 
-  const isFormEmpty = !subject.trim() && !description.trim();
+  const isFormValid = subject.trim().length > 0 && description.trim().length > 0;
 
   const handleCopy = async (value: string, label: string) => {
     await Clipboard.setStringAsync(value);
@@ -106,7 +106,7 @@ export default function SupportScreen() {
               title="Отправить"
               variant="primary"
               onPress={handleSubmit}
-              disabled={isFormEmpty}
+              disabled={!isFormValid}
             />
           </View>
         </View>
@@ -174,6 +174,6 @@ const useStyles = createStyles((t) => ({
   multilineInput: {
     height: 100,
     textAlignVertical: 'top' as const,
-    paddingTop: 12,
+    paddingTop: SPACING[3],
   },
 }));
