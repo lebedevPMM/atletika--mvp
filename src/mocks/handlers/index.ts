@@ -1,6 +1,7 @@
 import { authHandlers } from './auth';
+import { clubHandlers } from './club';
 
 export const handlers = [
   ...authHandlers,
-  // More handlers will be added per sprint
+  ...clubHandlers,
 ];
