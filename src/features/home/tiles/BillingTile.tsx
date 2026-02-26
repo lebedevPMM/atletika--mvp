@@ -3,6 +3,7 @@ import { Card, Skeleton } from '@/shared/ui';
 import { createStyles } from '@/shared/theme/createStyles';
 import { useHaptic } from '@/shared/hooks/useHaptic';
 import { SPACING } from '@/shared/theme/types';
+import { pluralize } from '@/shared/lib/pluralize';
 import type { DashboardData } from '../hooks';
 
 interface Props {
@@ -46,7 +47,7 @@ export function BillingTile({ data, isLoading }: Props) {
       <Text style={styles.label}>К оплате</Text>
       <Text style={styles.amount}>{formatted}</Text>
       <Text style={styles.caption}>
-        {data.openInvoices} {data.openInvoices === 1 ? 'счет' : 'счетов'}
+        {data.openInvoices} {pluralize(data.openInvoices, ['счёт', 'счёта', 'счётов'])}
       </Text>
     </Card>
   );

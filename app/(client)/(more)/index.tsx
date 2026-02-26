@@ -4,6 +4,7 @@ import { Card, Button } from '@/shared/ui';
 import { createStyles } from '@/shared/theme/createStyles';
 import { useLogout } from '@/features/auth/useLogout';
 import { useScreenView } from '@/features/analytics/tracker';
+import { SPACING } from '@/shared/theme/types';
 
 const menuItems = [
   { label: 'Профиль', icon: '👤' },
@@ -61,23 +62,20 @@ const useStyles = createStyles((t) => ({
   container: {
     flex: 1,
     backgroundColor: t.colors.bg.primary,
-    paddingHorizontal: 16,
+    paddingHorizontal: SPACING[4],
   },
   title: {
-    fontFamily: t.typography.h2.fontFamily,
-    fontWeight: t.typography.h2.fontWeight,
-    fontSize: t.typography.h2.fontSize,
-    lineHeight: t.typography.h2.lineHeight,
+    ...t.typography.h2,
     color: t.colors.text.primary,
-    marginTop: 16,
-    marginBottom: 24,
+    marginTop: SPACING[4],
+    marginBottom: SPACING[6],
   },
   menu: {
-    gap: 8,
+    gap: SPACING[2],
   },
   menuItem: {
     paddingVertical: 14,
-    paddingHorizontal: 16,
+    paddingHorizontal: SPACING[4],
   },
   menuRow: {
     flexDirection: 'row',
@@ -85,14 +83,11 @@ const useStyles = createStyles((t) => ({
   },
   menuIcon: {
     fontSize: 20,
-    marginRight: 12,
+    marginRight: SPACING[3],
   },
   menuLabel: {
     flex: 1,
-    fontFamily: t.typography.bodyLg.fontFamily,
-    fontWeight: t.typography.bodyLg.fontWeight,
-    fontSize: t.typography.bodyLg.fontSize,
-    lineHeight: t.typography.bodyLg.lineHeight,
+    ...t.typography.bodyLg,
     color: t.colors.text.primary,
   },
   chevron: {
@@ -102,7 +97,7 @@ const useStyles = createStyles((t) => ({
   divider: {
     height: 1,
     backgroundColor: t.colors.border.default,
-    marginVertical: 24,
+    marginVertical: SPACING[6],
   },
   logoutContainer: {
     paddingHorizontal: 0,

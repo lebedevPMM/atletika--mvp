@@ -1,4 +1,4 @@
-import { View, Text } from 'react-native';
+import { Text } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Card } from '@/shared/ui';
 import { Badge } from '@/shared/ui';

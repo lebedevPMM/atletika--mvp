@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import { View, Text, TextInput, type NativeSyntheticEvent, type TextInputKeyPressEventData } from 'react-native';
+import { View, Text, TextInput } from 'react-native';
 import { createStyles } from '@/shared/theme/createStyles';
 import { useTheme } from '@/shared/theme/useTheme';
 import { LAYOUT } from '@/shared/theme/types';
