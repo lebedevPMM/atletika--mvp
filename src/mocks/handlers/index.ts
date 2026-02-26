@@ -6,6 +6,7 @@ import { billingHandlers } from './billing';
 import { membershipHandlers } from './membership';
 import { catalogHandlers } from './catalog';
 import { qrHandlers } from './qr';
+import { profileHandlers } from './profile';
 
 export const handlers = [
   ...authHandlers,
@@ -16,4 +17,5 @@ export const handlers = [
   ...membershipHandlers,
   ...catalogHandlers,
   ...qrHandlers,
+  ...profileHandlers,
 ];

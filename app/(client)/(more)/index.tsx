@@ -12,8 +12,8 @@ const menuItems = [
   { label: 'Мой тариф', icon: '\uD83C\uDFC5', route: '/(client)/(more)/membership' },
   { label: 'Купленные услуги', icon: '\uD83D\uDECD\uFE0F', route: '/(client)/(more)/purchases' },
   { label: 'Каталог', icon: '\uD83D\uDCE6', route: '/(client)/(more)/catalog' },
-  { label: 'Профиль', icon: '\uD83D\uDC64', route: null },
-  { label: 'Настройки', icon: '\u2699\uFE0F', route: null },
+  { label: 'Профиль', icon: '\uD83D\uDC64', route: '/(client)/(more)/profile' },
+  { label: 'Настройки', icon: '\u2699\uFE0F', route: '/(client)/(more)/settings' },
   { label: 'О клубе', icon: '\u2139\uFE0F', route: null },
   { label: 'Поддержка', icon: '\uD83D\uDCAC', route: null },
 ] as const;
