@@ -8,6 +8,7 @@ import { catalogHandlers } from './catalog';
 import { qrHandlers } from './qr';
 import { profileHandlers } from './profile';
 import { trainerHandlers } from './trainer';
+import { healthHandlers } from './health';
 
 export const handlers = [
   ...authHandlers,
@@ -20,4 +21,5 @@ export const handlers = [
   ...qrHandlers,
   ...profileHandlers,
   ...trainerHandlers,
+  ...healthHandlers,
 ];

@@ -16,3 +16,28 @@ export interface Membership {
   debtFlag: boolean;
   accessZones: string[]; // e.g. ['Тренажёрный зал', 'Бассейн', 'СПА']
 }
+
+// === S9 additions: Freeze ===
+
+export interface FreezeRules {
+  maxDays: number;
+  maxTimesPerYear: number;
+  minPeriodDays: number;
+  freezesUsed: number;
+  freezeDaysUsed: number;
+}
+
+export interface FreezeRequest {
+  startDate: string;
+  endDate: string;
+  reason?: string;
+}
+
+export interface FreezeRecord {
+  id: string;
+  startDate: string;
+  endDate: string;
+  days: number;
+  status: 'active' | 'completed' | 'cancelled';
+  createdAt: string;
+}
