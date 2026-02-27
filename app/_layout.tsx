@@ -28,7 +28,10 @@ export default function RootLayout() {
     if (Platform.OS === 'web') {
       const { createMockServer } = require('@/mocks/setup');
       const worker = createMockServer();
-      worker.start({ onUnhandledRequest: 'bypass' }).then(() => setMswReady(true));
+      worker.start({
+        onUnhandledRequest: 'bypass',
+        serviceWorker: { url: '/atletika--mvp/mockServiceWorker.js' },
+      }).then(() => setMswReady(true)).catch(() => setMswReady(true));
     }
   }, []);
 
