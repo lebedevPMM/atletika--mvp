@@ -1,4 +1,5 @@
 import type { ScheduleSlot, Trainer, Booking } from '@/features/booking/types';
+import { toLocalISODate } from '@/features/booking/utils';
 
 export const MOCK_TRAINERS: Trainer[] = [
   { id: 'tr-001', name: 'Игорь Смирнов', specialization: 'Силовые', rating: 4.8 },
@@ -135,13 +136,32 @@ export function generateSlots(dateStr: string): ScheduleSlot[] {
   ];
 }
 
+const today = new Date();
+const todayStr = toLocalISODate(today);
+
+const tomorrow = new Date(today);
+tomorrow.setDate(tomorrow.getDate() + 1);
+const tomorrowStr = toLocalISODate(tomorrow);
+
+const twoDaysFromNow = new Date(today);
+twoDaysFromNow.setDate(twoDaysFromNow.getDate() + 2);
+const twoDaysStr = toLocalISODate(twoDaysFromNow);
+
+const threeDaysAgo = new Date(today);
+threeDaysAgo.setDate(threeDaysAgo.getDate() - 3);
+const threeDaysAgoStr = toLocalISODate(threeDaysAgo);
+
+const fiveDaysAgo = new Date(today);
+fiveDaysAgo.setDate(fiveDaysAgo.getDate() - 5);
+const fiveDaysAgoStr = toLocalISODate(fiveDaysAgo);
+
 export const MOCK_BOOKINGS: Booking[] = [
   {
     id: 'bk-001',
     slotId: 'slot-today-1',
     serviceType: 'group',
     title: 'Силовая тренировка',
-    date: new Date().toISOString().split('T')[0],
+    date: todayStr,
     startTime: '09:00',
     endTime: '10:00',
     trainerId: 'tr-001',
@@ -152,5 +172,71 @@ export const MOCK_BOOKINGS: Booking[] = [
     currency: 'RUB',
     createdAt: new Date(Date.now() - 86400000).toISOString(),
     cancelDeadline: new Date(Date.now() + 3600000).toISOString(),
+  },
+  {
+    id: 'bk-002',
+    slotId: 'slot-tomorrow-2',
+    serviceType: 'group',
+    title: 'Йога',
+    date: tomorrowStr,
+    startTime: '10:30',
+    endTime: '11:30',
+    trainerId: 'tr-002',
+    trainerName: 'Анна Петрова',
+    room: 'Зал B',
+    status: 'waitlist',
+    price: 0,
+    currency: 'RUB',
+    createdAt: new Date(Date.now() - 43200000).toISOString(),
+    cancelDeadline: new Date(Date.now() + 86400000).toISOString(),
+  },
+  {
+    id: 'bk-003',
+    slotId: 'slot-past-1',
+    serviceType: 'group',
+    title: 'Силовая тренировка',
+    date: threeDaysAgoStr,
+    startTime: '09:00',
+    endTime: '10:00',
+    trainerId: 'tr-001',
+    trainerName: 'Игорь Смирнов',
+    room: 'Зал A',
+    status: 'completed',
+    price: 0,
+    currency: 'RUB',
+    createdAt: new Date(Date.now() - 4 * 86400000).toISOString(),
+  },
+  {
+    id: 'bk-004',
+    slotId: 'slot-past-3',
+    serviceType: 'group',
+    title: 'Кардио HIIT',
+    date: fiveDaysAgoStr,
+    startTime: '12:00',
+    endTime: '13:00',
+    trainerId: 'tr-003',
+    trainerName: 'Дмитрий Козлов',
+    room: 'Зал A',
+    status: 'cancelled',
+    price: 0,
+    currency: 'RUB',
+    createdAt: new Date(Date.now() - 6 * 86400000).toISOString(),
+  },
+  {
+    id: 'bk-005',
+    slotId: 'slot-future-4',
+    serviceType: 'pt',
+    title: 'Персональная тренировка',
+    date: twoDaysStr,
+    startTime: '14:00',
+    endTime: '15:00',
+    trainerId: 'tr-001',
+    trainerName: 'Игорь Смирнов',
+    room: 'Зал C',
+    status: 'confirmed',
+    price: 3500,
+    currency: 'RUB',
+    createdAt: new Date(Date.now() - 86400000).toISOString(),
+    cancelDeadline: new Date(Date.now() + 2 * 86400000).toISOString(),
   },
 ];

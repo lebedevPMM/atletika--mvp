@@ -19,4 +19,7 @@ export const bookingApi = {
 
   cancelBooking: (bookingId: string, reason?: string) =>
     api.post<void>(`bookings/${bookingId}/cancel`, { reason }),
+
+  rescheduleBooking: (bookingId: string, newSlotId: string) =>
+    api.post<Booking>(`bookings/${bookingId}/reschedule`, { newSlotId }),
 };

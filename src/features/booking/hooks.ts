@@ -66,6 +66,27 @@ export function useCancelBooking() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['bookings'] });
       queryClient.invalidateQueries({ queryKey: ['dashboard'] });
+      analytics.track({ name: 'booking_cancel_result', params: { success: true } });
+    },
+    onError: (error: Error) => {
+      analytics.track({ name: 'booking_cancel_result', params: { success: false, reason: error.message } });
+    },
+  });
+}
+
+export function useRescheduleBooking() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({ bookingId, newSlotId }: { bookingId: string; newSlotId: string }) =>
+      bookingApi.rescheduleBooking(bookingId, newSlotId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['bookings'] });
+      queryClient.invalidateQueries({ queryKey: ['schedule'] });
+      queryClient.invalidateQueries({ queryKey: ['dashboard'] });
+      analytics.track({ name: 'booking_reschedule_result', params: { success: true } });
+    },
+    onError: (error: Error) => {
+      analytics.track({ name: 'booking_reschedule_result', params: { success: false, reason: error.message } });
     },
   });
 }

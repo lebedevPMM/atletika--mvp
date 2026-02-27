@@ -84,6 +84,42 @@ export const scheduleHandlers = [
     return HttpResponse.json(newBooking, { status: 201 });
   }),
 
+  // Reschedule booking
+  http.post('*/bookings/:bookingId/reschedule', async ({ params, request }) => {
+    await delay(500);
+    const body = (await request.json()) as { newSlotId: string };
+    const idx = bookings.findIndex(b => b.id === params.bookingId);
+    if (idx === -1) return HttpResponse.json({ code: 'NOT_FOUND' }, { status: 404 });
+
+    const today = new Date().toISOString().split('T')[0];
+    const slots = generateSlots(today);
+    const newSlot = slots.find(s => s.id === body.newSlotId);
+
+    // Cancel old booking
+    bookings[idx] = { ...bookings[idx], status: 'cancelled' };
+
+    // Create new booking with new slot details
+    const newBooking: Booking = {
+      id: `bk-${++nextBookingId}`,
+      slotId: body.newSlotId,
+      serviceType: newSlot?.serviceType || bookings[idx].serviceType,
+      title: newSlot?.title || bookings[idx].title,
+      date: newSlot?.date || today,
+      startTime: newSlot?.startTime || '10:00',
+      endTime: newSlot?.endTime || '11:00',
+      trainerId: newSlot?.trainerId || bookings[idx].trainerId,
+      trainerName: newSlot?.trainerName || bookings[idx].trainerName,
+      room: newSlot?.room || bookings[idx].room,
+      status: 'confirmed',
+      price: newSlot?.price || 0,
+      currency: 'RUB',
+      createdAt: new Date().toISOString(),
+      cancelDeadline: new Date(Date.now() + 7200000).toISOString(),
+    };
+    bookings.push(newBooking);
+    return HttpResponse.json(newBooking);
+  }),
+
   // Cancel booking
   http.post('*/bookings/:bookingId/cancel', async ({ params }) => {
     await delay(400);
