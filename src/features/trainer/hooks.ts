@@ -1,5 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { trainerApi } from './api';
+import { analytics } from '@/features/analytics/tracker';
+import type { TrainerProfile } from './types';
 
 export function useDayOverview(date?: string) {
   return useQuery({
@@ -61,6 +63,77 @@ export function useCancelSession() {
       queryClient.invalidateQueries({ queryKey: ['trainer', 'session', sessionId] });
       queryClient.invalidateQueries({ queryKey: ['trainer', 'day-overview'] });
       queryClient.invalidateQueries({ queryKey: ['trainer', 'schedule'] });
+    },
+  });
+}
+
+export function useTrainerProfile() {
+  return useQuery({
+    queryKey: ['trainer', 'profile'],
+    queryFn: () => trainerApi.getProfile(),
+    staleTime: 300_000,
+  });
+}
+
+export function useUpdateTrainerProfile() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (data: Partial<TrainerProfile>) => trainerApi.updateProfile(data),
+    onSuccess: () => {
+      analytics.track({ name: 'trainer_profile_save', params: {} });
+      queryClient.invalidateQueries({ queryKey: ['trainer', 'profile'] });
+    },
+  });
+}
+
+export function useTrainerClientPlan(clientId: string) {
+  return useQuery({
+    queryKey: ['trainer', 'client-plan', clientId],
+    queryFn: () => trainerApi.getClientPlan(clientId),
+    enabled: !!clientId,
+  });
+}
+
+export function useTrainerDaySummary(date?: string) {
+  return useQuery({
+    queryKey: ['trainer', 'day-summary', date],
+    queryFn: () => trainerApi.getDaySummary(date),
+  });
+}
+
+export function useEndShift() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (data: { date: string; notes?: string }) => trainerApi.endShift(data),
+    onSuccess: () => {
+      analytics.track({ name: 'trainer_shift_end_confirm', params: {} });
+      queryClient.invalidateQueries({ queryKey: ['trainer'] });
+    },
+  });
+}
+
+export function useTrainerClientProgress(clientId: string) {
+  return useQuery({
+    queryKey: ['trainer', 'client-progress', clientId],
+    queryFn: () => trainerApi.getClientProgress(clientId),
+    enabled: !!clientId,
+  });
+}
+
+export function useTrainerNotifications() {
+  return useQuery({
+    queryKey: ['trainer', 'notifications'],
+    queryFn: () => trainerApi.getNotifications(),
+    staleTime: 30_000,
+  });
+}
+
+export function useReadAllTrainerNotifications() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: () => trainerApi.readAllNotifications(),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['trainer', 'notifications'] });
     },
   });
 }

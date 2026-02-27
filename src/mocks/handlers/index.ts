@@ -9,6 +9,7 @@ import { qrHandlers } from './qr';
 import { profileHandlers } from './profile';
 import { trainerHandlers } from './trainer';
 import { healthHandlers } from './health';
+import { s10Handlers } from './s10';
 
 export const handlers = [
   ...authHandlers,
@@ -22,4 +23,5 @@ export const handlers = [
   ...profileHandlers,
   ...trainerHandlers,
   ...healthHandlers,
+  ...s10Handlers,
 ];
