@@ -8,6 +8,7 @@ import { useClubStore } from '@/features/club/store';
 import { clubApi } from '@/features/club/api';
 import { useScreenView } from '@/features/analytics/tracker';
 import { createStyles } from '@/shared/theme/createStyles';
+import { SPACING } from '@/shared/theme/types';
 
 export default function ClubLoadingScreen() {
   useScreenView('client_club_loading');
@@ -73,7 +74,7 @@ const useStyles = createStyles((t) => ({
     flex: 1,
     alignItems: 'center' as const,
     justifyContent: 'center' as const,
-    gap: 12,
+    gap: SPACING[3],
   },
   label: {
     ...t.typography.body,

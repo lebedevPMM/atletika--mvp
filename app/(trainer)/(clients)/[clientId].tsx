@@ -7,37 +7,11 @@ import { useTheme } from '@/shared/theme/useTheme';
 import { SPACING, LAYOUT } from '@/shared/theme/types';
 import { useScreenView } from '@/features/analytics/tracker';
 import { useTrainerClient } from '@/features/trainer/hooks';
+import { getMembershipBadgeVariant, getMembershipLabel, formatLastVisit } from '@/features/trainer/utils';
 import { Card, Badge, Button, Skeleton, SegmentedControl, ErrorState } from '@/shared/ui';
 import { getInitials } from '@/features/profile/utils';
 
 const TABS = ['Информация', 'Тренировки'];
-
-function getMembershipBadgeVariant(status: string): 'success' | 'error' | 'warning' {
-  switch (status) {
-    case 'active': return 'success';
-    case 'expired': return 'error';
-    case 'frozen': return 'warning';
-    default: return 'warning';
-  }
-}
-
-function getMembershipLabel(status: string): string {
-  switch (status) {
-    case 'active': return 'Активен';
-    case 'expired': return 'Истёк';
-    case 'frozen': return 'Заморожен';
-    default: return status;
-  }
-}
-
-function formatLastVisit(iso: string): string {
-  const date = new Date(iso);
-  return date.toLocaleDateString('ru-RU', {
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric',
-  });
-}
 
 export default function TrainerClientProfileScreen() {
   useScreenView('trainer_client_profile');

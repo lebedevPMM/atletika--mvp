@@ -1,47 +1,24 @@
 import { useState, useCallback, useMemo } from 'react';
-import { View, Text, FlatList, RefreshControl } from 'react-native';
+import { View, Text, FlatList, RefreshControl, Pressable } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useRouter } from 'expo-router';
 import { createStyles } from '@/shared/theme/createStyles';
 import { useTheme } from '@/shared/theme/useTheme';
 import { SPACING, LAYOUT } from '@/shared/theme/types';
 import { useScreenView } from '@/features/analytics/tracker';
 import { useTrainerClients } from '@/features/trainer/hooks';
-import { Card, Badge, Input, EmptyState, Skeleton } from '@/shared/ui';
+import { getMembershipBadgeVariant, getMembershipLabel, formatLastVisit } from '@/features/trainer/utils';
+import { Card, Badge, Input, EmptyState, Skeleton, ErrorState } from '@/shared/ui';
 import { getInitials } from '@/features/profile/utils';
 import type { TrainerClient } from '@/features/trainer/types';
-
-const MONTH_NAMES_SHORT = [
-  'янв', 'фев', 'мар', 'апр', 'мая', 'июн',
-  'июл', 'авг', 'сен', 'окт', 'ноя', 'дек',
-];
-
-function formatLastVisit(iso: string): string {
-  const date = new Date(iso);
-  return `${date.getDate()} ${MONTH_NAMES_SHORT[date.getMonth()]}`;
-}
-
-function getMembershipBadgeVariant(status: TrainerClient['membershipStatus']): 'success' | 'error' | 'warning' {
-  switch (status) {
-    case 'active': return 'success';
-    case 'expired': return 'error';
-    case 'frozen': return 'warning';
-  }
-}
-
-function getMembershipLabel(status: TrainerClient['membershipStatus']): string {
-  switch (status) {
-    case 'active': return 'Активен';
-    case 'expired': return 'Истёк';
-    case 'frozen': return 'Заморожен';
-  }
-}
 
 export default function TrainerClientsScreen() {
   useScreenView('trainer_clients');
 
+  const router = useRouter();
   const styles = useStyles();
   const { colors } = useTheme();
-  const { data: clients, isLoading, refetch } = useTrainerClients();
+  const { data: clients, isLoading, isError, refetch } = useTrainerClients();
   const [search, setSearch] = useState('');
   const [refreshing, setRefreshing] = useState(false);
 
@@ -62,8 +39,8 @@ export default function TrainerClientsScreen() {
   }, [refetch]);
 
   const renderClient = useCallback(({ item }: { item: TrainerClient }) => (
-    <ClientCard client={item} />
-  ), []);
+    <ClientCard client={item} onPress={() => router.push(`/(trainer)/(clients)/${item.id}`)} />
+  ), [router]);
 
   const keyExtractor = useCallback((item: TrainerClient) => item.id, []);
 
@@ -80,7 +57,9 @@ export default function TrainerClientsScreen() {
         />
       </View>
 
-      {isLoading ? (
+      {isError ? (
+        <ErrorState message="Не удалось загрузить данные" onRetry={refetch} />
+      ) : isLoading ? (
         <View style={styles.loadingContainer}>
           {[1, 2, 3, 4].map((i) => (
             <Skeleton key={i} variant="list" />
@@ -114,11 +93,11 @@ export default function TrainerClientsScreen() {
   );
 }
 
-function ClientCard({ client }: { client: TrainerClient }) {
+function ClientCard({ client, onPress }: { client: TrainerClient; onPress: () => void }) {
   const styles = useStyles();
 
   return (
-    <Card style={styles.clientCard}>
+    <Card onPress={onPress} style={styles.clientCard}>
       <View style={styles.clientRow}>
         <View style={styles.avatar}>
           <Text style={styles.avatarText}>

@@ -79,7 +79,7 @@ const useStyles = createStyles((t) => ({
     gap: SPACING[2],
   },
   menuItem: {
-    paddingVertical: 14,
+    paddingVertical: SPACING[4],
     paddingHorizontal: SPACING[4],
   },
   menuRow: {

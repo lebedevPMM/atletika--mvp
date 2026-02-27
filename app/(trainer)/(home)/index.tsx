@@ -9,7 +9,8 @@ import { useTimeOfDay } from '@/shared/hooks/useTimeOfDay';
 import { useScreenView } from '@/features/analytics/tracker';
 import { useAuthStore } from '@/features/auth/store';
 import { useDayOverview } from '@/features/trainer/hooks';
-import { Card, Badge, Skeleton } from '@/shared/ui';
+import { getSessionTypeShort, getSessionBadgeVariant } from '@/features/trainer/utils';
+import { Card, Badge, Skeleton, ErrorState } from '@/shared/ui';
 import type { TrainerSession } from '@/features/trainer/types';
 
 function getGreeting(tod: ReturnType<typeof useTimeOfDay>): string {
@@ -25,28 +26,6 @@ function getGreeting(tod: ReturnType<typeof useTimeOfDay>): string {
   }
 }
 
-function getSessionTypeLabel(type: TrainerSession['type']): string {
-  switch (type) {
-    case 'pt':
-      return 'ПТ';
-    case 'group':
-      return 'Групповое';
-    case 'spa':
-      return 'СПА';
-  }
-}
-
-function getSessionBadgeVariant(type: TrainerSession['type']): 'accent' | 'info' | 'warning' {
-  switch (type) {
-    case 'pt':
-      return 'accent';
-    case 'group':
-      return 'info';
-    case 'spa':
-      return 'warning';
-  }
-}
-
 export default function TrainerHomeScreen() {
   useScreenView('trainer_home');
 
@@ -55,7 +34,7 @@ export default function TrainerHomeScreen() {
   const { colors } = useTheme();
   const tod = useTimeOfDay();
   const user = useAuthStore((s) => s.user);
-  const { data, isLoading, refetch } = useDayOverview();
+  const { data, isLoading, isError, refetch } = useDayOverview();
   const [refreshing, setRefreshing] = useState(false);
 
   const onRefresh = useCallback(async () => {
@@ -69,6 +48,14 @@ export default function TrainerHomeScreen() {
   const handleSessionPress = (sessionId: string) => {
     router.push(`/(trainer)/(schedule)/${sessionId}`);
   };
+
+  if (isError) {
+    return (
+      <SafeAreaView style={styles.safe} edges={['top']}>
+        <ErrorState message="Не удалось загрузить данные" onRetry={refetch} />
+      </SafeAreaView>
+    );
+  }
 
   return (
     <SafeAreaView style={styles.safe} edges={['top']}>
@@ -172,7 +159,7 @@ function SessionCard({ session, onPress }: { session: TrainerSession; onPress: (
               {session.title}
             </Text>
             <Badge
-              text={getSessionTypeLabel(session.type)}
+              text={getSessionTypeShort(session.type)}
               variant={getSessionBadgeVariant(session.type)}
             />
           </View>

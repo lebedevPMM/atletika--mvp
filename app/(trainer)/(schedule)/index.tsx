@@ -7,7 +7,8 @@ import { useTheme } from '@/shared/theme/useTheme';
 import { SPACING } from '@/shared/theme/types';
 import { useScreenView } from '@/features/analytics/tracker';
 import { useTrainerSchedule } from '@/features/trainer/hooks';
-import { Card, Badge, SegmentedControl, Skeleton } from '@/shared/ui';
+import { getSessionTypeShort, getSessionBadgeVariant } from '@/features/trainer/utils';
+import { Card, Badge, SegmentedControl, Skeleton, ErrorState } from '@/shared/ui';
 import { CaretLeft, CaretRight } from 'phosphor-react-native';
 import type { TrainerSession } from '@/features/trainer/types';
 
@@ -53,22 +54,6 @@ function isToday(date: Date): boolean {
   return date.toDateString() === now.toDateString();
 }
 
-function getSessionTypeLabel(type: TrainerSession['type']): string {
-  switch (type) {
-    case 'pt': return 'ПТ';
-    case 'group': return 'Групповое';
-    case 'spa': return 'СПА';
-  }
-}
-
-function getSessionBadgeVariant(type: TrainerSession['type']): 'accent' | 'info' | 'warning' {
-  switch (type) {
-    case 'pt': return 'accent';
-    case 'group': return 'info';
-    case 'spa': return 'warning';
-  }
-}
-
 export default function TrainerScheduleScreen() {
   useScreenView('trainer_schedule');
 
@@ -86,7 +71,7 @@ export default function TrainerScheduleScreen() {
   const weekFrom = formatDate(weekDays[0]);
   const weekTo = formatDate(weekDays[6]);
 
-  const { data: sessions, isLoading, refetch } = useTrainerSchedule(weekFrom, weekTo);
+  const { data: sessions, isLoading, isError, refetch } = useTrainerSchedule(weekFrom, weekTo);
 
   const daySessionsMap = useMemo(() => {
     const map: Record<string, TrainerSession[]> = {};
@@ -140,6 +125,14 @@ export default function TrainerScheduleScreen() {
     setSelectedDate(date);
     setViewIndex(0); // switch to day view
   };
+
+  if (isError) {
+    return (
+      <SafeAreaView style={styles.safe} edges={['top']}>
+        <ErrorState message="Не удалось загрузить данные" onRetry={refetch} />
+      </SafeAreaView>
+    );
+  }
 
   return (
     <SafeAreaView style={styles.safe} edges={['top']}>
@@ -301,7 +294,7 @@ function ScheduleSessionCard({ session, onPress }: { session: TrainerSession; on
               {session.title}
             </Text>
             <Badge
-              text={getSessionTypeLabel(session.type)}
+              text={getSessionTypeShort(session.type)}
               variant={getSessionBadgeVariant(session.type)}
             />
           </View>
@@ -482,7 +475,7 @@ const useStyles = createStyles((t) => ({
   },
   weekDayDots: {
     flexDirection: 'row' as const,
-    gap: 3,
+    gap: SPACING[1],
     height: 8,
     alignItems: 'center' as const,
   },

@@ -4,7 +4,7 @@ export function getSessionTypeLabel(type: TrainerSession['type']): string {
   switch (type) {
     case 'pt': return 'Персональная';
     case 'group': return 'Групповое';
-    case 'spa': return 'СПА';
+    case 'spa': return 'СПА-процедура';
   }
 }
 
@@ -16,12 +16,48 @@ export function getSessionTypeShort(type: TrainerSession['type']): string {
   }
 }
 
-export function formatSessionTime(time: string, endTime: string): string {
-  return `${time} — ${endTime}`;
+export function getSessionBadgeVariant(
+  type: TrainerSession['type'],
+): 'accent' | 'info' | 'warning' {
+  switch (type) {
+    case 'pt': return 'accent';
+    case 'group': return 'info';
+    case 'spa': return 'warning';
+  }
 }
 
-export function getClientInitials(client: Pick<TrainerClient, 'firstName' | 'lastName'>): string {
-  return `${client.firstName.charAt(0)}${client.lastName.charAt(0)}`.toUpperCase();
+export function getMembershipBadgeVariant(
+  status: TrainerClient['membershipStatus'],
+): 'success' | 'warning' | 'error' {
+  switch (status) {
+    case 'active': return 'success';
+    case 'frozen': return 'warning';
+    case 'expired': return 'error';
+  }
+}
+
+export function getMembershipLabel(
+  status: TrainerClient['membershipStatus'],
+): string {
+  switch (status) {
+    case 'active': return 'Активен';
+    case 'frozen': return 'Заморожен';
+    case 'expired': return 'Истёк';
+  }
+}
+
+const MONTH_NAMES_SHORT = [
+  'янв', 'фев', 'мар', 'апр', 'мая', 'июн',
+  'июл', 'авг', 'сен', 'окт', 'ноя', 'дек',
+];
+
+export function formatLastVisit(dateStr: string): string {
+  const date = new Date(dateStr);
+  return `${date.getDate()} ${MONTH_NAMES_SHORT[date.getMonth()]}`;
+}
+
+export function formatSessionTime(time: string, endTime: string): string {
+  return `${time} — ${endTime}`;
 }
 
 export function isSessionActive(status: TrainerSession['status']): boolean {

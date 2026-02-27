@@ -8,26 +8,9 @@ import { SPACING, LAYOUT } from '@/shared/theme/types';
 import { useScreenView } from '@/features/analytics/tracker';
 import { useHaptic } from '@/shared/hooks/useHaptic';
 import { useTrainerSession, useMarkAttendance, useCancelSession } from '@/features/trainer/hooks';
-import { Card, Badge, Button, Skeleton } from '@/shared/ui';
+import { getSessionTypeShort, getSessionBadgeVariant } from '@/features/trainer/utils';
+import { Card, Badge, Button, Skeleton, ErrorState } from '@/shared/ui';
 import { getInitials } from '@/features/profile/utils';
-
-function getSessionTypeLabel(type: string): string {
-  switch (type) {
-    case 'pt': return 'ПТ';
-    case 'group': return 'Групповое';
-    case 'spa': return 'СПА';
-    default: return type;
-  }
-}
-
-function getSessionBadgeVariant(type: string): 'accent' | 'info' | 'warning' {
-  switch (type) {
-    case 'pt': return 'accent';
-    case 'group': return 'info';
-    case 'spa': return 'warning';
-    default: return 'accent';
-  }
-}
 
 export default function TrainerSessionDetailScreen() {
   useScreenView('trainer_session_detail');
@@ -38,7 +21,7 @@ export default function TrainerSessionDetailScreen() {
   const { colors } = useTheme();
   const haptic = useHaptic();
 
-  const { data: session, isLoading } = useTrainerSession(sessionId ?? '');
+  const { data: session, isLoading, isError, refetch } = useTrainerSession(sessionId ?? '');
   const markAttendance = useMarkAttendance();
   const cancelSession = useCancelSession();
 
@@ -90,6 +73,15 @@ export default function TrainerSessionDetailScreen() {
     );
   }
 
+  if (isError) {
+    return (
+      <SafeAreaView style={styles.safe} edges={['top']}>
+        <Stack.Screen options={{ headerShown: true, title: 'Ошибка', headerBackTitle: 'Назад' }} />
+        <ErrorState message="Не удалось загрузить данные" onRetry={refetch} />
+      </SafeAreaView>
+    );
+  }
+
   if (!session) {
     return (
       <SafeAreaView style={styles.safe} edges={['top']}>
@@ -125,7 +117,7 @@ export default function TrainerSessionDetailScreen() {
         <Card style={styles.infoCard}>
           <View style={styles.infoHeader}>
             <Badge
-              text={getSessionTypeLabel(session.type)}
+              text={getSessionTypeShort(session.type)}
               variant={getSessionBadgeVariant(session.type)}
             />
             {isCompleted && <Badge text="Завершено" variant="success" />}

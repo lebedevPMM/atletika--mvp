@@ -1,8 +1,11 @@
 import {
   getSessionTypeLabel,
   getSessionTypeShort,
+  getSessionBadgeVariant,
+  getMembershipBadgeVariant,
+  getMembershipLabel,
+  formatLastVisit,
   formatSessionTime,
-  getClientInitials,
   isSessionActive,
   getAttendanceRatio,
   sortSessionsByTime,
@@ -20,8 +23,8 @@ describe('getSessionTypeLabel', () => {
     expect(getSessionTypeLabel('group')).toBe('Групповое');
   });
 
-  it('returns "СПА" for spa', () => {
-    expect(getSessionTypeLabel('spa')).toBe('СПА');
+  it('returns "СПА-процедура" for spa', () => {
+    expect(getSessionTypeLabel('spa')).toBe('СПА-процедура');
   });
 });
 
@@ -41,6 +44,70 @@ describe('getSessionTypeShort', () => {
   });
 });
 
+// === getSessionBadgeVariant ===
+
+describe('getSessionBadgeVariant', () => {
+  it('returns "accent" for pt', () => {
+    expect(getSessionBadgeVariant('pt')).toBe('accent');
+  });
+
+  it('returns "info" for group', () => {
+    expect(getSessionBadgeVariant('group')).toBe('info');
+  });
+
+  it('returns "warning" for spa', () => {
+    expect(getSessionBadgeVariant('spa')).toBe('warning');
+  });
+});
+
+// === getMembershipBadgeVariant ===
+
+describe('getMembershipBadgeVariant', () => {
+  it('returns "success" for active', () => {
+    expect(getMembershipBadgeVariant('active')).toBe('success');
+  });
+
+  it('returns "warning" for frozen', () => {
+    expect(getMembershipBadgeVariant('frozen')).toBe('warning');
+  });
+
+  it('returns "error" for expired', () => {
+    expect(getMembershipBadgeVariant('expired')).toBe('error');
+  });
+});
+
+// === getMembershipLabel ===
+
+describe('getMembershipLabel', () => {
+  it('returns "Активен" for active', () => {
+    expect(getMembershipLabel('active')).toBe('Активен');
+  });
+
+  it('returns "Заморожен" for frozen', () => {
+    expect(getMembershipLabel('frozen')).toBe('Заморожен');
+  });
+
+  it('returns "Истёк" for expired', () => {
+    expect(getMembershipLabel('expired')).toBe('Истёк');
+  });
+});
+
+// === formatLastVisit ===
+
+describe('formatLastVisit', () => {
+  it('formats a January date', () => {
+    expect(formatLastVisit('2025-01-15')).toBe('15 янв');
+  });
+
+  it('formats a December date', () => {
+    expect(formatLastVisit('2025-12-03')).toBe('3 дек');
+  });
+
+  it('formats a June date', () => {
+    expect(formatLastVisit('2025-06-22')).toBe('22 июн');
+  });
+});
+
 // === formatSessionTime ===
 
 describe('formatSessionTime', () => {
@@ -50,22 +117,6 @@ describe('formatSessionTime', () => {
 
   it('handles different time values', () => {
     expect(formatSessionTime('08:30', '09:45')).toBe('08:30 — 09:45');
-  });
-});
-
-// === getClientInitials ===
-
-describe('getClientInitials', () => {
-  it('returns initials for normal names', () => {
-    expect(getClientInitials({ firstName: 'Иван', lastName: 'Петров' })).toBe('ИП');
-  });
-
-  it('uppercases lowercase input', () => {
-    expect(getClientInitials({ firstName: 'anna', lastName: 'smith' })).toBe('AS');
-  });
-
-  it('handles single character names', () => {
-    expect(getClientInitials({ firstName: 'А', lastName: 'Б' })).toBe('АБ');
   });
 });
 
