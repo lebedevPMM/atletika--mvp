@@ -88,18 +88,41 @@ html.brand-charming .shadow-2xl {
 
 /* ── 3. PAGE BACKGROUND OVERRIDES ──
    bg-zinc-950 is used at BOTH page level AND inside cards.
-   Making it transparent means:
-   - At page level → html stripe shows through ✓
-   - Inside cream card (bg-zinc-900) → parent cream shows through ✓
+   Strategy: page-level → pink stripes, nested inside card → cream.
+   Descendant selector (.bg-zinc-900 .bg-zinc-950) has higher specificity.
 */
 html.brand-charming .bg-zinc-950,
 html.brand-charming .dark\:bg-zinc-950 {
-  background-color: transparent !important;
-  background-image: none !important;
+  background-color: #F59CB3 !important;
+  background-image: repeating-linear-gradient(
+    90deg,
+    #F59CB3 0px,
+    #F59CB3 40px,
+    #E0859D 40px,
+    #E0859D 50px
+  ) !important;
 }
 
 html.brand-charming .bg-gray-50 {
-  background-color: transparent !important;
+  background-color: #F59CB3 !important;
+  background-image: repeating-linear-gradient(
+    90deg,
+    #F59CB3 0px,
+    #F59CB3 40px,
+    #E0859D 40px,
+    #E0859D 50px
+  ) !important;
+}
+
+/* Nested bg-zinc-950 INSIDE card containers → cream (not pink) */
+html.brand-charming .bg-zinc-900 .bg-zinc-950,
+html.brand-charming .bg-zinc-900 .dark\:bg-zinc-950,
+html.brand-charming .dark\:bg-zinc-900 .bg-zinc-950,
+html.brand-charming .dark\:bg-zinc-900 .dark\:bg-zinc-950,
+html.brand-charming .bg-white .bg-zinc-950,
+html.brand-charming .bg-white .dark\:bg-zinc-950 {
+  background-color: var(--t-bg-elevated) !important;
+  background-image: none !important;
 }
 
 /* Semi-transparent page backgrounds → pink semi (headers, overlays) */
