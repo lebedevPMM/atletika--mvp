@@ -1,5 +1,5 @@
 import React from 'react';
-import { Home, BarChart3, PlusSquare, User } from 'lucide-react';
+import { Home, CalendarDays, User, Dumbbell, Users, LayoutGrid } from 'lucide-react';
 import { ScreenName } from '../../types';
 
 interface NavBrutalistProps {
@@ -7,23 +7,78 @@ interface NavBrutalistProps {
   onNavigate: (screen: ScreenName) => void;
 }
 
-const navItems = [
-  { name: 'home', label: 'Home', icon: Home, activeScreens: ['home', 'notifications', 'qr_pass', 'news_detail', 'club_details', 'club_team'] },
-  { name: 'plan', label: 'Stats', icon: BarChart3, activeScreens: ['plan', 'my_schedule', 'measurements', 'trackers'] },
-  { name: 'booking_schedule', label: 'Add', icon: PlusSquare, activeScreens: ['booking_schedule', 'booking_class_details', 'booking_pt_details', 'booking_confirm', 'waitlist'] },
-  { name: 'profile', label: 'Profile', icon: User, activeScreens: ['profile', 'wallet', 'tariff_details', 'family', 'settings', 'docs', 'support', 'loyalty', 'favorites'] },
+const clientNavItems = [
+  {
+    name: 'home',
+    label: 'HOME',
+    icon: Home,
+    activeScreens: ['home', 'notifications', 'qr_pass', 'news_detail', 'club_details', 'club_team'],
+  },
+  {
+    name: 'plan',
+    label: 'PLAN',
+    icon: Dumbbell,
+    activeScreens: ['plan', 'my_schedule', 'measurements', 'trackers'],
+  },
+  {
+    name: 'booking_schedule',
+    label: 'BOOK',
+    icon: CalendarDays,
+    activeScreens: ['booking_schedule', 'booking_class_details', 'booking_pt_details', 'booking_confirm', 'waitlist'],
+  },
+  {
+    name: 'community',
+    label: 'SOCIAL',
+    icon: Users,
+    activeScreens: ['community', 'directory', 'chat_list', 'chat_room', 'social_profile'],
+  },
+  {
+    name: 'profile',
+    label: 'ME',
+    icon: User,
+    activeScreens: ['profile', 'wallet', 'tariff_details', 'family', 'settings', 'docs', 'support', 'loyalty', 'favorites'],
+  },
+];
+
+const trainerNavItems = [
+  {
+    name: 'trainer_home',
+    label: 'TODAY',
+    icon: Home,
+    activeScreens: ['trainer_home', 'trainer_notifications', 'trainer_scan', 'trainer_requests', 'trainer_tasks'],
+  },
+  {
+    name: 'trainer_schedule',
+    label: 'SCHED',
+    icon: CalendarDays,
+    activeScreens: ['trainer_schedule', 'trainer_class_details'],
+  },
+  {
+    name: 'trainer_clients_list',
+    label: 'CLIENTS',
+    icon: Users,
+    activeScreens: ['trainer_clients_list', 'trainer_client_profile', 'trainer_client_progress'],
+  },
+  {
+    name: 'trainer_settings',
+    label: 'MENU',
+    icon: LayoutGrid,
+    activeScreens: ['trainer_settings', 'trainer_profile', 'trainer_support', 'trainer_finance', 'trainer_chats'],
+  },
 ];
 
 /**
- * NavBrutalist — editorial bottom nav with square icons, no rounded corners.
- * Active item gets a filled square icon.
+ * NavBrutalist — editorial bottom nav with square icons, heavy borders.
+ * Same tabs as NavDock, different visual style.
  */
 const NavBrutalist: React.FC<NavBrutalistProps> = ({ currentScreen, onNavigate }) => {
+  const isTrainerMode = currentScreen.startsWith('trainer_');
+  const navItems = isTrainerMode ? trainerNavItems : clientNavItems;
+
   return (
     <div
-      className="fixed bottom-0 left-0 w-full h-[70px] flex justify-around items-center z-[100] border-t border-[length:var(--yt-border-width,1.5px)] border-t-border"
+      className="absolute bottom-0 left-0 right-0 h-[70px] flex justify-around items-center z-40 border-t border-theme border-t-border bg-t-nav-bg safe-area-bottom"
       style={{
-        backgroundColor: 'var(--yt-glass-bg, var(--t-nav-bg))',
         backdropFilter: 'blur(12px)',
         WebkitBackdropFilter: 'blur(12px)',
       }}
@@ -41,7 +96,7 @@ const NavBrutalist: React.FC<NavBrutalistProps> = ({ currentScreen, onNavigate }
             }`}
           >
             <div
-              className={`w-6 h-6 border-[1.5px] border-t-border flex items-center justify-center ${
+              className={`w-6 h-6 border border-theme border-t-border flex items-center justify-center ${
                 isActive ? 'bg-t-text' : ''
               }`}
             >
