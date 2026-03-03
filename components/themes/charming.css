@@ -354,3 +354,22 @@ html.brand-charming .tag {
 html.brand-charming *:focus-visible {
   outline-color: var(--t-accent) !important;
 }
+
+/* ── 19. TOKEN BG OVERRIDES — stripes for page, opaque for cards ──
+   HomeScreenDefault and other token-based components use bg-t-bg (not bg-zinc-950).
+   These classes need separate overrides for charming stripes. */
+
+/* Page-level bg-t-bg → transparent so html stripes show through */
+html.brand-charming .bg-t-bg {
+  background-color: transparent !important;
+}
+
+/* Semi-transparent header → soft pink with blur */
+html.brand-charming .bg-t-bg\/80 {
+  background-color: rgba(245, 156, 179, 0.88) !important;
+}
+
+/* ── 20. OPAQUE TILES — semi-transparent cream on pink is unreadable ── */
+html.brand-charming .bg-t-bg-elevated\/50 {
+  background-color: var(--t-bg-elevated) !important;
+}
