@@ -45,6 +45,13 @@ export const themeRegistry: ThemeConfig[] = [
     description: 'Acid green brutalist — technical zine aesthetic',
     navVariant: 'brutalist',
   },
+  {
+    id: 'charming',
+    label: 'Charming',
+    description: 'Warm pink fitness — cream cards, Nunito, extra-round',
+    navVariant: 'dock',
+    fontsUrl: 'https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap',
+  },
 ];
 
 /** Get theme config by id, fallback to default */

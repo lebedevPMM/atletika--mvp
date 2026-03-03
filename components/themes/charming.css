@@ -1,0 +1,309 @@
+/**
+ * Charming Theme — warm pink fitness aesthetic
+ * Pink striped background, cream cards, Nunito display font,
+ * extra-round corners, soft shadows, salmon/avocado accents.
+ *
+ * Reference: "Charming Fitness App" — playful editorial with
+ * repeating vertical stripes, pill-shaped buttons, black nav bar.
+ */
+html.brand-charming {
+  --t-bg: #F59CB3;
+  --t-bg-elevated: #FDFCF8;
+  --t-bg-surface: #F0EDE8;
+  --t-bg-sunken: #E0859D;
+
+  --t-text: #1A1A1A;
+  --t-text-primary: #1A1A1A;
+  --t-text-secondary: rgba(26, 26, 26, 0.7);
+  --t-text-muted: #888888;
+  --t-text-disabled: rgba(26, 26, 26, 0.3);
+
+  --t-accent: #FF9E6D;
+  --t-accent-secondary: #9CBF68;
+  --t-accent-glow: none;
+
+  --t-border: #E8E4DF;
+
+  --t-success: #5CB85C;
+  --t-warning: #FFC645;
+  --t-error: #D9534F;
+  --t-info: #5BC0DE;
+
+  --t-font-display: 'Nunito', 'Varela Round', system-ui, sans-serif;
+  --t-font-body: 'Nunito', system-ui, -apple-system, sans-serif;
+  --t-font-mono: 'Courier New', Courier, monospace;
+
+  --t-radius-sm: 12px;
+  --t-radius-md: 24px;
+  --t-radius-lg: 32px;
+  --t-radius-full: 999px;
+
+  --t-shadow-card: 0 10px 20px rgba(0, 0, 0, 0.05);
+  --t-shadow-nav: 0 10px 25px rgba(0, 0, 0, 0.2);
+  --t-shadow-glow: none;
+
+  --t-border-width: 2px;
+  --t-backdrop-blur: 10px;
+
+  --t-nav-bg: #1A1A1A;
+  --t-nav-border: transparent;
+  --t-nav-active: #FDFCF8;
+
+  /* Compat alias */
+  --brand-accent: #FF9E6D;
+
+  /* Root font — Nunito everywhere */
+  font-family: 'Nunito', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   GLOBAL CHARMING OVERRIDES
+   Convert dark Tailwind classes to pink/cream palette.
+   Scoped to html.brand-charming so other themes are unaffected.
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── 1. EXTRA-ROUND CORNERS ── */
+html.brand-charming * {
+  --tw-ring-color: rgba(255, 158, 109, 0.3) !important;
+}
+
+/* ── 2. SOFT SHADOWS (override any harsh ones) ── */
+html.brand-charming .shadow-lg,
+html.brand-charming .shadow-xl,
+html.brand-charming .shadow-2xl {
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05) !important;
+}
+
+/* ── 3. PAGE BACKGROUND OVERRIDES — pink with stripes ── */
+html.brand-charming .bg-gray-50,
+html.brand-charming .bg-zinc-950,
+html.brand-charming .dark\:bg-zinc-950 {
+  background-color: #F59CB3 !important;
+  background-image: repeating-linear-gradient(
+    90deg,
+    #F59CB3 0px,
+    #F59CB3 40px,
+    #E0859D 40px,
+    #E0859D 50px
+  ) !important;
+}
+
+/* Semi-transparent page backgrounds → pink semi */
+html.brand-charming .bg-zinc-950\/80,
+html.brand-charming .bg-white\/80,
+html.brand-charming .dark\:bg-zinc-950\/80 {
+  background-color: rgba(245, 156, 179, 0.92) !important;
+  background-image: none !important;
+}
+
+/* ── 4. CARD / ELEVATED BACKGROUNDS → cream ── */
+html.brand-charming .bg-white,
+html.brand-charming .bg-zinc-900,
+html.brand-charming .dark\:bg-zinc-900 {
+  background-color: var(--t-bg-elevated) !important;
+}
+
+/* Surface backgrounds → lighter surface */
+html.brand-charming .bg-gray-100,
+html.brand-charming .bg-zinc-800,
+html.brand-charming .dark\:bg-zinc-800 {
+  background-color: var(--t-bg-surface) !important;
+}
+
+/* Inner items (workout-item style) → subtle off-white */
+html.brand-charming .dark\:bg-zinc-900\/50,
+html.brand-charming .bg-zinc-900\/50 {
+  background-color: rgba(253, 252, 248, 0.6) !important;
+}
+
+/* ── 5. TEXT COLOR OVERRIDES — dark on light ── */
+
+/* Primary text (headings inside cards, titles) */
+html.brand-charming .dark\:text-white,
+html.brand-charming .text-gray-900,
+html.brand-charming .text-gray-800,
+html.brand-charming .text-white {
+  color: var(--t-text-primary) !important;
+}
+
+/* Secondary text */
+html.brand-charming .dark\:text-zinc-300,
+html.brand-charming .dark\:text-zinc-400,
+html.brand-charming .text-gray-600,
+html.brand-charming .text-gray-700,
+html.brand-charming .text-zinc-400,
+html.brand-charming .text-zinc-300 {
+  color: var(--t-text-secondary) !important;
+}
+
+/* Muted text */
+html.brand-charming .dark\:text-zinc-500,
+html.brand-charming .text-gray-400,
+html.brand-charming .text-gray-500,
+html.brand-charming .text-zinc-500 {
+  color: var(--t-text-muted) !important;
+}
+
+/* Disabled text */
+html.brand-charming .dark\:text-zinc-600,
+html.brand-charming .text-zinc-600 {
+  color: var(--t-text-disabled) !important;
+}
+
+/* ── 6. HEADING STYLES — cream on pink, chunky display ── */
+html.brand-charming h1 {
+  font-family: var(--t-font-display) !important;
+  font-weight: 900 !important;
+  color: var(--t-bg-elevated) !important;
+  text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.1) !important;
+}
+
+html.brand-charming h2,
+html.brand-charming h3 {
+  font-family: var(--t-font-display) !important;
+  font-weight: 800 !important;
+}
+
+/* ── 7. BORDER COLOR OVERRIDES ── */
+html.brand-charming .dark\:border-zinc-800,
+html.brand-charming .dark\:border-zinc-700,
+html.brand-charming .border-gray-200,
+html.brand-charming .border-gray-100,
+html.brand-charming .border-gray-300,
+html.brand-charming .border-gray-800,
+html.brand-charming .border-zinc-800,
+html.brand-charming .border-zinc-700 {
+  border-color: var(--t-border) !important;
+}
+
+/* ── 8. ACCENT COLOR OVERRIDES (cyan → salmon) ── */
+html.brand-charming .text-cyan-600,
+html.brand-charming .text-cyan-500,
+html.brand-charming .text-cyan-400,
+html.brand-charming .dark\:text-cyan-500,
+html.brand-charming .dark\:text-cyan-400,
+html.brand-charming .dark\:text-cyan-300,
+html.brand-charming .text-blue-600,
+html.brand-charming .dark\:text-blue-500 {
+  color: var(--t-accent) !important;
+}
+
+html.brand-charming .bg-cyan-600,
+html.brand-charming .bg-cyan-500 {
+  background-color: var(--t-accent) !important;
+  color: white !important;
+}
+
+html.brand-charming .border-cyan-200,
+html.brand-charming .border-cyan-500,
+html.brand-charming .dark\:border-cyan-900 {
+  border-color: var(--t-accent) !important;
+}
+
+/* Accent tinted backgrounds → salmon tint */
+html.brand-charming .bg-cyan-100,
+html.brand-charming .dark\:bg-cyan-950\/30 {
+  background-color: rgba(255, 158, 109, 0.12) !important;
+}
+
+/* ── 9. GRADIENT OVERRIDES (cyan→blue → salmon→mango) ── */
+html.brand-charming .from-cyan-600 { --tw-gradient-from: #FF9E6D !important; }
+html.brand-charming .to-blue-600 { --tw-gradient-to: #FFC645 !important; }
+html.brand-charming .to-cyan-600 { --tw-gradient-to: #FFC645 !important; }
+
+/* Dark card gradients → cream surface */
+html.brand-charming .from-gray-900 { --tw-gradient-from: var(--t-bg-elevated) !important; }
+html.brand-charming .to-black { --tw-gradient-to: var(--t-bg-surface) !important; }
+html.brand-charming .dark\:from-zinc-900 { --tw-gradient-from: var(--t-bg-elevated) !important; }
+html.brand-charming .dark\:to-zinc-950 { --tw-gradient-to: var(--t-bg-surface) !important; }
+
+/* ── 10. FONT OVERRIDES ── */
+html.brand-charming .font-sans {
+  font-family: var(--t-font-body) !important;
+}
+
+html.brand-charming .font-mono {
+  font-family: var(--t-font-mono) !important;
+}
+
+/* ── 11. STATUS COLORS — warm palette for light bg ── */
+
+/* Green (completed) */
+html.brand-charming .text-green-700,
+html.brand-charming .dark\:text-green-500 { color: #388E3C !important; }
+html.brand-charming .bg-green-100,
+html.brand-charming .dark\:bg-green-950\/30 { background-color: rgba(56, 142, 60, 0.1) !important; }
+
+/* Red (missed/error) */
+html.brand-charming .text-red-700,
+html.brand-charming .dark\:text-red-500,
+html.brand-charming .dark\:text-red-400 { color: #C62828 !important; }
+html.brand-charming .bg-red-100,
+html.brand-charming .dark\:bg-red-950\/30 { background-color: rgba(198, 40, 40, 0.08) !important; }
+
+/* Yellow (pending/warning) */
+html.brand-charming .text-yellow-700,
+html.brand-charming .dark\:text-yellow-500 { color: #F57F17 !important; }
+html.brand-charming .bg-yellow-100,
+html.brand-charming .dark\:bg-yellow-950\/30 { background-color: rgba(245, 127, 23, 0.1) !important; }
+
+/* Blue (scheduled/info) */
+html.brand-charming .text-blue-700,
+html.brand-charming .dark\:text-blue-500 { color: #1565C0 !important; }
+html.brand-charming .bg-blue-50,
+html.brand-charming .dark\:bg-blue-950\/30 { background-color: rgba(21, 101, 192, 0.08) !important; }
+
+/* ── 12. HOVER & ACTIVE STATE OVERRIDES ── */
+html.brand-charming .dark\:hover\:text-white:hover {
+  color: var(--t-text-primary) !important;
+}
+html.brand-charming .dark\:hover\:bg-zinc-800:hover,
+html.brand-charming .hover\:bg-gray-50:hover,
+html.brand-charming .hover\:bg-gray-100:hover {
+  background-color: var(--t-bg-surface) !important;
+}
+html.brand-charming .dark\:active\:bg-zinc-800:active,
+html.brand-charming .active\:bg-gray-50:active {
+  background-color: var(--t-bg-sunken) !important;
+}
+
+/* ── 13. MISC OVERRIDES ── */
+
+/* White bg pills inside dark buttons → keep useful */
+html.brand-charming .bg-white\/20 {
+  background-color: rgba(255, 255, 255, 0.25) !important;
+}
+
+/* Nav top border → transparent (charming has no top border) */
+html.brand-charming .border-t-nav-border {
+  border-color: transparent !important;
+}
+
+/* ── 14. STRIPED BACKGROUND for content area ── */
+/* Applied via page bg overrides in section 3 above */
+
+/* ── 15. PILL BUTTONS — override CTA buttons to pill shape ── */
+html.brand-charming button[class*="rounded-"] {
+  border-radius: var(--t-radius-full) !important;
+}
+
+/* ── 16. NAV BAR CHARMING STYLE ── */
+/* Extra rounded nav bar + active item with cream bg */
+html.brand-charming nav,
+html.brand-charming [class*="nav-"] {
+  border-radius: 32px !important;
+}
+
+/* ── 17. TAG/BADGE STYLE — soft rounded pills ── */
+html.brand-charming [class*="badge"],
+html.brand-charming .tag {
+  border-radius: var(--t-radius-sm) !important;
+  border: 2px solid #F0F0F0 !important;
+}
+
+/* ── 18. RING-FOCUS override — salmon ring ── */
+html.brand-charming *:focus-visible {
+  outline-color: var(--t-accent) !important;
+}
