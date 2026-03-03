@@ -1,0 +1,129 @@
+/* Import Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&family=Syne:wght@400;500;600;700;800&family=Rajdhani:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --void-deep: #050505;
+    --void-surface: #121212;
+    --accent-lime: #D2FF00;
+    --accent-lavender: #E6E6FA;
+  }
+
+  /* Ember Theme Variables */
+  html.brand-ember {
+    --ember-bg: #080808;
+    --ember-surface: #111111;
+    --ember-surface-raised: #1a1a1a;
+    --ember-accent: #ff4d00;
+    --ember-accent-dim: #8a2be2;
+    --ember-text-primary: #e0e0e0;
+    --ember-text-secondary: #666666;
+    --ember-glow: 0 0 15px rgba(255,77,0,0.4), 0 0 5px rgba(255,77,0,0.8);
+    --ember-bezel: inset 0 1px 0 rgba(255,255,255,0.08), 0 4px 20px rgba(0,0,0,0.6);
+
+    /* Brand-generic aliases (used by shared components) */
+    --brand-bg-primary: #080808;
+    --brand-text-primary: #e0e0e0;
+    --brand-text-secondary: #666666;
+    --brand-text-muted: #444444;
+    --brand-accent: #ff4d00;
+    --brand-accent-glow: 0 0 12px rgba(255,77,0,0.5);
+    --brand-border: rgba(255,77,0,0.12);
+    --brand-nav-bg: rgba(8,8,8,0.92);
+    --brand-nav-border: rgba(255,77,0,0.1);
+    --brand-progress-gradient: linear-gradient(90deg, #ff4d00, #ff6a00);
+  }
+
+  body {
+    @apply bg-void text-white font-sans antialiased;
+    background-image: radial-gradient(circle at 50% 0%, #1a1a1a 0%, #050505 70%);
+    min-height: 100vh;
+  }
+
+  /* Ember body override */
+  html.brand-ember body {
+    background-color: var(--ember-bg);
+    background-image: radial-gradient(ellipse at 50% -20%, rgba(255,77,0,0.08) 0%, transparent 60%),
+                      radial-gradient(circle at 50% 0%, #141414 0%, #080808 70%);
+    color: var(--ember-text-primary);
+  }
+}
+
+/* Custom Scrollbar */
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .text-glow {
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  }
+}
+
+/* Glassmorphism Classes */
+.glass-panel {
+  background: rgba(20, 20, 25, 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.glass-nav {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+
+/* === EMBER THEME UTILITIES === */
+
+/* Ember card with bezel shadow */
+.ember-card {
+  background: var(--ember-surface-raised, #1a1a1a);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: var(--ember-bezel, inset 0 1px 0 rgba(255,255,255,0.08), 0 4px 20px rgba(0,0,0,0.6));
+  border-radius: 24px;
+}
+
+/* Ember glow accent */
+.ember-glow {
+  box-shadow: var(--ember-glow, 0 0 15px rgba(255,77,0,0.4), 0 0 5px rgba(255,77,0,0.8));
+}
+
+/* Ember text glow */
+.ember-text-glow {
+  text-shadow: 0 0 12px rgba(255, 77, 0, 0.6), 0 0 4px rgba(255, 77, 0, 0.9);
+}
+
+/* Ember accent gradient bar */
+.ember-glow-bar {
+  background: linear-gradient(90deg, transparent, var(--ember-accent, #ff4d00), transparent);
+  height: 1px;
+  opacity: 0.4;
+}
+
+/* Ember pulse animation */
+@keyframes ember-pulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+.ember-pulse {
+  animation: ember-pulse 3s ease-in-out infinite;
+}
+
+/* Dot matrix pattern overlay */
+.ember-dot-matrix {
+  background-image: radial-gradient(circle, rgba(255,77,0,0.08) 1px, transparent 1px);
+  background-size: 16px 16px;
+}
