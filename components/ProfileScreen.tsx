@@ -24,7 +24,7 @@ interface ProfileScreenProps {
 }
 
 const ProfileScreen: React.FC<ProfileScreenProps> = ({ onNavigate }) => {
-  const { isNeon, isDarkMode } = useTheme();
+  const { isDarkMode } = useTheme();
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
 
@@ -104,47 +104,32 @@ const ProfileScreen: React.FC<ProfileScreenProps> = ({ onNavigate }) => {
   return (
     <div
       className="pb-24 min-h-screen transition-colors duration-300"
-      style={{ backgroundColor: isNeon ? 'var(--brand-bg-primary)' : undefined }}
     >
-      {!isNeon && <div className="absolute inset-0 bg-gray-50 dark:bg-zinc-950 -z-10" />}
+      <div className="absolute inset-0 bg-gray-50 dark:bg-zinc-950 -z-10" />
       {/* Header */}
       <div
         className="p-6 pb-6 rounded-b-3xl shadow-sm mb-6 relative overflow-hidden transition-colors"
-        style={isNeon ? {
-          background: 'var(--brand-bg-card)',
-          backdropFilter: 'blur(12px)',
-          borderBottom: '1px solid var(--brand-border)'
-        } : undefined}
       >
-        {!isNeon && <div className="absolute inset-0 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-xl rounded-b-3xl border-b border-gray-100 dark:border-zinc-800 -z-10" />}
+        <div className="absolute inset-0 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-xl rounded-b-3xl border-b border-gray-100 dark:border-zinc-800 -z-10" />
         {/* Ambience */}
         <div
           className="absolute top-0 right-0 w-64 h-64 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none"
-          style={{ background: isNeon ? 'rgba(212, 255, 0, 0.05)' : 'rgba(6, 182, 212, 0.05)' }}
+          style={{ background: 'rgba(6, 182, 212, 0.05)' }}
         ></div>
 
         <div className="flex items-center gap-5 relative z-10">
           <div className="relative group">
             <div
               className="w-20 h-20 rounded-full p-1 shadow-xl overflow-hidden group-active:scale-95 transition-transform"
-              style={isNeon ? {
-                background: 'var(--brand-bg-card)',
-                border: '2px solid var(--brand-border)'
-              } : undefined}
             >
-              {!isNeon && <div className="absolute inset-0 bg-gray-100 dark:bg-zinc-800 rounded-full border border-gray-200 dark:border-zinc-700" />}
+              <div className="absolute inset-0 bg-gray-100 dark:bg-zinc-800 rounded-full border border-gray-200 dark:border-zinc-700" />
               <img src={user.avatar} alt="User" className="w-full h-full object-cover rounded-full relative z-10" />
             </div>
             <button
               onClick={() => onNavigate('profile_edit')}
               className="absolute -bottom-1 -right-1 p-2 rounded-full shadow-lg transition-all"
-              style={isNeon ? {
-                background: 'var(--brand-bg-card)',
-                border: '1px solid var(--brand-border)',
-                color: 'var(--brand-text-secondary)'
-              } : undefined}
             >
-              {!isNeon && <div className="absolute inset-0 bg-white dark:bg-zinc-800 rounded-full border border-gray-200 dark:border-zinc-700" />}
+              <div className="absolute inset-0 bg-white dark:bg-zinc-800 rounded-full border border-gray-200 dark:border-zinc-700" />
               <Edit2 className="w-3.5 h-3.5 relative z-10" />
             </button>
           </div>
@@ -152,38 +137,24 @@ const ProfileScreen: React.FC<ProfileScreenProps> = ({ onNavigate }) => {
           <div className="flex-1 min-w-0">
             <h1
               className="text-2xl font-black truncate italic"
-              style={{ color: isNeon ? 'var(--brand-text-primary)' : undefined }}
             >
               {user.name}
             </h1>
             <p
               className="text-sm font-medium mb-2"
-              style={{ color: isNeon ? 'var(--brand-text-secondary)' : undefined }}
             >
               {user.phone}
             </p>
             <div className="flex flex-wrap gap-2">
               <span
-                className="px-2 py-0.5 text-[10px] rounded-md font-bold uppercase tracking-wider"
-                style={isNeon ? {
-                  background: 'rgba(255,255,255,0.05)',
-                  border: '1px solid var(--brand-border)',
-                  color: 'var(--brand-text-muted)'
-                } : undefined}
+                className="px-2 py-0.5 text-[10px] rounded-md font-bold uppercase tracking-wider bg-gray-100 dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 text-gray-500 dark:text-zinc-400"
               >
-                {!isNeon && <span className="bg-gray-100 dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 text-gray-500 dark:text-zinc-400">ID {user.id}</span>}
-                {isNeon && `ID ${user.id}`}
+                ID {user.id}
               </span>
               <span
-                className="px-2 py-0.5 text-[10px] rounded-md font-bold uppercase tracking-wider"
-                style={isNeon ? {
-                  background: 'rgba(212, 255, 0, 0.1)',
-                  border: '1px solid rgba(212, 255, 0, 0.2)',
-                  color: 'var(--brand-accent)'
-                } : undefined}
+                className="px-2 py-0.5 text-[10px] rounded-md font-bold uppercase tracking-wider bg-cyan-50 dark:bg-cyan-950/30 border border-cyan-100 dark:border-cyan-900 text-cyan-600 dark:text-cyan-400"
               >
-                {!isNeon && <span className="bg-cyan-50 dark:bg-cyan-950/30 border border-cyan-100 dark:border-cyan-900 text-cyan-600 dark:text-cyan-400">{user.tariffStatus}</span>}
-                {isNeon && user.tariffStatus}
+                {user.tariffStatus}
               </span>
             </div>
           </div>

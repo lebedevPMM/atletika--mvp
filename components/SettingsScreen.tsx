@@ -25,7 +25,7 @@ interface SettingsScreenProps {
 }
 
 const SettingsScreen: React.FC<SettingsScreenProps> = ({ onNavigate }) => {
-  const { isDarkMode, toggleTheme, isNeon, toggleBrandTheme } = useTheme();
+  const { isDarkMode, toggleTheme } = useTheme();
   const [calendarSync, setCalendarSync] = useState(false);
   const [isClearingCache, setIsClearingCache] = useState(false);
   const [cacheSize, setCacheSize] = useState('156 MB');
@@ -118,32 +118,6 @@ const SettingsScreen: React.FC<SettingsScreenProps> = ({ onNavigate }) => {
                 className={`w-12 h-7 rounded-full flex items-center px-0.5 cursor-pointer transition-colors duration-300 ${isDarkMode ? 'bg-cyan-600' : 'bg-gray-300'}`}
               >
                 <div className={`w-6 h-6 bg-white rounded-full shadow-sm transform transition-transform duration-300 ${isDarkMode ? 'translate-x-5' : 'translate-x-0'}`}></div>
-              </button>
-            </div>
-
-            {/* Brand Theme Toggle */}
-            <div className={`flex items-center justify-between p-4 border-b ${border}`}>
-              <div className="flex items-center gap-4">
-                <div
-                  className="w-10 h-10 rounded-full flex items-center justify-center border"
-                  style={{
-                    background: isNeon ? 'linear-gradient(135deg, #d4ff00 0%, #a855f7 100%)' : (isDarkMode ? 'rgba(212, 255, 0, 0.1)' : 'rgba(168, 85, 247, 0.1)'),
-                    borderColor: isNeon ? 'transparent' : (isDarkMode ? 'rgba(212, 255, 0, 0.2)' : 'rgba(168, 85, 247, 0.2)')
-                  }}
-                >
-                  <span className="text-lg">⚡</span>
-                </div>
-                <div className="text-left">
-                  <span className={`block text-sm font-bold ${textMain}`}>Neon Style</span>
-                  <span className={`text-[10px] ${textSub}`}>{isNeon ? 'Активен' : 'Классика'}</span>
-                </div>
-              </div>
-              <button
-                onClick={toggleBrandTheme}
-                className={`w-12 h-7 rounded-full flex items-center px-0.5 cursor-pointer transition-colors duration-300`}
-                style={{ backgroundColor: isNeon ? '#d4ff00' : (isDarkMode ? '#3f3f46' : '#d1d5db') }}
-              >
-                <div className={`w-6 h-6 bg-white rounded-full shadow-sm transform transition-transform duration-300 ${isNeon ? 'translate-x-5' : 'translate-x-0'}`}></div>
               </button>
             </div>
 

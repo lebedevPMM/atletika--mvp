@@ -16,11 +16,9 @@ import { useHomeData } from '../hooks/useHomeData';
 
 interface HomeScreenDefaultProps {
     onNavigate: (screen: string) => void;
-    toggleBrandTheme: () => void;
-    brandTheme: 'default' | 'neon' | 'pastel';
 }
 
-export const HomeScreenDefault: React.FC<HomeScreenDefaultProps> = ({ onNavigate, brandTheme }) => {
+export const HomeScreenDefault: React.FC<HomeScreenDefaultProps> = ({ onNavigate }) => {
     const { data, loading, error, offline, refetch: fetchData } = useHomeData();
 
     // Analytics helper

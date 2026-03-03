@@ -38,7 +38,7 @@ export const FloatingNav: React.FC<FloatingNavProps> = ({ activeTab, onNavigate 
                                 <item.icon
                                     className={clsx(
                                         "w-6 h-6 transition-colors duration-300",
-                                        isActive ? "text-neon-lime" : "text-white/40 group-hover:text-white/80"
+                                        isActive ? "text-cyan-400" : "text-white/40 group-hover:text-white/80"
                                     )}
                                 />
                             </div>
@@ -57,7 +57,7 @@ export const FloatingNav: React.FC<FloatingNavProps> = ({ activeTab, onNavigate 
                             {isActive && (
                                 <motion.div
                                     layoutId="nav-dot"
-                                    className="absolute -bottom-1 w-1 h-1 bg-neon-lime rounded-full shadow-neon-lime"
+                                    className="absolute -bottom-1 w-1 h-1 bg-cyan-400 rounded-full shadow-[0_0_8px_rgba(6,182,212,0.6)]"
                                 />
                             )}
                         </button>

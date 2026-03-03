@@ -1,7 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
 import { ScreenName } from '../types';
-import { useTheme } from './ThemeContext';
 import {
   Filter,
   User,
@@ -28,7 +27,6 @@ interface BookingScreenProps {
 type FilterType = 'all' | 'group' | 'pt' | 'spa' | 'event';
 
 const BookingScreen: React.FC<BookingScreenProps> = ({ onNavigate }) => {
-  const { isNeon } = useTheme();
   const [selectedDate, setSelectedDate] = useState<number>(0);
   const [filterType, setFilterType] = useState<FilterType>('spa');
   const [showFilters, setShowFilters] = useState(false);
@@ -243,23 +241,16 @@ const BookingScreen: React.FC<BookingScreenProps> = ({ onNavigate }) => {
   return (
     <div
       className="pb-24 min-h-screen flex flex-col transition-colors duration-300"
-      style={{ backgroundColor: isNeon ? 'var(--brand-bg-primary)' : undefined }}
     >
-      {!isNeon && <div className="absolute inset-0 bg-gray-50 dark:bg-zinc-950 -z-10" />}
+      <div className="absolute inset-0 bg-gray-50 dark:bg-zinc-950 -z-10" />
       {/* Sticky Header */}
       <div
         className="backdrop-blur-md shadow-sm sticky top-0 z-20 transition-colors"
-        style={isNeon ? {
-          background: 'var(--brand-nav-bg)',
-          border: 'none',
-          borderBottom: '1px solid var(--brand-border)'
-        } : undefined}
       >
-        {!isNeon && <div className="absolute inset-0 bg-white/80 dark:bg-zinc-900/80 border-b border-gray-200 dark:border-zinc-800 -z-10" />}
+        <div className="absolute inset-0 bg-white/80 dark:bg-zinc-900/80 border-b border-gray-200 dark:border-zinc-800 -z-10" />
         <div className="px-4 pt-4 pb-2 flex items-center justify-between">
           <h1
             className="text-xl font-black italic tracking-tighter uppercase transition-colors"
-            style={{ color: isNeon ? 'var(--brand-text-primary)' : undefined }}
           >
             Запись
           </h1>

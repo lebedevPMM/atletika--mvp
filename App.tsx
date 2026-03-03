@@ -414,7 +414,7 @@ const App: React.FC = () => {
 };
 
 const AppContent = ({ currentScreen, renderScreen, handleNavigate, isFullScreen }: any) => {
-  const { theme, brandTheme } = useTheme();
+  const { theme } = useTheme();
 
   return (
     <div className={`flex flex-col h-screen max-w-md mx-auto overflow-hidden relative shadow-2xl font-sans ${theme === 'dark' ? 'bg-zinc-950 text-zinc-100' : 'bg-gray-50 text-gray-900 status-bar-light'}`}>
@@ -422,7 +422,7 @@ const AppContent = ({ currentScreen, renderScreen, handleNavigate, isFullScreen 
         {renderScreen()}
       </main>
 
-      {!isFullScreen && brandTheme !== 'neon' && (
+      {!isFullScreen && (
         <BottomNav currentScreen={currentScreen} onNavigate={handleNavigate} />
       )}
     </div>

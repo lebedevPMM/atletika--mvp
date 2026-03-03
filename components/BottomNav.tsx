@@ -2,15 +2,12 @@
 import React from 'react';
 import { Home, CalendarDays, MessageSquare, User, Dumbbell, Users, LayoutGrid } from 'lucide-react';
 import { ScreenName } from '../types';
-import { useTheme } from './ThemeContext';
-
 interface BottomNavProps {
   currentScreen: ScreenName;
   onNavigate: (screen: ScreenName) => void;
 }
 
 const BottomNav: React.FC<BottomNavProps> = ({ currentScreen, onNavigate }) => {
-  const { isNeon } = useTheme();
   const isTrainerMode = currentScreen.startsWith('trainer_');
 
   const clientNavItems = [
@@ -109,53 +106,6 @@ const BottomNav: React.FC<BottomNavProps> = ({ currentScreen, onNavigate }) => {
 
   const navItems = isTrainerMode ? trainerNavItems : clientNavItems;
 
-  // Neon theme styles
-  if (isNeon) {
-    return (
-      <div
-        className="absolute bottom-0 left-0 right-0 backdrop-blur-xl px-4 py-3 flex justify-between items-center z-40 safe-area-bottom"
-        style={{
-          background: 'var(--brand-nav-bg)',
-          borderTop: '1px solid var(--brand-nav-border)'
-        }}
-      >
-        {navItems.map((item) => {
-          const isActive = item.activeScreens.includes(currentScreen);
-          const Icon = item.icon;
-
-          return (
-            <button
-              key={item.name}
-              onClick={() => onNavigate(item.name as ScreenName)}
-              className="flex flex-col items-center gap-1 min-w-[56px] w-full group"
-            >
-              <div
-                className={`p-2 rounded-full transition-all duration-200 ${isActive ? 'bg-[var(--brand-accent)]/10' : 'bg-transparent'}`}
-                style={isActive ? { boxShadow: 'var(--brand-accent-glow)' } : {}}
-              >
-                <Icon
-                  className={`w-6 h-6 transition-all ${isActive ? 'scale-110' : 'scale-100'}`}
-                  strokeWidth={isActive ? 2.5 : 1.5}
-                  style={{
-                    color: isActive ? 'var(--brand-accent)' : 'var(--brand-text-secondary)',
-                    filter: isActive ? 'drop-shadow(0 0 8px var(--brand-accent))' : 'none'
-                  }}
-                />
-              </div>
-              <span
-                className="text-[10px] font-semibold"
-                style={{ color: isActive ? 'var(--brand-accent)' : 'var(--brand-text-muted)' }}
-              >
-                {item.label}
-              </span>
-            </button>
-          );
-        })}
-      </div>
-    );
-  }
-
-  // Default theme styles
   return (
     <div className="absolute bottom-0 left-0 right-0 bg-white/90 dark:bg-zinc-900/90 backdrop-blur-md border-t border-gray-200 dark:border-zinc-800 px-4 py-3 flex justify-between items-center z-40 safe-area-bottom">
       {navItems.map((item) => {

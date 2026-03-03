@@ -1,7 +1,6 @@
 
 import React, { useState } from 'react';
 import { ScreenName, ActivityStatus } from '../types';
-import { useTheme } from './ThemeContext';
 import {
   ChevronRight,
   Calendar as CalendarIcon,
@@ -28,7 +27,6 @@ interface PlanScreenProps {
 type TabType = 'workouts' | 'progress';
 
 const PlanScreen: React.FC<PlanScreenProps> = ({ onNavigate }) => {
-  const { isNeon } = useTheme();
   const [activeTab, setActiveTab] = useState<TabType>('workouts');
   const [isLoading, setIsLoading] = useState(false);
   const [isOffline, setIsOffline] = useState(false);
@@ -146,9 +144,8 @@ const PlanScreen: React.FC<PlanScreenProps> = ({ onNavigate }) => {
   return (
     <div
       className="pb-24 min-h-screen transition-colors duration-300"
-      style={{ backgroundColor: isNeon ? 'var(--brand-bg-primary)' : undefined }}
     >
-      {!isNeon && <div className="absolute inset-0 bg-gray-50 dark:bg-zinc-950 -z-10" />}
+      <div className="absolute inset-0 bg-gray-50 dark:bg-zinc-950 -z-10" />
       {/* Offline Banner */}
       {isOffline && (
         <div className="bg-red-500/10 border-b border-red-500/20 text-red-600 dark:text-red-400 px-4 py-3 flex items-center gap-3 text-sm font-bold sticky top-0 z-50 backdrop-blur-md">
@@ -160,35 +157,22 @@ const PlanScreen: React.FC<PlanScreenProps> = ({ onNavigate }) => {
       {/* Header Section */}
       <div
         className="p-5 rounded-b-3xl shadow-lg relative z-10 transition-colors"
-        style={isNeon ? {
-          background: 'var(--brand-bg-card)',
-          backdropFilter: 'blur(12px)',
-          borderBottom: '1px solid var(--brand-border)'
-        } : undefined}
       >
-        {!isNeon && <div className="absolute inset-0 bg-white dark:bg-zinc-900 rounded-b-3xl border-b border-gray-200 dark:border-zinc-800 -z-10" />}
+        <div className="absolute inset-0 bg-white dark:bg-zinc-900 rounded-b-3xl border-b border-gray-200 dark:border-zinc-800 -z-10" />
         <div className="flex justify-between items-start mb-6">
           <div>
             <span
               className="inline-block px-2 py-1 text-[10px] font-bold uppercase tracking-wider rounded-md mb-2"
-              style={isNeon ? {
-                background: 'rgba(212, 255, 0, 0.1)',
-                border: '1px solid rgba(212, 255, 0, 0.2)',
-                color: 'var(--brand-accent)'
-              } : undefined}
             >
-              {!isNeon && <span className="bg-cyan-100 dark:bg-cyan-950/30 border border-cyan-200 dark:border-cyan-900 text-cyan-600 dark:text-cyan-400">Активный план</span>}
-              {isNeon && 'Активный план'}
+              <span className="bg-cyan-100 dark:bg-cyan-950/30 border border-cyan-200 dark:border-cyan-900 text-cyan-600 dark:text-cyan-400">Активный план</span>
             </span>
             <h1
               className="text-2xl font-black leading-tight uppercase italic tracking-tighter transition-colors"
-              style={{ color: isNeon ? 'var(--brand-text-primary)' : undefined }}
             >
               {planData.title}
             </h1>
             <p
               className="text-sm mt-1 font-medium"
-              style={{ color: isNeon ? 'var(--brand-text-secondary)' : undefined }}
             >
               {planData.subtitle}
             </p>
@@ -196,13 +180,11 @@ const PlanScreen: React.FC<PlanScreenProps> = ({ onNavigate }) => {
           <div className="text-right">
             <p
               className="text-[10px] uppercase font-bold tracking-wider"
-              style={{ color: isNeon ? 'var(--brand-text-muted)' : undefined }}
             >
               Тренер
             </p>
             <p
               className="text-sm font-bold"
-              style={{ color: isNeon ? 'var(--brand-text-secondary)' : undefined }}
             >
               {planData.trainer}
             </p>
@@ -211,24 +193,20 @@ const PlanScreen: React.FC<PlanScreenProps> = ({ onNavigate }) => {
 
         {/* Progress Bar */}
         <div className="mb-6">
-          <div className="flex justify-between text-[10px] font-bold uppercase tracking-wider mb-2" style={{ color: isNeon ? 'var(--brand-text-secondary)' : undefined }}>
+          <div className="flex justify-between text-[10px] font-bold uppercase tracking-wider mb-2">
             <span>Прогресс (Неделя {planData.currentWeek}/{planData.totalWeeks})</span>
-            <span style={{ color: isNeon ? 'var(--brand-accent)' : undefined }}>{planData.progress}%</span>
+            <span>{planData.progress}%</span>
           </div>
           <div
             className="w-full rounded-full h-2 overflow-hidden"
-            style={{
-              background: isNeon ? 'rgba(255,255,255,0.05)' : undefined,
-              border: isNeon ? '1px solid var(--brand-border)' : undefined
-            }}
           >
-            {!isNeon && <div className="absolute inset-0 bg-gray-100 dark:bg-zinc-950 rounded-full border border-gray-200 dark:border-zinc-800" />}
+            <div className="absolute inset-0 bg-gray-100 dark:bg-zinc-950 rounded-full border border-gray-200 dark:border-zinc-800" />
             <div
               className="h-full rounded-full transition-all duration-500"
               style={{
                 width: `${planData.progress}%`,
-                background: isNeon ? 'var(--brand-progress-gradient)' : 'var(--brand-accent)',
-                boxShadow: isNeon ? 'var(--brand-accent-glow)' : '0 0 10px #06b6d4'
+                background: 'var(--brand-accent)',
+                boxShadow: '0 0 10px #06b6d4'
               }}
             ></div>
           </div>
@@ -237,14 +215,9 @@ const PlanScreen: React.FC<PlanScreenProps> = ({ onNavigate }) => {
         {/* Date Range Badge */}
         <div
           className="flex items-center text-xs font-bold px-3 py-2 rounded-lg w-fit"
-          style={isNeon ? {
-            background: 'rgba(255,255,255,0.05)',
-            border: '1px solid var(--brand-border)',
-            color: 'var(--brand-text-secondary)'
-          } : undefined}
         >
-          {!isNeon && <div className="absolute inset-0 bg-gray-100 dark:bg-zinc-950 rounded-lg border border-gray-200 dark:border-zinc-800" />}
-          <CalendarIcon className="w-3.5 h-3.5 mr-2" style={{ color: isNeon ? 'var(--brand-text-muted)' : undefined }} />
+          <div className="absolute inset-0 bg-gray-100 dark:bg-zinc-950 rounded-lg border border-gray-200 dark:border-zinc-800" />
+          <CalendarIcon className="w-3.5 h-3.5 mr-2" />
           {planData.dateRange}
         </div>
       </div>
