@@ -1,0 +1,54 @@
+/**
+ * YapTrack Theme — editorial/brutalist design
+ * Coral background, black ink, Impact display font, zero border-radius,
+ * heavy borders, no shadows, raw typography.
+ */
+html.brand-yaptrack {
+  --t-bg: #E66B65;
+  --t-bg-elevated: #E66B65;
+  --t-bg-surface: #d45f59;
+  --t-bg-sunken: #c95550;
+
+  --t-text-primary: #000000;
+  --t-text-secondary: rgba(0, 0, 0, 0.7);
+  --t-text-muted: rgba(0, 0, 0, 0.5);
+  --t-text-disabled: rgba(0, 0, 0, 0.3);
+
+  --t-accent: #000000;
+  --t-accent-secondary: #000000;
+  --t-accent-glow: none;
+
+  --t-border: #000000;
+
+  --t-success: #000000;
+  --t-warning: #000000;
+  --t-error: #000000;
+  --t-info: #000000;
+
+  --t-font-display: 'Impact', 'Haettenschweiler', 'Arial Narrow Bold', sans-serif;
+  --t-font-body: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --t-font-mono: 'Courier New', monospace;
+
+  --t-radius-sm: 0px;
+  --t-radius-md: 0px;
+  --t-radius-lg: 0px;
+  --t-radius-full: 0px;
+
+  --t-shadow-card: none;
+  --t-shadow-nav: none;
+  --t-shadow-glow: none;
+
+  --t-nav-bg: rgba(230, 107, 101, 0.85);
+  --t-nav-border: #000000;
+  --t-nav-active: #000000;
+
+  /* YapTrack-specific tokens */
+  --yt-border-width: 1.5px;
+  --yt-glass-bg: rgba(230, 107, 101, 0.85);
+}
+
+/* Marquee animation for yaptrack theme */
+@keyframes yt-marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}

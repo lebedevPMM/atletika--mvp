@@ -4,8 +4,4 @@
 */
 
 @import './default.css';
-
-/* Future themes will be imported here:
-   @import './<theme-name>.css';
-   Each theme uses a selector like html.brand-<name> { --t-*: ...; }
-*/
+@import './yaptrack.css';

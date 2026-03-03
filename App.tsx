@@ -122,6 +122,7 @@ import OnboardingApplicationScreen from './components/social/OnboardingApplicati
 import PrivacyScreen from './components/PrivacyScreen';
 import BottomNav from './components/BottomNav';
 import { ThemeProvider, useTheme } from './components/ThemeContext';
+import ThemeSwitcher from './components/ThemeSwitcher';
 import { SocialProvider } from './components/social/SocialContext';
 import { ArrowLeft, Construction } from 'lucide-react';
 
@@ -417,7 +418,8 @@ const AppContent = ({ currentScreen, renderScreen, handleNavigate, isFullScreen 
   const { theme } = useTheme();
 
   return (
-    <div className={`flex flex-col h-screen max-w-md mx-auto overflow-hidden relative shadow-2xl font-sans ${theme === 'dark' ? 'bg-zinc-950 text-zinc-100' : 'bg-gray-50 text-gray-900 status-bar-light'}`}>
+    <div className={`flex flex-col h-screen max-w-md mx-auto overflow-hidden relative shadow-2xl bg-t-bg text-t-text ${theme === 'light' ? 'status-bar-light' : ''}`} style={{ fontFamily: 'var(--t-font-body)' }}>
+      <ThemeSwitcher />
       <main className={`flex-1 overflow-y-auto no-scrollbar ${isFullScreen ? 'z-50' : ''}`}>
         {renderScreen()}
       </main>

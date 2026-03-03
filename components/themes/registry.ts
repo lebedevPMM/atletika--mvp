@@ -4,6 +4,7 @@
  * Each ThemeConfig tells the system:
  * - which CSS file provides the --t-* tokens (loaded via tokens.css)
  * - which nav variant to render
+ * - which home screen variant to render
  * - display metadata (label, description)
  *
  * To add a new theme:
@@ -19,8 +20,10 @@ export interface ThemeConfig {
   label: string;
   /** Short description */
   description: string;
-  /** Which nav component variant to use (default = NavDock) */
-  navVariant: 'dock';
+  /** Which nav component variant to use */
+  navVariant: 'dock' | 'brutalist';
+  /** Which home screen variant to use */
+  homeVariant: 'default' | 'yaptrack';
   /** Optional Google Fonts URL to load */
   fontsUrl?: string;
 }
@@ -31,6 +34,14 @@ export const themeRegistry: ThemeConfig[] = [
     label: 'Default',
     description: 'Dark glassmorphism with cyan accents',
     navVariant: 'dock',
+    homeVariant: 'default',
+  },
+  {
+    id: 'yaptrack',
+    label: 'YapTrack',
+    description: 'Editorial brutalist — coral ink on black',
+    navVariant: 'brutalist',
+    homeVariant: 'yaptrack',
   },
 ];
 
