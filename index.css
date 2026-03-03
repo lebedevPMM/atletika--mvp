@@ -1,18 +1,14 @@
 /* Import Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&family=Syne:wght@400;500;600;700;800&display=swap');
 
+/* Theme Tokens */
+@import './components/themes/tokens.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
-  :root {
-    --void-deep: #050505;
-    --void-surface: #121212;
-    --accent-lime: #D2FF00;
-    --accent-lavender: #E6E6FA;
-  }
-
   body {
     @apply bg-void text-white font-sans antialiased;
     background-image: radial-gradient(circle at 50% 0%, #1a1a1a 0%, #050505 70%);

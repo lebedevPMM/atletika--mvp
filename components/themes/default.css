@@ -1,0 +1,53 @@
+/* Default Theme — Atletika+ Classic
+   Dark bg, cyan/teal accents, glassmorphism cards
+   Fonts: Inter (body), Syne (display), JetBrains Mono (mono)
+*/
+
+:root {
+  /* Background */
+  --t-bg: #09090b;              /* zinc-950 */
+  --t-bg-elevated: #18181b;     /* zinc-900 */
+  --t-bg-surface: #27272a;      /* zinc-800 */
+  --t-bg-sunken: #050505;       /* void-deep */
+
+  /* Text */
+  --t-text-primary: #fafafa;    /* zinc-50 */
+  --t-text-secondary: #a1a1aa;  /* zinc-400 */
+  --t-text-muted: #71717a;      /* zinc-500 */
+  --t-text-disabled: #52525b;   /* zinc-600 */
+
+  /* Accent */
+  --t-accent: #06b6d4;          /* cyan-500 */
+  --t-accent-secondary: #22d3ee; /* cyan-400 */
+  --t-accent-glow: 0 0 15px rgba(6, 182, 212, 0.3);
+
+  /* Border */
+  --t-border: #27272a;          /* zinc-800 */
+
+  /* Semantic */
+  --t-success: #22c55e;         /* green-500 */
+  --t-warning: #f59e0b;         /* amber-500 */
+  --t-error: #ef4444;           /* red-500 */
+  --t-info: #3b82f6;            /* blue-500 */
+
+  /* Typography */
+  --t-font-display: 'Syne', sans-serif;
+  --t-font-body: 'Inter', sans-serif;
+  --t-font-mono: 'JetBrains Mono', monospace;
+
+  /* Geometry */
+  --t-radius-sm: 8px;
+  --t-radius-md: 16px;
+  --t-radius-lg: 24px;
+  --t-radius-full: 9999px;
+
+  /* Shadows */
+  --t-shadow-card: 0 4px 20px rgba(0, 0, 0, 0.3);
+  --t-shadow-nav: 0 -1px 0 rgba(39, 39, 42, 1);
+  --t-shadow-glow: 0 0 15px rgba(6, 182, 212, 0.2);
+
+  /* Navigation */
+  --t-nav-bg: rgba(9, 9, 11, 0.9);
+  --t-nav-border: #27272a;
+  --t-nav-active: #06b6d4;
+}

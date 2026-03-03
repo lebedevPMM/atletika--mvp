@@ -1,0 +1,11 @@
+/* Theme Token System — imports all theme definitions
+   Each theme file defines --t-* variables on :root or a selector.
+   To add a new theme: create <name>.css and import it here.
+*/
+
+@import './default.css';
+
+/* Future themes will be imported here:
+   @import './<theme-name>.css';
+   Each theme uses a selector like html.brand-<name> { --t-*: ...; }
+*/
