@@ -125,6 +125,13 @@ html.brand-charming .bg-white .dark\:bg-zinc-950 {
   background-image: none !important;
 }
 
+/* Surface elements: bg-gray-100 + dark:bg-zinc-950 = always inner surface, never page bg.
+   These are progress bars, badges, sunken areas inside cards/headers. */
+html.brand-charming .bg-gray-100.dark\:bg-zinc-950 {
+  background-color: var(--t-bg-surface) !important;
+  background-image: none !important;
+}
+
 /* Semi-transparent page backgrounds → pink semi (headers, overlays) */
 html.brand-charming .bg-zinc-950\/80,
 html.brand-charming .bg-white\/80,
