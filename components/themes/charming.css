@@ -56,6 +56,16 @@ html.brand-charming {
   font-family: 'Nunito', system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  /* Stripe background on html element itself — shows through transparent layers */
+  background-color: #F59CB3;
+  background-image: repeating-linear-gradient(
+    90deg,
+    #F59CB3 0px,
+    #F59CB3 40px,
+    #E0859D 40px,
+    #E0859D 50px
+  );
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -76,21 +86,23 @@ html.brand-charming .shadow-2xl {
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05) !important;
 }
 
-/* ── 3. PAGE BACKGROUND OVERRIDES — pink with stripes ── */
-html.brand-charming .bg-gray-50,
+/* ── 3. PAGE BACKGROUND OVERRIDES ──
+   bg-zinc-950 is used at BOTH page level AND inside cards.
+   Making it transparent means:
+   - At page level → html stripe shows through ✓
+   - Inside cream card (bg-zinc-900) → parent cream shows through ✓
+*/
 html.brand-charming .bg-zinc-950,
 html.brand-charming .dark\:bg-zinc-950 {
-  background-color: #F59CB3 !important;
-  background-image: repeating-linear-gradient(
-    90deg,
-    #F59CB3 0px,
-    #F59CB3 40px,
-    #E0859D 40px,
-    #E0859D 50px
-  ) !important;
+  background-color: transparent !important;
+  background-image: none !important;
 }
 
-/* Semi-transparent page backgrounds → pink semi */
+html.brand-charming .bg-gray-50 {
+  background-color: transparent !important;
+}
+
+/* Semi-transparent page backgrounds → pink semi (headers, overlays) */
 html.brand-charming .bg-zinc-950\/80,
 html.brand-charming .bg-white\/80,
 html.brand-charming .dark\:bg-zinc-950\/80 {
@@ -105,7 +117,7 @@ html.brand-charming .dark\:bg-zinc-900 {
   background-color: var(--t-bg-elevated) !important;
 }
 
-/* Surface backgrounds → lighter surface */
+/* Surface backgrounds → lighter warm surface */
 html.brand-charming .bg-gray-100,
 html.brand-charming .bg-zinc-800,
 html.brand-charming .dark\:bg-zinc-800 {
@@ -116,6 +128,11 @@ html.brand-charming .dark\:bg-zinc-800 {
 html.brand-charming .dark\:bg-zinc-900\/50,
 html.brand-charming .bg-zinc-900\/50 {
   background-color: rgba(253, 252, 248, 0.6) !important;
+}
+
+/* Black backgrounds → dark (for nav, buttons etc.) */
+html.brand-charming .bg-black {
+  background-color: #1A1A1A !important;
 }
 
 /* ── 5. TEXT COLOR OVERRIDES — dark on light ── */
