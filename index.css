@@ -30,6 +30,10 @@
   .text-glow {
     text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
   }
+
+  .border-theme {
+    border-width: var(--t-border-width, 1px);
+  }
 }
 
 /* Glassmorphism Classes */

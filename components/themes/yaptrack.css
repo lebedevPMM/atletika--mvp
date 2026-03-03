@@ -42,9 +42,9 @@ html.brand-yaptrack {
   --t-nav-border: #000000;
   --t-nav-active: #000000;
 
-  /* YapTrack-specific tokens */
-  --yt-border-width: 1.5px;
-  --yt-glass-bg: rgba(230, 107, 101, 0.85);
+  /* Border & Blur */
+  --t-border-width: 1.5px;
+  --t-backdrop-blur: 0px;
 }
 
 /* Marquee animation for yaptrack theme */

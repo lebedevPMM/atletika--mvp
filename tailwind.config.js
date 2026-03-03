@@ -46,9 +46,18 @@ export default {
             borderRadius: {
                 'squircle': '24px', // Standard for cards
                 'pill': '9999px',
+                // Token-driven radii (tk- prefix to avoid conflict with Tailwind rounded-t-*)
+                'tk-sm': 'var(--t-radius-sm)',     // badges, chips
+                'tk-md': 'var(--t-radius-md)',     // buttons, avatars
+                'tk-lg': 'var(--t-radius-lg)',     // cards, panels
+                'tk-full': 'var(--t-radius-full)', // circles, pills
             },
             boxShadow: {
                 'glass': '0 10px 40px rgba(0,0,0,0.8)',
+                // Token-driven shadows
+                'tk-card': 'var(--t-shadow-card)',
+                'tk-nav': 'var(--t-shadow-nav)',
+                'tk-glow': 'var(--t-shadow-glow)',
             },
             backgroundImage: {
                 'void-gradient': 'radial-gradient(circle at 50% 0%, #1a1a1a 0%, #050505 70%)',

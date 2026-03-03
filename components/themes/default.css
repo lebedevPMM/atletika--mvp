@@ -46,6 +46,12 @@
   --t-shadow-nav: 0 -1px 0 rgba(39, 39, 42, 1);
   --t-shadow-glow: 0 0 15px rgba(6, 182, 212, 0.2);
 
+  /* Border */
+  --t-border-width: 1px;
+
+  /* Blur */
+  --t-backdrop-blur: 20px;
+
   /* Navigation */
   --t-nav-bg: rgba(9, 9, 11, 0.9);
   --t-nav-border: #27272a;
