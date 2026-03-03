@@ -359,17 +359,37 @@ html.brand-charming *:focus-visible {
    HomeScreenDefault and other token-based components use bg-t-bg (not bg-zinc-950).
    These classes need separate overrides for charming stripes. */
 
-/* Page-level bg-t-bg → transparent so html stripes show through */
+/* Page-level bg-t-bg → pink stripes (same as html element) */
 html.brand-charming .bg-t-bg {
-  background-color: transparent !important;
+  background-color: #F59CB3 !important;
+  background-image: repeating-linear-gradient(
+    90deg,
+    #F59CB3 0px,
+    #F59CB3 40px,
+    #E0859D 40px,
+    #E0859D 50px
+  ) !important;
 }
 
 /* Semi-transparent header → soft pink with blur */
 html.brand-charming .bg-t-bg\/80 {
   background-color: rgba(245, 156, 179, 0.88) !important;
+  background-image: none !important;
 }
 
 /* ── 20. OPAQUE TILES — semi-transparent cream on pink is unreadable ── */
 html.brand-charming .bg-t-bg-elevated\/50 {
   background-color: var(--t-bg-elevated) !important;
+}
+
+/* Elevated bg (cards) → solid cream, no stripes */
+html.brand-charming .bg-t-bg-elevated {
+  background-color: var(--t-bg-elevated) !important;
+  background-image: none !important;
+}
+
+/* Surface bg → solid warm surface */
+html.brand-charming .bg-t-bg-surface {
+  background-color: var(--t-bg-surface) !important;
+  background-image: none !important;
 }
