@@ -198,11 +198,11 @@ const PlanScreen: React.FC<PlanScreenProps> = ({ onNavigate }) => {
             <span>{planData.progress}%</span>
           </div>
           <div
-            className="w-full rounded-full h-2 overflow-hidden"
+            className="w-full rounded-full h-2 overflow-hidden relative"
           >
-            <div className="absolute inset-0 bg-gray-100 dark:bg-zinc-950 rounded-full border border-gray-200 dark:border-zinc-800" />
+            <div className="absolute inset-0 bg-gray-100 dark:bg-zinc-950 rounded-full border border-gray-200 dark:border-zinc-800 -z-10" />
             <div
-              className="h-full rounded-full transition-all duration-500"
+              className="h-full rounded-full transition-all duration-500 relative"
               style={{
                 width: `${planData.progress}%`,
                 background: 'var(--brand-accent)',
@@ -214,9 +214,9 @@ const PlanScreen: React.FC<PlanScreenProps> = ({ onNavigate }) => {
 
         {/* Date Range Badge */}
         <div
-          className="flex items-center text-xs font-bold px-3 py-2 rounded-lg w-fit"
+          className="flex items-center text-xs font-bold px-3 py-2 rounded-lg w-fit relative"
         >
-          <div className="absolute inset-0 bg-gray-100 dark:bg-zinc-950 rounded-lg border border-gray-200 dark:border-zinc-800" />
+          <div className="absolute inset-0 bg-gray-100 dark:bg-zinc-950 rounded-lg border border-gray-200 dark:border-zinc-800 -z-10" />
           <CalendarIcon className="w-3.5 h-3.5 mr-2" />
           {planData.dateRange}
         </div>

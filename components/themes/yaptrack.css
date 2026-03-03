@@ -2,6 +2,10 @@
  * YapTrack Theme — editorial/brutalist design
  * Coral background, black ink, Impact display font, zero border-radius,
  * heavy borders, no shadows, raw typography.
+ *
+ * APPROACH: Global CSS overrides with !important catch ALL hardcoded
+ * Tailwind classes across all screens. This means we don't need to
+ * migrate every component to --t-* tokens — the overrides do it.
  */
 html.brand-yaptrack {
   --t-bg: #E66B65;
@@ -9,6 +13,7 @@ html.brand-yaptrack {
   --t-bg-surface: #d45f59;
   --t-bg-sunken: #c95550;
 
+  --t-text: #000000;
   --t-text-primary: #000000;
   --t-text-secondary: rgba(0, 0, 0, 0.7);
   --t-text-muted: rgba(0, 0, 0, 0.5);
@@ -42,9 +47,251 @@ html.brand-yaptrack {
   --t-nav-border: #000000;
   --t-nav-active: #000000;
 
+  /* Compat alias for older components */
+  --brand-accent: #000000;
+
   /* Border & Blur */
   --t-border-width: 1.5px;
   --t-backdrop-blur: 0px;
+
+  /* Root font */
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   GLOBAL BRUTALIST OVERRIDES
+   Catch hardcoded Tailwind classes across ALL screens/components.
+   Scoped to html.brand-yaptrack so other themes are unaffected.
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── 1. ZERO BORDER-RADIUS ── */
+html.brand-yaptrack *,
+html.brand-yaptrack *::before,
+html.brand-yaptrack *::after {
+  border-radius: 0 !important;
+}
+
+/* ── 2. ZERO SHADOWS ── */
+html.brand-yaptrack * {
+  box-shadow: none !important;
+}
+
+/* ── 3. ZERO BLUR ── */
+html.brand-yaptrack * {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* ── 4. BACKGROUND OVERRIDES ──
+   dark:bg-zinc-* and bg-gray-* → coral theme variants */
+
+/* Main page backgrounds */
+html.brand-yaptrack .bg-gray-50,
+html.brand-yaptrack .bg-zinc-950,
+html.brand-yaptrack .dark\:bg-zinc-950 {
+  background-color: var(--t-bg) !important;
+}
+
+/* Semi-transparent page backgrounds */
+html.brand-yaptrack .bg-zinc-950\/80,
+html.brand-yaptrack .bg-white\/80,
+html.brand-yaptrack .dark\:bg-zinc-950\/80 {
+  background-color: rgba(230, 107, 101, 0.9) !important;
+}
+
+/* Elevated/Card backgrounds */
+html.brand-yaptrack .bg-white,
+html.brand-yaptrack .bg-zinc-900,
+html.brand-yaptrack .dark\:bg-zinc-900 {
+  background-color: var(--t-bg) !important;
+}
+
+/* Surface backgrounds */
+html.brand-yaptrack .bg-gray-100,
+html.brand-yaptrack .bg-zinc-800,
+html.brand-yaptrack .dark\:bg-zinc-800 {
+  background-color: var(--t-bg-surface) !important;
+}
+
+/* Catch bg-zinc-900/50 and similar opacity variants */
+html.brand-yaptrack .dark\:bg-zinc-900\/50,
+html.brand-yaptrack .bg-zinc-900\/50 {
+  background-color: rgba(230, 107, 101, 0.5) !important;
+}
+
+/* ── 5. TEXT COLOR OVERRIDES ── */
+
+/* Primary text (headings, titles) */
+html.brand-yaptrack .dark\:text-white,
+html.brand-yaptrack .text-gray-900,
+html.brand-yaptrack .text-gray-800 {
+  color: var(--t-text-primary) !important;
+}
+
+/* Secondary text */
+html.brand-yaptrack .dark\:text-zinc-300,
+html.brand-yaptrack .dark\:text-zinc-400,
+html.brand-yaptrack .text-gray-600,
+html.brand-yaptrack .text-gray-700,
+html.brand-yaptrack .text-zinc-400,
+html.brand-yaptrack .text-zinc-300 {
+  color: var(--t-text-secondary) !important;
+}
+
+/* Muted text */
+html.brand-yaptrack .dark\:text-zinc-500,
+html.brand-yaptrack .text-gray-400,
+html.brand-yaptrack .text-gray-500,
+html.brand-yaptrack .text-zinc-500 {
+  color: var(--t-text-muted) !important;
+}
+
+/* Disabled text */
+html.brand-yaptrack .dark\:text-zinc-600,
+html.brand-yaptrack .text-zinc-600 {
+  color: var(--t-text-disabled) !important;
+}
+
+/* ── 6. BORDER COLOR OVERRIDES ── */
+html.brand-yaptrack .dark\:border-zinc-800,
+html.brand-yaptrack .dark\:border-zinc-700,
+html.brand-yaptrack .border-gray-200,
+html.brand-yaptrack .border-gray-100,
+html.brand-yaptrack .border-gray-300,
+html.brand-yaptrack .border-gray-800,
+html.brand-yaptrack .border-zinc-800,
+html.brand-yaptrack .border-zinc-700 {
+  border-color: var(--t-border) !important;
+}
+
+/* ── 7. ACCENT COLOR OVERRIDES (cyan/blue → black) ── */
+html.brand-yaptrack .text-cyan-600,
+html.brand-yaptrack .text-cyan-500,
+html.brand-yaptrack .text-cyan-400,
+html.brand-yaptrack .dark\:text-cyan-500,
+html.brand-yaptrack .dark\:text-cyan-400,
+html.brand-yaptrack .dark\:text-cyan-300,
+html.brand-yaptrack .text-blue-600,
+html.brand-yaptrack .dark\:text-blue-500 {
+  color: var(--t-accent) !important;
+}
+
+html.brand-yaptrack .bg-cyan-600,
+html.brand-yaptrack .bg-cyan-500 {
+  background-color: var(--t-accent) !important;
+}
+
+html.brand-yaptrack .border-cyan-200,
+html.brand-yaptrack .border-cyan-500,
+html.brand-yaptrack .dark\:border-cyan-900 {
+  border-color: var(--t-border) !important;
+}
+
+/* Accent tinted backgrounds → subtle black tint */
+html.brand-yaptrack .bg-cyan-100,
+html.brand-yaptrack .dark\:bg-cyan-950\/30 {
+  background-color: rgba(0, 0, 0, 0.08) !important;
+}
+
+/* ── 8. GRADIENT OVERRIDES ── */
+
+/* CTA gradients (cyan→blue) → solid black */
+html.brand-yaptrack .from-cyan-600 { --tw-gradient-from: #000 !important; }
+html.brand-yaptrack .to-blue-600 { --tw-gradient-to: #000 !important; }
+html.brand-yaptrack .to-cyan-600 { --tw-gradient-to: #000 !important; }
+
+/* Dark card gradients → solid coral surface */
+html.brand-yaptrack .from-gray-900 { --tw-gradient-from: var(--t-bg-surface) !important; }
+html.brand-yaptrack .to-black { --tw-gradient-to: var(--t-bg-surface) !important; }
+html.brand-yaptrack .dark\:from-zinc-900 { --tw-gradient-from: var(--t-bg-surface) !important; }
+html.brand-yaptrack .dark\:to-zinc-950 { --tw-gradient-to: var(--t-bg-surface) !important; }
+
+/* ── 9. FONT OVERRIDES ── */
+
+/* Headings → Impact (editorial display) */
+html.brand-yaptrack h1,
+html.brand-yaptrack h2,
+html.brand-yaptrack h3 {
+  font-family: var(--t-font-display) !important;
+}
+
+/* Body text → Helvetica (override Tailwind's Inter) */
+html.brand-yaptrack .font-sans {
+  font-family: var(--t-font-body) !important;
+}
+
+/* Mono text → Courier */
+html.brand-yaptrack .font-mono {
+  font-family: var(--t-font-mono) !important;
+}
+
+/* ── 10. STATUS COLORS — darker versions for coral bg readability ── */
+
+/* Green (completed) */
+html.brand-yaptrack .text-green-700,
+html.brand-yaptrack .dark\:text-green-500 { color: #15803d !important; }
+html.brand-yaptrack .bg-green-100,
+html.brand-yaptrack .dark\:bg-green-950\/30 { background-color: rgba(21, 128, 61, 0.12) !important; }
+html.brand-yaptrack .border-green-200,
+html.brand-yaptrack .dark\:border-green-900 { border-color: #15803d !important; }
+
+/* Red (missed/error) */
+html.brand-yaptrack .text-red-700,
+html.brand-yaptrack .dark\:text-red-500,
+html.brand-yaptrack .dark\:text-red-400 { color: #991b1b !important; }
+html.brand-yaptrack .bg-red-100,
+html.brand-yaptrack .dark\:bg-red-950\/30 { background-color: rgba(153, 27, 27, 0.12) !important; }
+
+/* Yellow (pending/warning) */
+html.brand-yaptrack .text-yellow-700,
+html.brand-yaptrack .dark\:text-yellow-500 { color: #854d0e !important; }
+html.brand-yaptrack .bg-yellow-100,
+html.brand-yaptrack .dark\:bg-yellow-950\/30 { background-color: rgba(133, 77, 14, 0.12) !important; }
+
+/* Blue (scheduled/info) */
+html.brand-yaptrack .text-blue-700,
+html.brand-yaptrack .dark\:text-blue-500 { color: #1e40af !important; }
+html.brand-yaptrack .bg-blue-50,
+html.brand-yaptrack .dark\:bg-blue-950\/30 { background-color: rgba(30, 64, 175, 0.12) !important; }
+
+/* ── 11. MISC OVERRIDES ── */
+
+/* White bg pills/circles used inside buttons → keep white for QR icon */
+html.brand-yaptrack .bg-white\/20 {
+  background-color: rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Dark text override for elements that use opacity modifiers */
+html.brand-yaptrack .dark\:hover\:text-white:hover {
+  color: var(--t-text-primary) !important;
+}
+html.brand-yaptrack .dark\:hover\:text-zinc-300:hover {
+  color: var(--t-text-secondary) !important;
+}
+
+/* Hover state overrides */
+html.brand-yaptrack .dark\:hover\:bg-zinc-800:hover,
+html.brand-yaptrack .hover\:bg-gray-50:hover,
+html.brand-yaptrack .hover\:bg-gray-100:hover {
+  background-color: var(--t-bg-surface) !important;
+}
+
+html.brand-yaptrack .hover\:border-gray-300:hover,
+html.brand-yaptrack .dark\:hover\:border-zinc-700:hover {
+  border-color: var(--t-border) !important;
+}
+
+/* Active state overrides */
+html.brand-yaptrack .dark\:active\:bg-zinc-800:active,
+html.brand-yaptrack .active\:bg-gray-50:active {
+  background-color: var(--t-bg-sunken) !important;
+}
+
+/* ── 12. HEAVY BORDERS on all bordered elements ── */
+html.brand-yaptrack [class*="border-t-border"],
+html.brand-yaptrack [class*="border-gray"],
+html.brand-yaptrack [class*="border-zinc"] {
+  border-width: var(--t-border-width) !important;
 }
 
 /* Marquee animation for yaptrack theme */
