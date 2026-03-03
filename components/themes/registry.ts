@@ -39,6 +39,12 @@ export const themeRegistry: ThemeConfig[] = [
     description: 'Editorial brutalist — coral ink on black',
     navVariant: 'brutalist',
   },
+  {
+    id: 'yaptrack-acid',
+    label: 'YapTrack Acid',
+    description: 'Acid green brutalist — technical zine aesthetic',
+    navVariant: 'brutalist',
+  },
 ];
 
 /** Get theme config by id, fallback to default */

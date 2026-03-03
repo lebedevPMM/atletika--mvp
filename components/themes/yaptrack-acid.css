@@ -1,0 +1,296 @@
+/**
+ * YapTrack Acid Theme — acid green brutalist / technical-zine aesthetic
+ * Acid yellow-green background, near-black ink, dashed borders,
+ * Arial Black/Impact display, Courier New mono body, zero radius,
+ * hatching patterns, noise texture.
+ *
+ * Reference: YapTrack Analytics — space-tech brutalist with orbit rings,
+ * barcode footer, vertical labels, diagonal hatch on active elements.
+ */
+html.brand-yaptrack-acid {
+  --t-bg: #ddea60;
+  --t-bg-elevated: #ddea60;
+  --t-bg-surface: #c8d44e;
+  --t-bg-sunken: #b5c240;
+
+  --t-text: #181a12;
+  --t-text-primary: #181a12;
+  --t-text-secondary: rgba(24, 26, 18, 0.7);
+  --t-text-muted: rgba(24, 26, 18, 0.5);
+  --t-text-disabled: rgba(24, 26, 18, 0.3);
+
+  --t-accent: #181a12;
+  --t-accent-secondary: #181a12;
+  --t-accent-glow: none;
+
+  --t-border: #181a12;
+
+  --t-success: #2d5a1e;
+  --t-warning: #6b5a00;
+  --t-error: #6b1a1a;
+  --t-info: #1a3a5a;
+
+  --t-font-display: 'Arial Black', 'Impact', 'Haettenschweiler', sans-serif;
+  --t-font-body: 'Courier New', Courier, monospace;
+  --t-font-mono: 'Courier New', Courier, monospace;
+
+  --t-radius-sm: 0px;
+  --t-radius-md: 0px;
+  --t-radius-lg: 0px;
+  --t-radius-full: 0px;
+
+  --t-shadow-card: none;
+  --t-shadow-nav: none;
+  --t-shadow-glow: none;
+
+  --t-nav-bg: rgba(221, 234, 96, 0.9);
+  --t-nav-border: #181a12;
+  --t-nav-active: #181a12;
+
+  /* Compat alias */
+  --brand-accent: #181a12;
+
+  /* Border & Blur */
+  --t-border-width: 2px;
+  --t-backdrop-blur: 0px;
+
+  /* Root font — monospace body */
+  font-family: 'Courier New', Courier, monospace;
+
+  /* Disable font smoothing for raw technical look */
+  -webkit-font-smoothing: none;
+  -moz-osx-font-smoothing: auto;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   GLOBAL BRUTALIST OVERRIDES — ACID GREEN VARIANT
+   Same approach as yaptrack.css but with acid-green palette
+   and dashed border style (key differentiator).
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── 1. ZERO BORDER-RADIUS ── */
+html.brand-yaptrack-acid *,
+html.brand-yaptrack-acid *::before,
+html.brand-yaptrack-acid *::after {
+  border-radius: 0 !important;
+}
+
+/* ── 2. ZERO SHADOWS ── */
+html.brand-yaptrack-acid * {
+  box-shadow: none !important;
+}
+
+/* ── 3. ZERO BLUR ── */
+html.brand-yaptrack-acid * {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* ── 4. DASHED BORDERS (key differentiator from yaptrack-coral) ── */
+html.brand-yaptrack-acid [class*="border-"] {
+  border-style: dashed !important;
+  border-width: 2px !important;
+}
+
+/* Nav top border stays solid + thicker */
+html.brand-yaptrack-acid .border-t-nav-border {
+  border-style: solid !important;
+  border-top-width: 4px !important;
+}
+
+/* ── 5. BACKGROUND OVERRIDES ── */
+html.brand-yaptrack-acid .bg-gray-50,
+html.brand-yaptrack-acid .bg-zinc-950,
+html.brand-yaptrack-acid .dark\:bg-zinc-950 {
+  background-color: var(--t-bg) !important;
+}
+
+html.brand-yaptrack-acid .bg-zinc-950\/80,
+html.brand-yaptrack-acid .bg-white\/80,
+html.brand-yaptrack-acid .dark\:bg-zinc-950\/80 {
+  background-color: rgba(221, 234, 96, 0.9) !important;
+}
+
+html.brand-yaptrack-acid .bg-white,
+html.brand-yaptrack-acid .bg-zinc-900,
+html.brand-yaptrack-acid .dark\:bg-zinc-900 {
+  background-color: var(--t-bg) !important;
+}
+
+html.brand-yaptrack-acid .bg-gray-100,
+html.brand-yaptrack-acid .bg-zinc-800,
+html.brand-yaptrack-acid .dark\:bg-zinc-800 {
+  background-color: var(--t-bg-surface) !important;
+}
+
+html.brand-yaptrack-acid .dark\:bg-zinc-900\/50,
+html.brand-yaptrack-acid .bg-zinc-900\/50 {
+  background-color: rgba(221, 234, 96, 0.5) !important;
+}
+
+/* ── 6. TEXT COLOR OVERRIDES ── */
+html.brand-yaptrack-acid .dark\:text-white,
+html.brand-yaptrack-acid .text-gray-900,
+html.brand-yaptrack-acid .text-gray-800 {
+  color: var(--t-text-primary) !important;
+}
+
+html.brand-yaptrack-acid .dark\:text-zinc-300,
+html.brand-yaptrack-acid .dark\:text-zinc-400,
+html.brand-yaptrack-acid .text-gray-600,
+html.brand-yaptrack-acid .text-gray-700,
+html.brand-yaptrack-acid .text-zinc-400,
+html.brand-yaptrack-acid .text-zinc-300 {
+  color: var(--t-text-secondary) !important;
+}
+
+html.brand-yaptrack-acid .dark\:text-zinc-500,
+html.brand-yaptrack-acid .text-gray-400,
+html.brand-yaptrack-acid .text-gray-500,
+html.brand-yaptrack-acid .text-zinc-500 {
+  color: var(--t-text-muted) !important;
+}
+
+html.brand-yaptrack-acid .dark\:text-zinc-600,
+html.brand-yaptrack-acid .text-zinc-600 {
+  color: var(--t-text-disabled) !important;
+}
+
+/* ── 7. BORDER COLOR OVERRIDES ── */
+html.brand-yaptrack-acid .dark\:border-zinc-800,
+html.brand-yaptrack-acid .dark\:border-zinc-700,
+html.brand-yaptrack-acid .border-gray-200,
+html.brand-yaptrack-acid .border-gray-100,
+html.brand-yaptrack-acid .border-gray-300,
+html.brand-yaptrack-acid .border-gray-800,
+html.brand-yaptrack-acid .border-zinc-800,
+html.brand-yaptrack-acid .border-zinc-700 {
+  border-color: var(--t-border) !important;
+}
+
+/* ── 8. ACCENT COLOR OVERRIDES ── */
+html.brand-yaptrack-acid .text-cyan-600,
+html.brand-yaptrack-acid .text-cyan-500,
+html.brand-yaptrack-acid .text-cyan-400,
+html.brand-yaptrack-acid .dark\:text-cyan-500,
+html.brand-yaptrack-acid .dark\:text-cyan-400,
+html.brand-yaptrack-acid .dark\:text-cyan-300,
+html.brand-yaptrack-acid .text-blue-600,
+html.brand-yaptrack-acid .dark\:text-blue-500 {
+  color: var(--t-accent) !important;
+}
+
+html.brand-yaptrack-acid .bg-cyan-600,
+html.brand-yaptrack-acid .bg-cyan-500 {
+  background-color: var(--t-accent) !important;
+}
+
+html.brand-yaptrack-acid .border-cyan-200,
+html.brand-yaptrack-acid .border-cyan-500,
+html.brand-yaptrack-acid .dark\:border-cyan-900 {
+  border-color: var(--t-border) !important;
+}
+
+html.brand-yaptrack-acid .bg-cyan-100,
+html.brand-yaptrack-acid .dark\:bg-cyan-950\/30 {
+  background-color: rgba(24, 26, 18, 0.08) !important;
+}
+
+/* ── 9. GRADIENT OVERRIDES ── */
+html.brand-yaptrack-acid .from-cyan-600 { --tw-gradient-from: #181a12 !important; }
+html.brand-yaptrack-acid .to-blue-600 { --tw-gradient-to: #181a12 !important; }
+html.brand-yaptrack-acid .to-cyan-600 { --tw-gradient-to: #181a12 !important; }
+
+html.brand-yaptrack-acid .from-gray-900 { --tw-gradient-from: var(--t-bg-surface) !important; }
+html.brand-yaptrack-acid .to-black { --tw-gradient-to: var(--t-bg-surface) !important; }
+html.brand-yaptrack-acid .dark\:from-zinc-900 { --tw-gradient-from: var(--t-bg-surface) !important; }
+html.brand-yaptrack-acid .dark\:to-zinc-950 { --tw-gradient-to: var(--t-bg-surface) !important; }
+
+/* ── 10. FONT OVERRIDES ── */
+html.brand-yaptrack-acid h1,
+html.brand-yaptrack-acid h2,
+html.brand-yaptrack-acid h3 {
+  font-family: var(--t-font-display) !important;
+  font-style: italic !important;
+  letter-spacing: -1px !important;
+  transform: scaleY(0.9);
+}
+
+html.brand-yaptrack-acid .font-sans {
+  font-family: var(--t-font-body) !important;
+}
+
+html.brand-yaptrack-acid .font-mono {
+  font-family: var(--t-font-mono) !important;
+}
+
+/* ── 11. STATUS COLORS — darker versions for acid bg readability ── */
+html.brand-yaptrack-acid .text-green-700,
+html.brand-yaptrack-acid .dark\:text-green-500 { color: #166534 !important; }
+html.brand-yaptrack-acid .bg-green-100,
+html.brand-yaptrack-acid .dark\:bg-green-950\/30 { background-color: rgba(22, 101, 52, 0.12) !important; }
+
+html.brand-yaptrack-acid .text-red-700,
+html.brand-yaptrack-acid .dark\:text-red-500,
+html.brand-yaptrack-acid .dark\:text-red-400 { color: #991b1b !important; }
+html.brand-yaptrack-acid .bg-red-100,
+html.brand-yaptrack-acid .dark\:bg-red-950\/30 { background-color: rgba(153, 27, 27, 0.12) !important; }
+
+html.brand-yaptrack-acid .text-yellow-700,
+html.brand-yaptrack-acid .dark\:text-yellow-500 { color: #854d0e !important; }
+html.brand-yaptrack-acid .bg-yellow-100,
+html.brand-yaptrack-acid .dark\:bg-yellow-950\/30 { background-color: rgba(133, 77, 14, 0.12) !important; }
+
+html.brand-yaptrack-acid .text-blue-700,
+html.brand-yaptrack-acid .dark\:text-blue-500 { color: #1e40af !important; }
+html.brand-yaptrack-acid .bg-blue-50,
+html.brand-yaptrack-acid .dark\:bg-blue-950\/30 { background-color: rgba(30, 64, 175, 0.12) !important; }
+
+/* ── 12. HOVER/ACTIVE STATE OVERRIDES ── */
+html.brand-yaptrack-acid .dark\:hover\:text-white:hover {
+  color: var(--t-text-primary) !important;
+}
+html.brand-yaptrack-acid .dark\:hover\:bg-zinc-800:hover,
+html.brand-yaptrack-acid .hover\:bg-gray-50:hover,
+html.brand-yaptrack-acid .hover\:bg-gray-100:hover {
+  background-color: var(--t-bg-surface) !important;
+}
+html.brand-yaptrack-acid .dark\:active\:bg-zinc-800:active,
+html.brand-yaptrack-acid .active\:bg-gray-50:active {
+  background-color: var(--t-bg-sunken) !important;
+}
+
+/* ── 13. NOISE TEXTURE OVERLAY (unique to acid theme) ── */
+html.brand-yaptrack-acid::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.1;
+  pointer-events: none;
+  background: url('data:image/svg+xml;utf8,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');
+  z-index: 9999;
+  mix-blend-mode: multiply;
+}
+
+/* ── 14. INVERTED ACCENT CELLS — reference had one black cell in grid ── */
+/* When a card/cell has bg-t-text (inverted), make text acid-green */
+html.brand-yaptrack-acid .bg-t-text {
+  color: var(--t-bg) !important;
+}
+
+/* ── 15. ITALIC DISPLAY TEXT for uppercase headers ── */
+html.brand-yaptrack-acid .uppercase.italic,
+html.brand-yaptrack-acid .font-black.italic {
+  font-family: var(--t-font-display) !important;
+  letter-spacing: -1px !important;
+}
+
+/* ── 16. MONO LABELS — all small uppercase text → Courier ── */
+html.brand-yaptrack-acid .text-\[10px\],
+html.brand-yaptrack-acid .text-xs {
+  font-family: var(--t-font-mono) !important;
+  letter-spacing: 1px !important;
+}
