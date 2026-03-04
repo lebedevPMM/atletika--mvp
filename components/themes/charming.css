@@ -43,7 +43,7 @@ html.brand-charming {
   --t-shadow-glow: none;
 
   --t-border-width: 2px;
-  --t-backdrop-blur: 10px;
+  --t-backdrop-blur: 0px;
 
   --t-nav-bg: #1A1A1A;
   --t-nav-border: transparent;
@@ -203,6 +203,9 @@ html.brand-charming .text-zinc-600 {
 html.brand-charming h1 {
   font-family: var(--t-font-display) !important;
   font-weight: 900 !important;
+  font-size: 2.5rem !important;
+  line-height: 0.95 !important;
+  letter-spacing: -0.02em !important;
   color: var(--t-bg-elevated) !important;
   text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.1) !important;
 }
@@ -211,6 +214,8 @@ html.brand-charming h2,
 html.brand-charming h3 {
   font-family: var(--t-font-display) !important;
   font-weight: 800 !important;
+  color: var(--t-bg-elevated) !important;
+  text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.08) !important;
 }
 
 /* ── 7. BORDER COLOR OVERRIDES ── */
@@ -392,4 +397,91 @@ html.brand-charming .bg-t-bg-elevated {
 html.brand-charming .bg-t-bg-surface {
   background-color: var(--t-bg-surface) !important;
   background-image: none !important;
+}
+
+/* ── 21. BODY & VOID — kill all dark backgrounds outside/behind content ──
+   index.css applies bg-void (#050505) + radial-gradient to body.
+   Without this override, dark body shows through below content. */
+html.brand-charming body {
+  background-color: #F59CB3 !important;
+  background-image: repeating-linear-gradient(
+    90deg,
+    #F59CB3 0px,
+    #F59CB3 40px,
+    #E0859D 40px,
+    #E0859D 50px
+  ) !important;
+}
+
+html.brand-charming .bg-void {
+  background-color: #F59CB3 !important;
+  background-image: none !important;
+}
+
+/* void-gradient background image used on body */
+html.brand-charming .bg-void-gradient,
+html.brand-charming [style*="radial-gradient"] {
+  background-image: none !important;
+}
+
+/* ── 22. NO GLASSMORPHISM — charming is opaque cards on stripes ── */
+html.brand-charming [class*="backdrop-blur"] {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* ── 23. HEADER STRUCTURAL OVERRIDES ── */
+
+/* Remove header border-bottom (stripes flow into content naturally) */
+html.brand-charming .border-t-border\/50 {
+  border-color: transparent !important;
+}
+
+/* Header bg: semi-transparent pink (no blur since section 22) */
+/* Already in section 19: .bg-t-bg/80 → solid pink */
+
+/* Accent gradient overlay (inline style with color-mix) → invisible */
+html.brand-charming .pointer-events-none[style] {
+  opacity: 0 !important;
+}
+
+/* ── 24. STAT TILE PILL STYLE — white bg, 2px border, per reference ── */
+/* Status tiles in HomeScreenDefault use bg-t-bg-elevated/50 + border-t-border.
+   Section 20 makes them opaque cream. Here we add 2px border like reference stat-pills. */
+html.brand-charming .border-t-border {
+  border-width: 2px !important;
+  border-color: #F0F0F0 !important;
+}
+
+/* ── 25. STORY RING GLOW — remove accent glow on light theme ── */
+html.brand-charming [class*="shadow-\[0_0"] {
+  box-shadow: none !important;
+}
+
+/* Story borders: simple border instead of accent glow */
+html.brand-charming .border-t-accent {
+  border-color: var(--t-accent) !important;
+}
+
+/* ── 26. QR PASS CARD — cream card, no internal gradients ── */
+/* The QR pass uses bg-gradient-to-r from-t-bg-elevated to-t-bg-surface.
+   These token values already resolve to cream → warm surface for charming. */
+html.brand-charming .from-t-bg-elevated { --tw-gradient-from: var(--t-bg-elevated) !important; }
+html.brand-charming .to-t-bg-surface { --tw-gradient-to: var(--t-bg-surface) !important; }
+
+/* Internal dark circle on QR chevron arrow → cream bg */
+html.brand-charming .bg-\[rgba\(0\,0\,0\,0\.5\)\] {
+  background-color: var(--t-accent) !important;
+}
+
+/* ── 27. PROMO CARD OVERLAYS — softer gradient on charming ── */
+html.brand-charming .from-black\/80 { --tw-gradient-from: rgba(26, 26, 26, 0.7) !important; }
+html.brand-charming .via-black\/50 { --tw-gradient-via: rgba(26, 26, 26, 0.4) !important; }
+
+/* ── 28. SECTION HEADINGS — dark text inside cards, cream on stripes ── */
+/* h2 inside bg-t-bg-elevated (cards) should be dark, not cream */
+html.brand-charming .bg-t-bg-elevated h2,
+html.brand-charming .bg-t-bg-elevated h3 {
+  color: var(--t-text-primary) !important;
+  text-shadow: none !important;
 }
