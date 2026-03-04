@@ -485,3 +485,101 @@ html.brand-charming .bg-t-bg-elevated h3 {
   color: var(--t-text-primary) !important;
   text-shadow: none !important;
 }
+
+/* h2/h3 inside old-style cards (bg-white/dark:bg-zinc-900) → dark */
+html.brand-charming .bg-white h2,
+html.brand-charming .bg-white h3,
+html.brand-charming .dark\:bg-zinc-900 h2,
+html.brand-charming .dark\:bg-zinc-900 h3 {
+  color: var(--t-text-primary) !important;
+  text-shadow: none !important;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   STRUCTURAL OVERRIDES — make charming feel like the reference
+   Reference: extra-round, no gradients, black CTAs, display fonts
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── 29. EXTRA-ROUND CORNERS — charming uses 24-32px everywhere ── */
+html.brand-charming .rounded-xl {
+  border-radius: 24px !important;
+}
+html.brand-charming .rounded-2xl {
+  border-radius: 28px !important;
+}
+html.brand-charming .rounded-3xl,
+html.brand-charming .rounded-b-3xl {
+  border-radius: 32px !important;
+}
+html.brand-charming .rounded-lg {
+  border-radius: 16px !important;
+}
+
+/* ── 30. CTA BUTTONS — black pill instead of blue/cyan gradient ──
+   Reference: .btn-primary { background: var(--c-black); border-radius: 999px; }
+   Our CTA uses bg-gradient-to-r from-cyan-600 to-blue-600 */
+html.brand-charming .from-cyan-600 {
+  --tw-gradient-from: var(--t-nav-bg) !important;
+  --tw-gradient-stops: var(--t-nav-bg) !important;
+}
+html.brand-charming .to-blue-600 {
+  --tw-gradient-to: var(--t-nav-bg) !important;
+}
+/* Force solid black — override gradient image entirely */
+html.brand-charming .bg-gradient-to-r.from-cyan-600 {
+  background: var(--t-nav-bg) !important;
+}
+
+/* ── 31. FONT-MONO → DISPLAY FONT — charming has no mono anywhere ──
+   Time displays, metrics, etc. use Nunito instead of monospace */
+html.brand-charming .font-mono {
+  font-family: var(--t-font-display) !important;
+  font-weight: 800 !important;
+}
+
+/* ── 32. ACTIVITY CARD TIME COLUMN — colored icon style ──
+   Transform the bg-gray-50/dark:bg-zinc-800 time column into a
+   charming workout-icon: pink bg, white text, bigger radius.
+   In PlanScreen, the time column has min-w-[3.5rem] + rounded-lg */
+html.brand-charming .dark\:bg-zinc-800.rounded-lg {
+  background-color: var(--t-bg-sunken) !important;
+  color: white !important;
+}
+html.brand-charming .dark\:bg-zinc-800.rounded-lg span {
+  color: white !important;
+}
+
+/* ── 33. SECTION SUBHEADINGS — "Расписание" label ── */
+/* These are h3/text elements with text-gray-500 + uppercase — keep dark on light */
+html.brand-charming h3.text-sm,
+html.brand-charming .tracking-widest {
+  color: var(--t-text-secondary) !important;
+  text-shadow: none !important;
+}
+
+/* ── 34. CHART TOOLTIP — cream instead of dark zinc ── */
+/* Recharts tooltips use inline styles — can only partially override */
+
+/* ── 35. PROGRESS BAR — charming accent color (no cyan glow) ── */
+/* The progress bar uses inline boxShadow with hardcoded cyan.
+   Override any inline box-shadow containing cyan */
+html.brand-charming [style*="box-shadow"] {
+  box-shadow: 0 0 10px var(--t-accent) !important;
+}
+
+/* ── 36. TAB SWITCHER — rounder, charming colors ── */
+/* Active tab uses bg-gray-100 dark:bg-zinc-800 — already overridden to surface.
+   Make the tab container itself rounder */
+html.brand-charming .dark\:bg-zinc-900.rounded-xl {
+  border-radius: 24px !important;
+}
+
+/* ── 37. BRAINBLINK BANNER — cream card instead of dark ── */
+/* Uses from-gray-900 to-black — already overridden in section 9.
+   Add cream treatment */
+html.brand-charming .dark\:from-zinc-900.dark\:to-zinc-950 {
+  background: var(--t-bg-elevated) !important;
+}
+html.brand-charming .border-gray-800.dark\:border-zinc-800 {
+  border-color: var(--t-border) !important;
+}
