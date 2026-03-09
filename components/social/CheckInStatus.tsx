@@ -30,7 +30,7 @@ const CheckInStatus: React.FC = () => {
                 {currentUser.isGeofenced && (
                     <div className="flex items-center gap-1 bg-blue-500/10 px-2 py-1 rounded text-xs font-medium text-blue-500 border border-blue-500/20">
                         <Shield className="w-3 h-3" />
-                        <span>Geofence Active</span>
+                        <span>Вы в зоне</span>
                     </div>
                 )}
             </div>
@@ -42,7 +42,7 @@ const CheckInStatus: React.FC = () => {
                         className="w-full py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm font-medium flex items-center justify-center gap-2 transition-colors"
                     >
                         <CheckCircle className="w-4 h-4" />
-                        Check-in (Simulate)
+                        Отметиться
                     </button>
                 ) : (
                     <button
@@ -50,7 +50,7 @@ const CheckInStatus: React.FC = () => {
                         className={`w-full py-2.5 rounded-lg text-sm font-medium flex items-center justify-center gap-2 transition-colors ${isDark ? 'bg-zinc-800 text-zinc-300 hover:bg-zinc-700' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}`}
                     >
                         <LogOut className="w-4 h-4" />
-                        Check-out
+                        Уйти
                     </button>
                 )}
             </div>

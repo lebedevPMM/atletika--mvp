@@ -78,7 +78,7 @@ const SettingsScreen: React.FC<SettingsScreenProps> = ({ onNavigate }) => {
     <div className={`${bgMain} min-h-screen pb-24 transition-colors duration-300`}>
       {/* Header */}
       <div className={`${isDarkMode ? 'bg-zinc-900/80 border-zinc-800' : 'bg-white/80 border-gray-200'} backdrop-blur-md p-4 shadow-sm border-b flex items-center gap-4 sticky top-0 z-10 transition-colors`}>
-        <button onClick={() => onNavigate('profile')} className={`p-2 -ml-2 rounded-full transition-colors ${isDarkMode ? 'hover:bg-zinc-800 text-zinc-300' : 'hover:bg-gray-100 text-gray-700'}`}>
+        <button onClick={() => onNavigate('BACK')} className={`p-2 -ml-2 rounded-full transition-colors ${isDarkMode ? 'hover:bg-zinc-800 text-zinc-300' : 'hover:bg-gray-100 text-gray-700'}`}>
           <ArrowLeft className="w-6 h-6" />
         </button>
         <h1 className={`text-xl font-black italic uppercase tracking-tighter ${textMain}`}>Настройки</h1>

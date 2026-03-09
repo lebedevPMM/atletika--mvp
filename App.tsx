@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { ScreenName } from './types';
 import PlanScreen from './components/PlanScreen';
 import HomeScreen from './components/HomeScreen';
@@ -149,12 +149,23 @@ const App: React.FC = () => {
 
     if (rootTabs.includes(screen)) {
       setHistory([screen]);
+      window.history.replaceState({ screen }, '', '');
       return;
     }
 
     // Default: Push to stack
     setHistory(prev => [...prev, screen]);
+    window.history.pushState({ screen }, '', '');
   };
+
+  // Browser back button support
+  useEffect(() => {
+    const onPopState = () => {
+      setHistory(prev => prev.length > 1 ? prev.slice(0, -1) : prev);
+    };
+    window.addEventListener('popstate', onPopState);
+    return () => window.removeEventListener('popstate', onPopState);
+  }, []);
 
   // Generic Placeholder for screens awaiting implementation
   const GenericScreen = ({ title, module }: { title: string, module: string }) => (

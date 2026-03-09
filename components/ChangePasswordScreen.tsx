@@ -62,7 +62,7 @@ const ChangePasswordScreen: React.FC<ChangePasswordScreenProps> = ({ onNavigate 
   return (
     <div className="bg-white min-h-screen flex flex-col">
       <div className="p-4 shadow-sm flex items-center gap-4">
-        <button onClick={() => onNavigate('settings')} className="p-2 -ml-2 rounded-full hover:bg-gray-100">
+        <button onClick={() => onNavigate('BACK')} className="p-2 -ml-2 rounded-full hover:bg-gray-100">
           <ArrowLeft className="w-6 h-6 text-gray-700" />
         </button>
         <h1 className="text-xl font-bold text-gray-900">Безопасность</h1>

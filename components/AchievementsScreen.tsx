@@ -22,7 +22,7 @@ const AchievementsScreen: React.FC<AchievementsScreenProps> = ({ onNavigate }) =
     <div className="bg-gray-900 min-h-screen text-white pb-20">
       {/* Header */}
       <div className="p-4 flex items-center gap-4 sticky top-0 z-10 bg-gray-900/90 backdrop-blur-sm">
-        <button onClick={() => onNavigate('profile')} className="p-2 -ml-2 rounded-full hover:bg-gray-800">
+        <button onClick={() => onNavigate('BACK')} className="p-2 -ml-2 rounded-full hover:bg-gray-800">
           <ArrowLeft className="w-6 h-6 text-white" />
         </button>
         <h1 className="text-xl font-bold">Достижения</h1>

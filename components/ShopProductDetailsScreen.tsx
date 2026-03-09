@@ -40,7 +40,7 @@ const ShopProductDetailsScreen: React.FC<ShopProductDetailsScreenProps> = ({ onN
            className="w-full h-full object-cover"
          />
          <div className="absolute top-0 left-0 right-0 p-4 flex justify-between items-center z-10">
-            <button onClick={() => onNavigate('service_catalog')} className="w-10 h-10 bg-white/50 backdrop-blur-md rounded-full flex items-center justify-center hover:bg-white transition-colors text-gray-900 shadow-sm">
+            <button onClick={() => onNavigate('BACK')} className="w-10 h-10 bg-white/50 backdrop-blur-md rounded-full flex items-center justify-center hover:bg-white transition-colors text-gray-900 shadow-sm">
               <ArrowLeft className="w-6 h-6" />
             </button>
             <div className="flex gap-3">

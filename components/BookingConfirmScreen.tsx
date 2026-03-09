@@ -61,7 +61,7 @@ const BookingConfirmScreen: React.FC<BookingConfirmScreenProps> = ({ onNavigate 
       {/* Header */}
       <div className="bg-zinc-900/80 backdrop-blur-md p-4 shadow-lg border-b border-zinc-800 flex items-center gap-4 sticky top-0 z-10">
         <button
-          onClick={() => onNavigate('booking_spa_details')} // Back to details
+          onClick={() => onNavigate('BACK')} // Back to details
           className="p-2 -ml-2 rounded-full hover:bg-zinc-800 transition-colors"
         >
           <ArrowLeft className="w-6 h-6 text-zinc-300" />

@@ -126,7 +126,7 @@ const BookingDetailsScreen: React.FC<BookingDetailsScreenProps> = ({ onNavigate,
   const details = type === 'pt' ? ptDetails : groupDetails;
 
   const handleBack = () => {
-    onNavigate('booking_schedule');
+    onNavigate('BACK');
   };
 
   const handleBook = () => {

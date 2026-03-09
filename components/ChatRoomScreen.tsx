@@ -155,7 +155,7 @@ const ChatRoomScreen: React.FC<ChatRoomScreenProps> = ({ onNavigate }) => {
     return (
       <div className="bg-gray-50 min-h-screen flex flex-col">
         <div className="bg-white p-4 shadow-sm flex items-center gap-4 sticky top-0 z-10">
-          <button onClick={() => onNavigate('chat_list')} className="p-2 -ml-2 rounded-full hover:bg-gray-100">
+          <button onClick={() => onNavigate('BACK')} className="p-2 -ml-2 rounded-full hover:bg-gray-100">
             <ArrowLeft className="w-6 h-6 text-gray-700" />
           </button>
           <h1 className="text-xl font-bold text-gray-900">Чат с тренером</h1>
@@ -197,7 +197,7 @@ const ChatRoomScreen: React.FC<ChatRoomScreenProps> = ({ onNavigate }) => {
       {/* Header */}
       <div className="bg-white p-3 shadow-sm flex items-center justify-between sticky top-0 z-20">
         <div className="flex items-center gap-2">
-          <button onClick={() => onNavigate('chat_list')} className="p-2 -ml-2 rounded-full hover:bg-gray-100">
+          <button onClick={() => onNavigate('BACK')} className="p-2 -ml-2 rounded-full hover:bg-gray-100">
             <ArrowLeft className="w-6 h-6 text-gray-700" />
           </button>
 

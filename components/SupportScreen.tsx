@@ -64,7 +64,7 @@ const SupportScreen: React.FC<SupportScreenProps> = ({ onNavigate }) => {
         <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -mr-16 -mt-16"></div>
         <div className="relative z-10">
           <div className="flex items-center gap-4 mb-6">
-            <button onClick={() => onNavigate('profile')} className="p-2 -ml-2 rounded-full hover:bg-white/20 transition-colors">
+            <button onClick={() => onNavigate('BACK')} className="p-2 -ml-2 rounded-full hover:bg-white/20 transition-colors">
               <ArrowLeft className="w-6 h-6 text-white" />
             </button>
             <h1 className="text-xl font-bold">Помощь</h1>

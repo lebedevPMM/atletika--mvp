@@ -39,7 +39,7 @@ const OnlineWorkoutPlayerScreen: React.FC<OnlineWorkoutPlayerScreenProps> = ({ o
          
          {/* Top Controls Overlay */}
          <div className="absolute top-0 left-0 right-0 p-4 flex justify-between items-center z-20 bg-gradient-to-b from-black/60 to-transparent">
-            <button onClick={() => onNavigate('plan')} className="p-2 bg-white/20 backdrop-blur-md rounded-full hover:bg-white/30">
+            <button onClick={() => onNavigate('BACK')} className="p-2 bg-white/20 backdrop-blur-md rounded-full hover:bg-white/30">
               <ArrowLeft className="w-5 h-5" />
             </button>
             <div className="flex gap-4">

@@ -125,7 +125,7 @@ const ClubNewsScreen: React.FC<ClubNewsScreenProps> = ({ onNavigate }) => {
       <div className="bg-zinc-900/80 backdrop-blur-md px-4 pt-4 pb-2 shadow-lg border-b border-zinc-800 sticky top-0 z-20">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-4">
-            <button onClick={() => onNavigate('home')} className="p-2 -ml-2 rounded-full hover:bg-zinc-800 transition-colors">
+            <button onClick={() => onNavigate('BACK')} className="p-2 -ml-2 rounded-full hover:bg-zinc-800 transition-colors">
               <ArrowLeft className="w-6 h-6 text-zinc-300" />
             </button>
             <div>

@@ -90,7 +90,7 @@ const NotificationsScreen: React.FC<NotificationsScreenProps> = ({ onNavigate })
       {/* Header */}
       <div className="bg-zinc-900/80 backdrop-blur-md p-4 shadow-lg border-b border-zinc-800 flex items-center justify-between sticky top-0 z-10">
         <div className="flex items-center gap-4">
-          <button onClick={() => onNavigate('home')} className="p-2 -ml-2 rounded-full hover:bg-zinc-800 transition-colors">
+          <button onClick={() => onNavigate('BACK')} className="p-2 -ml-2 rounded-full hover:bg-zinc-800 transition-colors">
             <ArrowLeft className="w-6 h-6 text-zinc-300" />
           </button>
           <h1 className="text-xl font-black text-white italic uppercase tracking-tighter">Notifications</h1>

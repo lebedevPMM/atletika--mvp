@@ -44,7 +44,7 @@ const PaymentSBPScreen: React.FC<PaymentSBPScreenProps> = ({ onNavigate }) => {
     <div className="bg-gray-50 dark:bg-zinc-950 min-h-screen flex flex-col transition-colors duration-300">
       {/* Header */}
       <div className="bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md p-4 shadow-sm dark:shadow-lg border-b border-gray-100 dark:border-zinc-800 flex items-center gap-4 sticky top-0 z-10 transition-colors">
-        <button onClick={() => onNavigate('payment_methods')} className="p-2 -ml-2 rounded-full hover:bg-gray-100 dark:hover:bg-zinc-800 transition-colors">
+        <button onClick={() => onNavigate('BACK')} className="p-2 -ml-2 rounded-full hover:bg-gray-100 dark:hover:bg-zinc-800 transition-colors">
           <ArrowLeft className="w-6 h-6 text-gray-700 dark:text-zinc-300" />
         </button>
         <h1 className="text-xl font-black text-gray-900 dark:text-white italic uppercase tracking-tighter">Оплата через СБП</h1>

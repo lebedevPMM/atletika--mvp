@@ -68,7 +68,7 @@ const OnboardingApplicationScreen: React.FC<OnboardingApplicationScreenProps> = 
         <div className={`min-h-screen flex flex-col ${isDark ? 'bg-zinc-950 text-white' : 'bg-gray-50 text-gray-900'}`}>
             {/* Header */}
             <div className={`p-4 flex items-center gap-4 border-b ${isDark ? 'border-zinc-800 bg-zinc-900' : 'border-gray-200 bg-white'}`}>
-                <button onClick={() => step === 1 ? onNavigate('community') : setStep(prev => (prev - 1) as any)} className="p-2 -ml-2">
+                <button onClick={() => step === 1 ? onNavigate('BACK') : setStep(prev => (prev - 1) as any)} className="p-2 -ml-2">
                     <ArrowLeft className="w-6 h-6" />
                 </button>
                 <div className="flex-1">

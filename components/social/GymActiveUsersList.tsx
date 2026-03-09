@@ -19,16 +19,16 @@ const GymActiveUsersList: React.FC<GymActiveUsersListProps> = ({ onNavigate }) =
     return (
         <div className="mt-6">
             <div className="flex justify-between items-center mb-3 px-1">
-                <h3 className={`text-base font-semibold ${isDark ? 'text-zinc-100' : 'text-gray-900'}`}>Now at Gym</h3>
+                <h3 className={`text-base font-semibold ${isDark ? 'text-zinc-100' : 'text-gray-900'}`}>Сейчас в зале</h3>
                 <span className={`text-xs px-2 py-0.5 rounded-full ${isDark ? 'bg-zinc-800 text-zinc-400' : 'bg-gray-200 text-gray-600'}`}>
-                    {activeUsers.length} online
+                    {activeUsers.length} онлайн
                 </span>
             </div>
 
             <div className="space-y-3">
                 {activeUsers.length === 0 ? (
                     <div className={`text-center py-8 rounded-xl border border-dashed ${isDark ? 'border-zinc-800 text-zinc-500' : 'border-gray-200 text-gray-400'}`}>
-                        <p className="text-sm">No one here or you use invisible mode</p>
+                        <p className="text-sm">Никого нет или вы в невидимом режиме</p>
                     </div>
                 ) : (
                     activeUsers.map((user) => (
@@ -91,7 +91,7 @@ const UserCard: React.FC<{ user: UserProfile, isDark: boolean, onClick?: () => v
 
             <div className="flex flex-col items-end gap-1">
                 <div className={`px-2 py-0.5 rounded text-[10px] font-bold border uppercase tracking-wider ${isDark ? 'bg-zinc-800 border-zinc-700 text-zinc-300' : 'bg-gray-50 border-gray-200 text-gray-600'}`}>
-                    Lvl {user.stats.level}
+                    Ур. {user.stats.level}
                 </div>
                 {user.musicTrack && (
                     <div className={`max-w-[80px] truncate text-[10px] flex items-center gap-1 ${isDark ? 'text-zinc-500' : 'text-gray-400'}`}>

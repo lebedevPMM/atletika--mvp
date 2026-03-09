@@ -28,7 +28,7 @@ const clientNavItems = [
   },
   {
     name: 'community',
-    label: 'Network',
+    label: 'Клуб',
     icon: Users,
     activeScreens: ['community', 'directory', 'chat_list', 'chat_room', 'social_profile'],
   },

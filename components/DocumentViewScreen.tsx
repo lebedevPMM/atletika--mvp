@@ -29,7 +29,7 @@ const DocumentViewScreen: React.FC<DocumentViewScreenProps> = ({ onNavigate }) =
       {/* Header */}
       <div className="bg-white p-4 shadow-sm flex items-center justify-between sticky top-0 z-10 border-b border-gray-100">
         <div className="flex items-center gap-4">
-          <button onClick={() => onNavigate('docs')} className="p-2 -ml-2 rounded-full hover:bg-gray-100">
+          <button onClick={() => onNavigate('BACK')} className="p-2 -ml-2 rounded-full hover:bg-gray-100">
             <ArrowLeft className="w-6 h-6 text-gray-700" />
           </button>
           <div className="flex flex-col">

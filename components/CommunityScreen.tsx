@@ -36,7 +36,7 @@ const CommunityScreen: React.FC<CommunityScreenProps> = ({ onNavigate }) => {
                 <h1
                     className="text-2xl font-black uppercase italic tracking-tighter mb-4"
                 >
-                    Network
+                    Клуб
                 </h1>
 
                 {/* Tabs */}
@@ -50,28 +50,28 @@ const CommunityScreen: React.FC<CommunityScreenProps> = ({ onNavigate }) => {
                     >
                         <span className={activeTab === 'active' ? (isDark ? 'bg-zinc-800 text-white shadow-sm' : 'bg-white text-black shadow-sm') : 'text-gray-400'}></span>
                         <Users className="w-4 h-4" />
-                        Gym
+                        Зал
                     </button>
                     <button
                         onClick={() => setActiveTab('requests')}
                         className="flex-1 flex items-center justify-center gap-2 py-2 rounded-lg text-xs font-bold transition-all"
                     >
                         <Briefcase className="w-4 h-4" />
-                        Requests
+                        Запросы
                     </button>
                     <button
                         onClick={() => setActiveTab('events')}
                         className="flex-1 flex items-center justify-center gap-2 py-2 rounded-lg text-xs font-bold transition-all"
                     >
                         <Calendar className="w-4 h-4" />
-                        Events
+                        События
                     </button>
                     <button
                         onClick={() => setActiveTab('chats')}
                         className="flex-1 flex items-center justify-center gap-2 py-2 rounded-lg text-xs font-bold transition-all"
                     >
                         <MessageCircle className="w-4 h-4" />
-                        Chats
+                        Чаты
                     </button>
                 </div>
             </div>

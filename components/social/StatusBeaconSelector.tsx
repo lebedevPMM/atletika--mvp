@@ -11,9 +11,9 @@ const StatusBeaconSelector: React.FC = () => {
     if (!currentUser || !currentUser.isGeofenced) return null;
 
     const statuses: { id: SocialStatus, label: string, color: string, ring: string }[] = [
-        { id: 'green', label: 'Looking for Partner', color: 'bg-green-500', ring: 'ring-green-500/30' },
-        { id: 'yellow', label: 'Open to Chat', color: 'bg-yellow-500', ring: 'ring-yellow-500/30' },
-        { id: 'red', label: 'In the Zone (DND)', color: 'bg-red-500', ring: 'ring-red-500/30' },
+        { id: 'green', label: 'Ищу партнёра', color: 'bg-green-500', ring: 'ring-green-500/30' },
+        { id: 'yellow', label: 'Открыт к общению', color: 'bg-yellow-500', ring: 'ring-yellow-500/30' },
+        { id: 'red', label: 'В зоне (не беспокоить)', color: 'bg-red-500', ring: 'ring-red-500/30' },
     ];
 
     return (

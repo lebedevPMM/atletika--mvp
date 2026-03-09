@@ -27,15 +27,15 @@ const RaidBossWidget: React.FC = () => {
                             <div className="bg-red-500/20 text-red-500 p-1.5 rounded-lg">
                                 <Swords className="w-4 h-4" />
                             </div>
-                            <span className="text-xs font-bold uppercase tracking-wider text-red-500">Club Raid Boss</span>
+                            <span className="text-xs font-bold uppercase tracking-wider text-red-500">Рейд-босс клуба</span>
                         </div>
                         <h3 className="text-xl font-bold text-white">{raidBoss.name}</h3>
-                        <div className="text-xs text-zinc-400 mt-1">Lvl {raidBoss.level} • {raidBoss.rewards[0]}</div>
+                        <div className="text-xs text-zinc-400 mt-1">Ур. {raidBoss.level} • {raidBoss.rewards[0]}</div>
                     </div>
                     <div className="text-right">
                         <div className="text-2xl font-bold font-mono text-white">
                             {(raidBoss.currentHp / 1000).toFixed(0)}k
-                            <span className="text-sm text-zinc-500 font-normal ml-1">HP</span>
+                            <span className="text-sm text-zinc-500 font-normal ml-1">ОЗ</span>
                         </div>
                     </div>
                 </div>
@@ -49,7 +49,7 @@ const RaidBossWidget: React.FC = () => {
                 </div>
 
                 <div className="flex justify-between items-center text-xs text-zinc-400">
-                    <span>Today's Activity Damage</span>
+                    <span>Урон за сегодня</span>
                     <span className="text-white font-medium">-{100 - hpPercentage}%</span>
                 </div>
 
@@ -58,7 +58,7 @@ const RaidBossWidget: React.FC = () => {
                     <div className="mt-4 pt-4 border-t border-white/10 flex items-center justify-between">
                         <div className="flex items-center gap-2">
                             <Trophy className="w-4 h-4 text-yellow-500" />
-                            <span className="text-zinc-300">Your Reputation:</span>
+                            <span className="text-zinc-300">Ваша репутация:</span>
                         </div>
                         <span className="font-mono text-yellow-400 font-bold">
                             {currentUser.stats.reputation.toLocaleString()}

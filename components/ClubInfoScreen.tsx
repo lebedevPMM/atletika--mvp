@@ -127,7 +127,7 @@ const ClubInfoScreen: React.FC<ClubInfoScreenProps> = ({ onNavigate, initialTab 
     if (activeTab !== 'info') {
       setActiveTab('info');
     } else {
-      onNavigate('home');
+      onNavigate('BACK');
     }
   };
 
@@ -474,7 +474,7 @@ const ClubInfoScreen: React.FC<ClubInfoScreenProps> = ({ onNavigate, initialTab 
         <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/20 to-black/40"></div>
 
         <div className="absolute top-0 left-0 right-0 p-4 flex justify-between items-center z-10 safe-area-top">
-          <button onClick={() => onNavigate('home')} className="w-10 h-10 bg-black/40 backdrop-blur-md rounded-full flex items-center justify-center text-white border border-white/10 hover:bg-black/60 transition-colors">
+          <button onClick={() => onNavigate('BACK')} className="w-10 h-10 bg-black/40 backdrop-blur-md rounded-full flex items-center justify-center text-white border border-white/10 hover:bg-black/60 transition-colors">
             <ArrowLeft className="w-6 h-6" />
           </button>
           <button className="w-10 h-10 bg-black/40 backdrop-blur-md rounded-full flex items-center justify-center text-white border border-white/10 hover:bg-black/60 transition-colors">

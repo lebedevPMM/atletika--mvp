@@ -114,7 +114,7 @@ export const HomeScreenDefault: React.FC<HomeScreenDefaultProps> = ({ onNavigate
                                 <span className="text-xl font-light">+</span>
                             </div>
                         </div>
-                        <span className="text-[10px] font-medium text-t-text-muted uppercase tracking-wider">Создать</span>
+                        <span className="text-[10px] font-medium text-t-text-muted tracking-wider">+</span>
                     </div>
 
                     {data.stories.map((story) => (
@@ -253,7 +253,7 @@ export const HomeScreenDefault: React.FC<HomeScreenDefaultProps> = ({ onNavigate
                         </div>
                         <div className="text-left overflow-hidden">
                             <p className="text-xs font-bold truncate text-t-text">
-                                {data.services ? `Ост: ${data.services.left}` : 'Пусто'}
+                                {data.services ? `Осталось: ${data.services.left}` : 'Пусто'}
                             </p>
                             <p className="text-[10px] uppercase tracking-wider text-t-text-muted">Пакеты услуг</p>
                         </div>

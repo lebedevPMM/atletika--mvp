@@ -177,7 +177,7 @@ const NewsDetailScreen: React.FC<NewsDetailScreenProps> = ({ onNavigate }) => {
     return (
       <div className="bg-zinc-950 min-h-screen flex flex-col">
         <div className="p-4">
-          <button onClick={() => onNavigate('club_news')} className="p-2 -ml-2 rounded-full hover:bg-zinc-900 w-fit">
+          <button onClick={() => onNavigate('BACK')} className="p-2 -ml-2 rounded-full hover:bg-zinc-900 w-fit">
             <ArrowLeft className="w-6 h-6 text-zinc-300" />
           </button>
         </div>
@@ -224,7 +224,7 @@ const NewsDetailScreen: React.FC<NewsDetailScreenProps> = ({ onNavigate }) => {
       {/* Navbar (Fixed & Transparent initially, but simplified for MVP) */}
       <div className="fixed top-0 left-0 right-0 p-4 flex justify-between items-center z-20 pointer-events-none safe-area-top">
         <button
-          onClick={() => onNavigate('club_news')}
+          onClick={() => onNavigate('BACK')}
           className="w-10 h-10 bg-black/40 backdrop-blur-md border border-white/10 rounded-full flex items-center justify-center pointer-events-auto hover:bg-black/60 transition-colors text-white"
         >
           <ArrowLeft className="w-6 h-6" />

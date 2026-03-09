@@ -41,7 +41,7 @@ const TrainerExerciseLibraryScreen: React.FC<TrainerExerciseLibraryScreenProps> 
       {/* Header */}
       <div className="bg-white p-4 shadow-sm sticky top-0 z-10">
         <div className="flex items-center gap-4 mb-4">
-          <button onClick={() => onNavigate('trainer_client_plan')} className="p-2 -ml-2 rounded-full hover:bg-gray-100">
+          <button onClick={() => onNavigate('BACK')} className="p-2 -ml-2 rounded-full hover:bg-gray-100">
             <ArrowLeft className="w-6 h-6 text-gray-700" />
           </button>
           <h1 className="text-xl font-bold text-gray-900">Библиотека</h1>

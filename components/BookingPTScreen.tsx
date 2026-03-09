@@ -86,7 +86,7 @@ const BookingPTScreen: React.FC<BookingPTScreenProps> = ({ onNavigate }) => {
             <div className="bg-white shadow-sm sticky top-0 z-20">
                 <div className="px-4 py-3 flex items-center justify-between">
                     <div className="flex items-center gap-4">
-                        <button onClick={() => onNavigate('booking_schedule')} className="p-2 -ml-2 rounded-full hover:bg-gray-100">
+                        <button onClick={() => onNavigate('BACK')} className="p-2 -ml-2 rounded-full hover:bg-gray-100">
                             <ArrowLeft className="w-6 h-6 text-gray-700" />
                         </button>
                         <div>

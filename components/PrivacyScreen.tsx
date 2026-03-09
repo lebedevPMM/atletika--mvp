@@ -71,7 +71,7 @@ const PrivacyScreen: React.FC<PrivacyScreenProps> = ({ onNavigate }) => {
             {/* Header */}
             <div className="bg-white px-4 py-3 shadow-sm flex items-center gap-4 sticky top-0 z-10 safe-area-top">
                 <button
-                    onClick={() => onNavigate('settings')}
+                    onClick={() => onNavigate('BACK')}
                     className="p-2 -ml-2 rounded-full hover:bg-gray-100 transition-colors"
                 >
                     <ArrowLeft className="w-6 h-6 text-gray-900" />

@@ -10,8 +10,9 @@ import { useTheme } from './ThemeContext';
 const ThemeSwitcher: React.FC = () => {
     const { cycleBrandTheme, brandTheme, availableThemes } = useTheme();
 
-    // Hide if only one theme available
-    if (availableThemes.length <= 1) return null;
+    // Hide if only one theme available, or if not in debug mode
+    const isDebug = typeof window !== 'undefined' && new URLSearchParams(window.location.search).has('debug');
+    if (availableThemes.length <= 1 || !isDebug) return null;
 
     return (
         <button

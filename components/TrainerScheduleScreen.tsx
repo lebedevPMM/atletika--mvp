@@ -97,7 +97,7 @@ const TrainerScheduleScreen: React.FC<TrainerScheduleScreenProps> = ({ onNavigat
       <div className="bg-white shadow-sm sticky top-0 z-20">
         <div className="p-4 flex items-center justify-between pb-2">
           <div className="flex items-center gap-3">
-            <button onClick={() => onNavigate('trainer_home')} className="p-2 -ml-2 rounded-full hover:bg-gray-100">
+            <button onClick={() => onNavigate('BACK')} className="p-2 -ml-2 rounded-full hover:bg-gray-100">
               <ArrowLeft className="w-6 h-6 text-gray-700" />
             </button>
             <h1 className="text-xl font-bold text-gray-900">Расписание</h1>
