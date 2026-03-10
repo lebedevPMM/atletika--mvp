@@ -41,7 +41,7 @@ const ProfileEditScreen: React.FC<ProfileEditScreenProps> = ({ onNavigate }) => 
       {isOffline && (
         <div className="bg-red-500/20 text-red-700 dark:text-red-200 px-4 py-3 flex items-center gap-3 text-sm font-bold sticky top-0 z-20 border-b border-red-500/20 backdrop-blur-md">
           <WifiOff className="w-4 h-4" />
-          <span className="opacity-90">No connection. Saving unavailable.</span>
+          <span className="opacity-90">Нет соединения. Сохранение недоступно.</span>
         </div>
       )}
 
@@ -51,7 +51,7 @@ const ProfileEditScreen: React.FC<ProfileEditScreenProps> = ({ onNavigate }) => 
           <button onClick={() => onNavigate('BACK')} className="p-2 -ml-2 rounded-full hover:bg-gray-100 dark:hover:bg-zinc-800 transition-colors">
             <ArrowLeft className="w-6 h-6 text-gray-700 dark:text-zinc-300" />
           </button>
-          <h1 className="text-xl font-black text-gray-900 dark:text-white italic uppercase tracking-tighter">Edit Profile</h1>
+          <h1 className="text-xl font-black text-gray-900 dark:text-white italic uppercase tracking-tighter">Редактировать</h1>
         </div>
         <button
           onClick={handleSave}
@@ -59,7 +59,7 @@ const ProfileEditScreen: React.FC<ProfileEditScreenProps> = ({ onNavigate }) => 
           className="text-cyan-600 dark:text-cyan-500 font-bold text-sm flex items-center gap-1 bg-cyan-50 dark:bg-cyan-950/30 border border-cyan-200 dark:border-cyan-900/50 px-3 py-1.5 rounded-lg hover:bg-cyan-100 dark:hover:bg-cyan-900/50 transition-colors disabled:opacity-50"
         >
           {isSaving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
-          {isSaving ? 'Saving...' : 'Done'}
+          {isSaving ? 'Сохранение...' : 'Готово'}
         </button>
       </div>
 
@@ -77,16 +77,16 @@ const ProfileEditScreen: React.FC<ProfileEditScreenProps> = ({ onNavigate }) => 
               <Camera className="w-5 h-5" />
             </button>
           </div>
-          <p className="text-xs text-cyan-600 dark:text-cyan-500 font-bold mt-3 uppercase tracking-wide">Change Photo</p>
+          <p className="text-xs text-cyan-600 dark:text-cyan-500 font-bold mt-3 uppercase tracking-wide">Изменить фото</p>
         </div>
 
         {/* Form Fields */}
         <div className="space-y-4">
           {/* Personal Info */}
-          <h2 className="text-xs font-bold text-gray-500 dark:text-zinc-500 uppercase ml-2 tracking-wider">Personal Data</h2>
+          <h2 className="text-xs font-bold text-gray-500 dark:text-zinc-500 uppercase ml-2 tracking-wider">Личные данные</h2>
 
           <div className="bg-white dark:bg-zinc-900 p-2 rounded-2xl border border-gray-200 dark:border-zinc-800 shadow-sm focus-within:border-cyan-500/50 transition-colors">
-            <label className="text-[10px] font-bold text-gray-400 dark:text-zinc-500 uppercase ml-3 mt-1 block">Full Name</label>
+            <label className="text-[10px] font-bold text-gray-400 dark:text-zinc-500 uppercase ml-3 mt-1 block">ФИО</label>
             <div className="flex items-center gap-3 px-3 pb-2">
               <User className="w-5 h-5 text-gray-400 dark:text-zinc-600" />
               <input
@@ -99,7 +99,7 @@ const ProfileEditScreen: React.FC<ProfileEditScreenProps> = ({ onNavigate }) => 
           </div>
 
           <div className="bg-white dark:bg-zinc-900 p-2 rounded-2xl border border-gray-200 dark:border-zinc-800 shadow-sm focus-within:border-cyan-500/50 transition-colors">
-            <label className="text-[10px] font-bold text-gray-400 dark:text-zinc-500 uppercase ml-3 mt-1 block">Date of Birth</label>
+            <label className="text-[10px] font-bold text-gray-400 dark:text-zinc-500 uppercase ml-3 mt-1 block">Дата рождения</label>
             <div className="flex items-center gap-3 px-3 pb-2">
               <Calendar className="w-5 h-5 text-gray-400 dark:text-zinc-600" />
               <input
@@ -112,10 +112,10 @@ const ProfileEditScreen: React.FC<ProfileEditScreenProps> = ({ onNavigate }) => 
           </div>
 
           {/* Contact Info */}
-          <h2 className="text-xs font-bold text-gray-500 dark:text-zinc-500 uppercase ml-2 mt-6 tracking-wider">Contacts</h2>
+          <h2 className="text-xs font-bold text-gray-500 dark:text-zinc-500 uppercase ml-2 mt-6 tracking-wider">Контакты</h2>
 
           <div className="bg-white dark:bg-zinc-900 p-2 rounded-2xl border border-gray-200 dark:border-zinc-800 shadow-sm">
-            <label className="text-[10px] font-bold text-gray-400 dark:text-zinc-500 uppercase ml-3 mt-1 block">Phone</label>
+            <label className="text-[10px] font-bold text-gray-400 dark:text-zinc-500 uppercase ml-3 mt-1 block">Телефон</label>
             <div className="flex items-center gap-3 px-3 pb-2">
               <Phone className="w-5 h-5 text-gray-400 dark:text-zinc-600" />
               <input
@@ -125,16 +125,16 @@ const ProfileEditScreen: React.FC<ProfileEditScreenProps> = ({ onNavigate }) => 
                 className="flex-1 font-bold text-gray-500 dark:text-zinc-500 text-base focus:outline-none bg-transparent cursor-not-allowed"
               />
               <button
-                onClick={() => alert('Phone change available via SMS confirmation (MVP2)')}
+                onClick={() => alert('Смена телефона доступна через SMS-подтверждение (MVP2)')}
                 className="text-cyan-600 dark:text-cyan-500 font-bold text-xs bg-cyan-50 dark:bg-cyan-950/30 border border-cyan-100 dark:border-cyan-900/30 px-2 py-1 rounded-md hover:bg-cyan-100 dark:hover:bg-cyan-900/50"
               >
-                Change
+                Изменить
               </button>
             </div>
           </div>
 
           <div className="bg-white dark:bg-zinc-900 p-2 rounded-2xl border border-gray-200 dark:border-zinc-800 shadow-sm focus-within:border-cyan-500/50 transition-colors">
-            <label className="text-[10px] font-bold text-gray-400 dark:text-zinc-500 uppercase ml-3 mt-1 block">Email</label>
+            <label className="text-[10px] font-bold text-gray-400 dark:text-zinc-500 uppercase ml-3 mt-1 block">Эл. почта</label>
             <div className="flex items-center gap-3 px-3 pb-2">
               <Mail className="w-5 h-5 text-gray-400 dark:text-zinc-600" />
               <input
@@ -147,10 +147,10 @@ const ProfileEditScreen: React.FC<ProfileEditScreenProps> = ({ onNavigate }) => 
           </div>
 
           {/* Emergency Contact */}
-          <h2 className="text-xs font-bold text-gray-500 dark:text-zinc-500 uppercase ml-2 mt-6 tracking-wider">Safety</h2>
+          <h2 className="text-xs font-bold text-gray-500 dark:text-zinc-500 uppercase ml-2 mt-6 tracking-wider">Безопасность</h2>
 
           <div className="bg-red-50 dark:bg-red-950/10 p-2 rounded-2xl border border-red-100 dark:border-red-900/30 shadow-sm focus-within:border-red-500/50 transition-colors">
-            <label className="text-[10px] font-bold text-red-600/70 dark:text-red-400/70 uppercase ml-3 mt-1 block">Emergency Contact</label>
+            <label className="text-[10px] font-bold text-red-600/70 dark:text-red-400/70 uppercase ml-3 mt-1 block">Экстренный контакт</label>
             <div className="flex items-center gap-3 px-3 pb-2">
               <Heart className="w-5 h-5 text-red-500/70" />
               <input
@@ -164,7 +164,7 @@ const ProfileEditScreen: React.FC<ProfileEditScreenProps> = ({ onNavigate }) => 
           </div>
 
           {/* Privacy & Consents Link */}
-          <h2 className="text-xs font-bold text-gray-500 dark:text-zinc-500 uppercase ml-2 mt-6 tracking-wider">Privacy</h2>
+          <h2 className="text-xs font-bold text-gray-500 dark:text-zinc-500 uppercase ml-2 mt-6 tracking-wider">Конфиденциальность</h2>
 
           <button
             onClick={() => onNavigate('privacy_settings')}
@@ -175,18 +175,18 @@ const ProfileEditScreen: React.FC<ProfileEditScreenProps> = ({ onNavigate }) => 
                 <Shield className="w-5 h-5" />
               </div>
               <div className="text-left">
-                <h3 className="font-bold text-gray-900 dark:text-white text-sm">Data Management</h3>
-                <p className="text-xs text-gray-500 dark:text-zinc-500 mt-0.5">Consents, mailings & deletion</p>
+                <h3 className="font-bold text-gray-900 dark:text-white text-sm">Управление данными</h3>
+                <p className="text-xs text-gray-500 dark:text-zinc-500 mt-0.5">Согласия, рассылки и удаление</p>
               </div>
             </div>
             <div className="bg-gray-100 dark:bg-zinc-800 px-2 py-1 rounded text-xs font-medium text-gray-500 dark:text-zinc-400 border border-gray-200 dark:border-zinc-700">
-              Configure
+              Настроить
             </div>
           </button>
         </div>
 
         <p className="text-xs text-gray-500 dark:text-zinc-600 text-center mt-8 px-8 leading-relaxed mb-4">
-          By tapping "Done", you agree to the processing of updated personal data.
+          Нажимая «Готово», вы соглашаетесь на обработку обновлённых персональных данных.
         </p>
       </div>
 
@@ -197,7 +197,7 @@ const ProfileEditScreen: React.FC<ProfileEditScreenProps> = ({ onNavigate }) => 
             <div className="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mb-4 text-green-500 border border-green-500/30">
               <CheckCircle2 className="w-8 h-8" />
             </div>
-            <h3 className="text-lg font-bold text-gray-900 dark:text-white">Saved!</h3>
+            <h3 className="text-lg font-bold text-gray-900 dark:text-white">Сохранено!</h3>
           </div>
         </div>
       )}

@@ -19,6 +19,7 @@ import {
   Flame,
   Sparkles
 } from 'lucide-react';
+import Button from './ui/Button';
 
 interface BookingScreenProps {
   onNavigate: (screen: ScreenName) => void;
@@ -587,12 +588,12 @@ const BookingScreen: React.FC<BookingScreenProps> = ({ onNavigate }) => {
                 Попробуйте выбрать другую дату или тренера.
               </p>
               <div className="flex gap-2">
-                <button onClick={() => setSelectedDate(selectedDate + 1)} className="text-sm font-bold text-white dark:text-cyan-950 bg-cyan-600 dark:bg-cyan-500 px-4 py-2 rounded-xl hover:bg-cyan-500 dark:hover:bg-cyan-400 transition-colors">
+                <Button onClick={() => setSelectedDate(selectedDate + 1)} size="sm">
                   Следующий день
-                </button>
-                <button onClick={() => { setSelectedPtTrainer('any'); setSelectedPtService('pt60'); }} className="text-sm font-bold text-gray-700 dark:text-zinc-300 bg-gray-200 dark:bg-zinc-800 px-4 py-2 rounded-xl hover:bg-gray-300 dark:hover:bg-zinc-700">
+                </Button>
+                <Button onClick={() => { setSelectedPtTrainer('any'); setSelectedPtService('pt60'); }} variant="secondary" size="sm">
                   Сбросить
-                </button>
+                </Button>
               </div>
             </div>
           )

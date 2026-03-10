@@ -37,14 +37,14 @@ const DirectoryScreen: React.FC<DirectoryScreenProps> = ({ onNavigate }) => {
         <div className={`min-h-screen ${isDark ? 'bg-zinc-950 text-white' : 'bg-gray-50 text-gray-900'} pb-24`}>
             {/* Header */}
             <div className={`p-4 sticky top-0 z-10 ${isDark ? 'bg-zinc-950/90' : 'bg-white/90'} backdrop-blur-md border-b ${isDark ? 'border-zinc-800' : 'border-gray-200'}`}>
-                <h1 className="text-2xl font-black uppercase italic tracking-tighter mb-4">Directory</h1>
+                <h1 className="text-2xl font-black uppercase italic tracking-tighter mb-4">Каталог</h1>
 
                 {/* Search Bar */}
                 <div className="relative mb-4">
                     <Search className={`absolute left-4 top-3.5 w-5 h-5 ${isDark ? 'text-zinc-500' : 'text-gray-400'}`} />
                     <input
                         type="text"
-                        placeholder="Search people, companies, interests..."
+                        placeholder="Поиск по людям, компаниям, интересам..."
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                         className={`w-full py-3pl-12 pr-4 rounded-xl text-sm font-medium focus:outline-none focus:ring-2 focus:ring-cyan-500 ${isDark ? 'bg-zinc-900 border-zinc-800 placeholder-zinc-600' : 'bg-gray-100 border-gray-200 placeholder-gray-400'}`}

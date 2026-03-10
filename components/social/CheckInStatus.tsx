@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSocial } from './SocialContext';
 import { MapPin, LogOut, CheckCircle, Shield } from 'lucide-react';
 import { useTheme } from '../ThemeContext';
+import ConfirmDialog from '../ui/ConfirmDialog';
 
 const CheckInStatus: React.FC = () => {
     const { currentUser, checkIn, checkOut } = useSocial();
     const { theme } = useTheme();
     const isDark = theme === 'dark';
+    const [showCheckOutConfirm, setShowCheckOutConfirm] = useState(false);
 
     if (!currentUser) return null;
 
@@ -46,7 +48,7 @@ const CheckInStatus: React.FC = () => {
                     </button>
                 ) : (
                     <button
-                        onClick={checkOut}
+                        onClick={() => setShowCheckOutConfirm(true)}
                         className={`w-full py-2.5 rounded-lg text-sm font-medium flex items-center justify-center gap-2 transition-colors ${isDark ? 'bg-zinc-800 text-zinc-300 hover:bg-zinc-700' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}`}
                     >
                         <LogOut className="w-4 h-4" />
@@ -58,6 +60,16 @@ const CheckInStatus: React.FC = () => {
             <p className={`mt-3 text-[10px] text-center ${isDark ? 'text-zinc-500' : 'text-gray-400'}`}>
                 Данные удаляются автоматически при выходе из зоны (100м)
             </p>
+
+            <ConfirmDialog
+                open={showCheckOutConfirm}
+                title="Уйти из зала?"
+                message="Ваш профиль станет невидимым для других участников клуба."
+                confirmLabel="Уйти"
+                cancelLabel="Остаться"
+                onConfirm={() => { checkOut(); setShowCheckOutConfirm(false); }}
+                onCancel={() => setShowCheckOutConfirm(false)}
+            />
         </div>
     );
 };

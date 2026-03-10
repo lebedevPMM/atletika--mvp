@@ -19,8 +19,8 @@ const SocialProfileScreen: React.FC<SocialProfileScreenProps> = ({ onNavigate, u
     if (!targetUser) {
         return (
             <div className="flex items-center justify-center h-screen">
-                <p>User not found</p>
-                <button onClick={() => onNavigate('BACK')}>Back</button>
+                <p>Пользователь не найден</p>
+                <button onClick={() => onNavigate('BACK')}>Назад</button>
             </div>
         )
     }
@@ -34,7 +34,7 @@ const SocialProfileScreen: React.FC<SocialProfileScreenProps> = ({ onNavigate, u
                 <button onClick={() => onNavigate('BACK')} className={`p-2 rounded-full ${isDark ? 'hover:bg-zinc-800' : 'hover:bg-gray-200'}`}>
                     <ArrowLeft className="w-6 h-6" />
                 </button>
-                <h1 className="text-lg font-bold">Profile</h1>
+                <h1 className="text-lg font-bold">Профиль</h1>
             </div>
 
             <div className="flex flex-col items-center pt-4 pb-8 px-6">
@@ -64,13 +64,13 @@ const SocialProfileScreen: React.FC<SocialProfileScreenProps> = ({ onNavigate, u
                         <div className="p-2 bg-blue-500/10 rounded-lg text-blue-500">
                             <Briefcase className="w-5 h-5" />
                         </div>
-                        <h3 className="text-sm font-black uppercase tracking-wider opacity-70">Business DNA</h3>
+                        <h3 className="text-sm font-black uppercase tracking-wider opacity-70">Бизнес-профиль</h3>
                     </div>
 
                     {isBusinessVisible ? (
                         <div className="space-y-4 relative z-10">
                             <div>
-                                <p className="text-xs opacity-50 uppercase tracking-widest mb-1">Company</p>
+                                <p className="text-xs opacity-50 uppercase tracking-widest mb-1">Компания</p>
                                 <div className="font-bold text-lg flex items-center gap-2">
                                     <Building2 className="w-4 h-4 opacity-50" />
                                     {targetUser.business.companyName}
@@ -80,19 +80,19 @@ const SocialProfileScreen: React.FC<SocialProfileScreenProps> = ({ onNavigate, u
 
                             <div className="grid grid-cols-2 gap-4">
                                 <div>
-                                    <p className="text-xs opacity-50 uppercase tracking-widest mb-1">Industry</p>
+                                    <p className="text-xs opacity-50 uppercase tracking-widest mb-1">Отрасль</p>
                                     <p className="font-medium">{targetUser.business.industry}</p>
                                 </div>
                                 {targetUser.privacy.showRevenue && (
                                     <div>
-                                        <p className="text-xs opacity-50 uppercase tracking-widest mb-1">Revenue</p>
+                                        <p className="text-xs opacity-50 uppercase tracking-widest mb-1">Выручка</p>
                                         <p className="font-medium text-green-500">{targetUser.business.revenueRange}</p>
                                     </div>
                                 )}
                             </div>
 
                             <div>
-                                <p className="text-xs opacity-50 uppercase tracking-widest mb-2">Expertise</p>
+                                <p className="text-xs opacity-50 uppercase tracking-widest mb-2">Экспертиза</p>
                                 <div className="flex flex-wrap gap-2">
                                     {targetUser.business.expertise.map(tag => (
                                         <span key={tag} className={`px-2 py-1 rounded-lg text-xs font-medium border ${isDark ? 'border-zinc-700 bg-zinc-800/50' : 'border-gray-200 bg-gray-50'}`}>
@@ -104,7 +104,7 @@ const SocialProfileScreen: React.FC<SocialProfileScreenProps> = ({ onNavigate, u
                         </div>
                     ) : (
                         <div className="text-center py-4 opacity-50 italic">
-                            Information hidden by user
+                            Информация скрыта пользователем
                         </div>
                     )}
                 </div>
@@ -117,13 +117,13 @@ const SocialProfileScreen: React.FC<SocialProfileScreenProps> = ({ onNavigate, u
                         <div className="p-2 bg-orange-500/10 rounded-lg text-orange-500">
                             <Dumbbell className="w-5 h-5" />
                         </div>
-                        <h3 className="text-sm font-black uppercase tracking-wider opacity-70">Sport DNA</h3>
+                        <h3 className="text-sm font-black uppercase tracking-wider opacity-70">Спорт-профиль</h3>
                     </div>
 
                     <div className="space-y-4 relative z-10">
                         <div className="flex items-center justify-between">
                             <div>
-                                <p className="text-xs opacity-50 uppercase tracking-widest mb-1">Main Sports</p>
+                                <p className="text-xs opacity-50 uppercase tracking-widest mb-1">Основные виды спорта</p>
                                 <div className="font-bold text-lg">{targetUser.sports.mainSports.join(', ')}</div>
                             </div>
                             <div className={`px-3 py-1 rounded-lg text-xs font-bold uppercase ${targetUser.sports.level === 'pro' ? 'bg-purple-500 text-white' : 'bg-gray-200 text-gray-700 dark:bg-zinc-800 dark:text-gray-300'}`}>
@@ -133,7 +133,7 @@ const SocialProfileScreen: React.FC<SocialProfileScreenProps> = ({ onNavigate, u
 
                         {targetUser.sports.achievements.length > 0 && (
                             <div>
-                                <p className="text-xs opacity-50 uppercase tracking-widest mb-2">Achievements</p>
+                                <p className="text-xs opacity-50 uppercase tracking-widest mb-2">Достижения</p>
                                 <div className="space-y-2">
                                     {targetUser.sports.achievements.map(ach => (
                                         <div key={ach} className="flex items-center gap-2 text-sm">
@@ -151,15 +151,15 @@ const SocialProfileScreen: React.FC<SocialProfileScreenProps> = ({ onNavigate, u
                 <div className="grid grid-cols-2 gap-3 w-full">
                     <button className="flex flex-col items-center justify-center gap-2 p-4 rounded-2xl bg-cyan-600 text-white font-bold active:scale-95 transition-transform shadow-lg shadow-cyan-500/30">
                         <Hand className="w-6 h-6" />
-                        High Five
+                        Дать пять
                     </button>
                     <button className={`flex flex-col items-center justify-center gap-2 p-4 rounded-2xl font-bold active:scale-95 transition-transform ${isDark ? 'bg-zinc-800 hover:bg-zinc-700' : 'bg-white shadow-sm hover:bg-gray-50'}`}>
                         <Zap className="w-6 h-6 text-yellow-500" />
-                        Request Spot
+                        Запросить место
                     </button>
                     <button className={`col-span-2 flex items-center justify-center gap-2 p-4 rounded-2xl font-bold active:scale-95 transition-transform ${isDark ? 'bg-zinc-800 hover:bg-zinc-700' : 'bg-white shadow-sm hover:bg-gray-50'}`}>
                         <MessageSquare className="w-5 h-5" />
-                        Connect / Message
+                        Написать
                     </button>
                 </div>
             </div>

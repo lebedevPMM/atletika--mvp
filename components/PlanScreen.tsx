@@ -18,6 +18,7 @@ import {
   Zap,
   Play
 } from 'lucide-react';
+import Button from './ui/Button';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 interface PlanScreenProps {
@@ -58,13 +59,9 @@ const PlanScreen: React.FC<PlanScreenProps> = ({ onNavigate }) => {
         <p className="text-gray-500 dark:text-zinc-500 mb-8 max-w-xs text-sm">
           Ваш тренер еще не назначил программу тренировок.
         </p>
-        <button
-          onClick={() => onNavigate('chat_list')}
-          className="bg-cyan-600 text-white px-6 py-3 rounded-xl font-bold shadow-lg shadow-cyan-500/20 active:scale-[0.98] transition-transform flex items-center gap-2 hover:bg-cyan-500"
-        >
-          <MessageCircle className="w-5 h-5" />
+        <Button onClick={() => onNavigate('chat_list')} icon={MessageCircle} size="lg">
           Написать тренеру
-        </button>
+        </Button>
       </div>
     );
   }
@@ -278,29 +275,6 @@ const PlanScreen: React.FC<PlanScreenProps> = ({ onNavigate }) => {
                   <p className="text-sm font-bold">На сессию</p>
                 </div>
               </button>
-            </div>
-
-            {/* BrainBlink Banner */}
-            <div
-              onClick={() => onNavigate('brain_blink_game')}
-              className="mb-6 bg-gradient-to-r from-gray-900 to-black dark:from-zinc-900 dark:to-zinc-950 p-4 rounded-xl shadow-lg relative overflow-hidden cursor-pointer active:scale-[0.98] transition-all border border-gray-800 dark:border-zinc-800 group"
-            >
-              <div className="absolute -top-4 -right-4 p-3 opacity-10 rotate-12 group-hover:rotate-45 transition-transform duration-700">
-                <Zap className="w-32 h-32 text-cyan-400" />
-              </div>
-              <div className="relative z-10">
-                <div className="flex items-center gap-2 mb-1">
-                  <span className="bg-cyan-500 text-black text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wider">Neuro</span>
-                  <h3 className="text-white font-black italic text-lg tracking-tighter">BrainBlink</h3>
-                </div>
-                <p className="text-gray-400 dark:text-zinc-500 text-xs max-w-[200px]">
-                  Когнитивная разминка. Включи фокус за 60 сек.
-                </p>
-                <div className="mt-3 flex items-center text-cyan-400 text-[10px] font-bold uppercase tracking-widest gap-1 group-hover:text-cyan-300 transition-colors">
-                  <span>Начать сессию</span>
-                  <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </div>
-              </div>
             </div>
 
             <h3 className="text-sm font-bold text-gray-500 dark:text-zinc-500 uppercase tracking-widest mt-8 mb-4">Расписание</h3>

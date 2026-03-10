@@ -28,8 +28,8 @@ const EventDetailsScreen: React.FC<EventDetailsScreenProps> = ({ onNavigate }) =
   if (!event) {
     return (
       <div className={`flex flex-col items-center justify-center h-screen ${isDark ? 'bg-zinc-950 text-white' : 'bg-gray-50 text-gray-900'}`}>
-        <p>Event not found or invalid ID.</p>
-        <button onClick={() => onNavigate('BACK')} className="mt-4 text-cyan-500 font-bold">Go Back</button>
+        <p>Событие не найдено.</p>
+        <button onClick={() => onNavigate('BACK')} className="mt-4 text-cyan-500 font-bold">Назад</button>
       </div>
     );
   }
@@ -68,7 +68,7 @@ const EventDetailsScreen: React.FC<EventDetailsScreenProps> = ({ onNavigate }) =
           {event.price ? (
             <span className="flex items-center gap-1 text-green-500"><DollarSign className="w-4 h-4" /> {event.price}</span>
           ) : (
-            <span className="text-green-500">Free</span>
+            <span className="text-green-500">Бесплатно</span>
           )}
         </div>
 
@@ -78,10 +78,10 @@ const EventDetailsScreen: React.FC<EventDetailsScreenProps> = ({ onNavigate }) =
             <Calendar className="w-5 h-5 text-gray-400 mt-1" />
             <div>
               <div className="font-bold text-lg">
-                {new Intl.DateTimeFormat('en-US', { weekday: 'long', month: 'long', day: 'numeric' }).format(event.date)}
+                {new Intl.DateTimeFormat('ru-RU', { weekday: 'long', month: 'long', day: 'numeric' }).format(event.date)}
               </div>
               <div className="opacity-60 text-sm">
-                {new Intl.DateTimeFormat('en-US', { hour: 'numeric', minute: '2-digit' }).format(event.date)}
+                {new Intl.DateTimeFormat('ru-RU', { hour: 'numeric', minute: '2-digit' }).format(event.date)}
               </div>
             </div>
           </div>
@@ -91,7 +91,7 @@ const EventDetailsScreen: React.FC<EventDetailsScreenProps> = ({ onNavigate }) =
             <div>
               <div className="font-bold text-base">{event.location}</div>
               <button className="text-xs text-cyan-500 font-bold mt-1 flex items-center gap-1">
-                Open Maps <ExternalLink className="w-3 h-3" />
+                Открыть карту <ExternalLink className="w-3 h-3" />
               </button>
             </div>
           </div>
@@ -99,7 +99,7 @@ const EventDetailsScreen: React.FC<EventDetailsScreenProps> = ({ onNavigate }) =
 
         {/* Description */}
         <div className="space-y-2">
-          <h3 className="text-sm font-bold uppercase opacity-50 tracking-wider">About Event</h3>
+          <h3 className="text-sm font-bold uppercase opacity-50 tracking-wider">О событии</h3>
           <p className={`leading-relaxed ${isDark ? 'text-zinc-300' : 'text-gray-600'}`}>
             {event.description}
           </p>
@@ -108,7 +108,7 @@ const EventDetailsScreen: React.FC<EventDetailsScreenProps> = ({ onNavigate }) =
         {/* Organizer */}
         {organizer && (
           <div className="space-y-2">
-            <h3 className="text-sm font-bold uppercase opacity-50 tracking-wider">Organizer</h3>
+            <h3 className="text-sm font-bold uppercase opacity-50 tracking-wider">Организатор</h3>
             <div className={`p-3 rounded-lg flex items-center gap-3 ${isDark ? 'bg-zinc-900' : 'bg-white border'}`}>
               <img src={organizer.avatarUrl} className="w-10 h-10 rounded-full" alt={organizer.nickname} />
               <div>
@@ -122,7 +122,7 @@ const EventDetailsScreen: React.FC<EventDetailsScreenProps> = ({ onNavigate }) =
         {/* Attendees */}
         <div className="space-y-2">
           <h3 className="text-sm font-bold uppercase opacity-50 tracking-wider">
-            Going ({event.attendees.length})
+            Идут ({event.attendees.length})
           </h3>
           <div className="flex -space-x-2 overflow-hidden py-1">
             {event.attendees.map(id => {
@@ -151,10 +151,10 @@ const EventDetailsScreen: React.FC<EventDetailsScreenProps> = ({ onNavigate }) =
             {isGoing ? (
               <>
                 <Check className="w-6 h-6" />
-                Assigned
+                Вы идёте
               </>
             ) : (
-              'Join Event'
+              'Присоединиться'
             )}
           </button>
           <button className={`p-4 rounded-xl border flex items-center justify-center ${isDark ? 'bg-zinc-900 border-zinc-800 hover:bg-zinc-800' : 'bg-gray-100 border-gray-300 hover:bg-gray-200'}`}>

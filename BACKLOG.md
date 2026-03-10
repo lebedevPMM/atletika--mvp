@@ -10,26 +10,26 @@
 ### A1. Booking Flow End-to-End
 **Проблема:** Запись на услугу обрывается на Generic screen. Core action приложения не работает.
 **Задачи:**
-- [ ] A1.1 BookingDetailsScreen — детали групповой записи (тренер, зал, время, уровень, свободных мест)
-- [ ] A1.2 BookingPTDetailsScreen — детали PT (тренер, услуга, цена, длительность)
-- [ ] A1.3 BookingSpaDetailsScreen — детали SPA (описание, отзывы, длительность)
-- [ ] A1.4 BookingConfirmScreen — подтверждение (сводка + цена + кнопка "Записаться")
-- [ ] A1.5 BookingResultScreen — результат (успех / ошибка / waitlist)
-- [ ] A1.6 Связать flow: BookingScreen → Details → Confirm → Result
+- [x] A1.1 BookingDetailsScreen — детали групповой записи ✅ уже реализован
+- [x] A1.2 BookingPTDetailsScreen — детали PT ✅ уже реализован
+- [x] A1.3 BookingSpaDetailsScreen — детали SPA ✅ уже реализован
+- [x] A1.4 BookingConfirmScreen — подтверждение ✅ уже реализован
+- [x] A1.5 BookingResultScreen — результат ✅ уже реализован
+- [x] A1.6 Связать flow: BookingScreen → Details → Confirm → Result ✅ уже подключено в App.tsx
 
 ### A2. Навигация "Назад"
 **Проблема:** На вложенных экранах нет кнопки ← Назад. Пользователь застревает.
 **Задачи:**
-- [ ] A2.1 Компонент BackHeader (← стрелка + title) — reusable
-- [ ] A2.2 Подключить BackHeader ко всем не-root экранам
-- [ ] A2.3 Browser back button support (popstate)
+- [x] A2.1 Все back-кнопки используют onNavigate('BACK') — 79 файлов исправлено
+- [x] A2.2 3 параллельных агента: client (42), trainer (35), social (2)
+- [x] A2.3 Browser back button support (popstate) ✅
 
 ### A3. Error / Loading / Empty States
 **Проблема:** Нет обработки ошибок, загрузки, пустых данных.
 **Задачи:**
-- [ ] A3.1 LoadingScreen компонент (skeleton или spinner)
-- [ ] A3.2 ErrorScreen компонент ("Что-то пошло не так" + Повторить)
-- [ ] A3.3 EmptyState компонент (иконка + текст + CTA)
+- [x] A3.1 LoadingState компонент (spinner + сообщение) ✅
+- [x] A3.2 ErrorState компонент ("Что-то пошло не так" + Повторить) ✅
+- [x] A3.3 EmptyState компонент (иконка + текст + CTA) ✅
 - [ ] A3.4 Внедрить loading/error/empty в BookingScreen, PlanScreen, CommunityScreen
 
 ---
@@ -39,12 +39,12 @@
 ### B1. Русификация — убрать смешение языков
 **Проблема:** "Network" среди русских табов, "Check-out", "CLUB RAID BOSS", "Geofence Active"
 **Задачи:**
-- [ ] B1.1 NavDock: "Network" → "Сообщество"
-- [ ] B1.2 CommunityScreen: sub-tabs "Gym/Requests/Events/Chats" → "Зал/Запросы/События/Чаты"
-- [ ] B1.3 CheckInStatus: "Check-out" → "Уйти", "Geofence Active" → "Вы отмечены в зале"
-- [ ] B1.4 RaidBossWidget: "CLUB RAID BOSS", "HP" → русские эквиваленты
-- [ ] B1.5 GymActiveUsersList: "LVL" → "Уровень", "Looking for Partner" → "Ищу партнёра"
-- [ ] B1.6 Stories: "СОЗДАТЬ" → убрать или заменить на "+"
+- [x] B1.1 NavDock: "Network" → "Сообщество" ✅
+- [x] B1.2 CommunityScreen: sub-tabs → "Зал/Запросы/События/Чаты" ✅
+- [x] B1.3 CheckInStatus: "Check-out" → "Уйти", "Geofence Active" → "Вы отмечены" ✅
+- [x] B1.4 RaidBossWidget: "Рейд-босс клуба", "ОЗ" ✅
+- [x] B1.5 GymActiveUsersList: "Ур." + "Сейчас в зале" ✅
+- [x] B1.6 Stories: "СОЗДАТЬ" → "+" ✅
 
 ### B2. Единый стиль CTA-кнопок
 **Проблема:** "РАСПИСАНИЕ" (outlined pill), "НАЧАТЬ СЕССИЮ >" (text link), "СОЗДАТЬ" (circle) — нет паттерна.
@@ -54,8 +54,8 @@
 - [ ] B2.3 Заменить hardcoded кнопки на компонент
 
 ### B3. Убрать debug-элементы из production
-- [ ] B3.1 ThemeSwitcher (palette toggle) → показывать только с ?debug=true
-- [ ] B3.2 Убрать "Ост: 4" → "Осталось: 4"
+- [x] B3.1 ThemeSwitcher — только с ?debug=true ✅
+- [x] B3.2 "Ост: 4" → "Осталось: 4" ✅
 
 ### B4. Home Screen — снизить информационную нагрузку
 **Проблема:** 12+ блоков информации, пользователь не знает куда смотреть.
@@ -134,3 +134,8 @@
 |---|--------|------|--------|
 | G12 | Multi-Theme Registry System (default + ember) | 2026-03-03 | 0388cc2 |
 | G13 | UX Audit (Bastien-Scapin + Nielsen) | 2026-03-06 | — |
+| A1 | Booking Flow E2E — verified connected | 2026-03-09 | 4e1d087 |
+| A2 | Back Navigation — 79 files + popstate | 2026-03-09 | 4e1d087 |
+| A3.1-3 | Loading/Error/Empty State components | 2026-03-09 | 4e1d087 |
+| B1 | Russification — NavDock, Community, Stories, etc | 2026-03-09 | 4e1d087 |
+| B3 | Debug elements hidden (?debug=true) | 2026-03-09 | 4e1d087 |

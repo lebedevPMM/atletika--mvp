@@ -12,6 +12,7 @@ import {
   ShieldCheck,
   Zap
 } from 'lucide-react';
+import Button from './ui/Button';
 
 interface TariffScreenProps {
   onNavigate: (screen: ScreenName) => void;
@@ -82,14 +83,11 @@ const TariffScreen: React.FC<TariffScreenProps> = ({ onNavigate }) => {
               {status === 'expired' ? 'Plan Expired' : 'No Active Plan'}
             </h2>
             <p className="text-zinc-500 text-sm max-w-xs mb-8">
-              Choose a training plan to get full access to club facilities.
+              Выберите тариф, чтобы получить полный доступ к клубу.
             </p>
-            <button
-              onClick={() => onNavigate('service_catalog')}
-              className="w-full bg-cyan-600 text-white py-4 rounded-xl font-bold shadow-[0_0_20px_rgba(8,145,178,0.3)] active:scale-95 transition-transform"
-            >
-              Choose Plan
-            </button>
+            <Button onClick={() => onNavigate('service_catalog')} fullWidth size="lg">
+              Выбрать тариф
+            </Button>
           </div>
         ) : (
           /* ACTIVE TARIFF VIEW */

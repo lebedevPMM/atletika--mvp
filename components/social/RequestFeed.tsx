@@ -45,7 +45,7 @@ const RequestFeed: React.FC<RequestFeedProps> = ({ onNavigate }) => {
                             : (isDark ? 'bg-zinc-900 text-zinc-500 border-zinc-800 hover:bg-zinc-800' : 'bg-white text-gray-500 border-gray-200 hover:bg-gray-50')
                             }`}
                     >
-                        {type === 'all' ? 'All Requests' : type}
+                        {type === 'all' ? 'Все запросы' : type === 'need' ? 'Нужно' : type === 'offer' ? 'Предлагаю' : type === 'ask' ? 'Вопрос' : 'Стиль жизни'}
                     </button>
                 ))}
             </div>
@@ -64,12 +64,12 @@ const RequestFeed: React.FC<RequestFeedProps> = ({ onNavigate }) => {
                 {isGuest ? (
                     <>
                         <Briefcase className="w-5 h-5" />
-                        <span className="font-bold text-sm">Apply to Post Requests</span>
+                        <span className="font-bold text-sm">Подать заявку на публикацию</span>
                     </>
                 ) : (
                     <>
                         <Plus className="w-5 h-5" />
-                        <span className="font-bold text-sm">Create New Request</span>
+                        <span className="font-bold text-sm">Создать запрос</span>
                     </>
                 )}
             </button>

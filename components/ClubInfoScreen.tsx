@@ -143,7 +143,7 @@ const ClubInfoScreen: React.FC<ClubInfoScreenProps> = ({ onNavigate, initialTab 
                 <ArrowLeft className="w-6 h-6 text-zinc-300" />
               </button>
               <div>
-                <h1 className="text-xl font-black text-white italic uppercase tracking-tighter cursor-pointer">Contacts</h1>
+                <h1 className="text-xl font-black text-white italic uppercase tracking-tighter cursor-pointer">Контакты</h1>
                 {branches.length > 1 && (
                   <button
                     onClick={() => setShowBranchSelect(!showBranchSelect)}
@@ -250,7 +250,7 @@ const ClubInfoScreen: React.FC<ClubInfoScreenProps> = ({ onNavigate, initialTab 
               </div>
             </div>
 
-            <h3 className="text-xs font-bold text-zinc-600 uppercase tracking-wide ml-2">Contact Us</h3>
+            <h3 className="text-xs font-bold text-zinc-600 uppercase tracking-wide ml-2">Связаться с нами</h3>
             <div className="bg-zinc-900 rounded-2xl overflow-hidden shadow-sm border border-zinc-800">
               {club.contacts.map((contact, idx) => (
                 <button
@@ -360,7 +360,7 @@ const ClubInfoScreen: React.FC<ClubInfoScreenProps> = ({ onNavigate, initialTab 
             <Search className="absolute left-3 top-3 w-5 h-5 text-zinc-500" />
             <input
               type="text"
-              placeholder="Search by name or tags..."
+              placeholder="Поиск по имени или тегам..."
               value={teamSearch}
               onChange={(e) => setTeamSearch(e.target.value)}
               className="w-full bg-zinc-950 border border-zinc-800 rounded-xl py-3 pl-10 pr-10 text-sm focus:ring-2 focus:ring-cyan-500/30 focus:border-cyan-500/50 transition-all font-medium placeholder:text-zinc-600 text-white"

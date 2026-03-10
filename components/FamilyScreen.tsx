@@ -20,6 +20,7 @@ import {
   ChevronRight,
   Info
 } from 'lucide-react';
+import Button from './ui/Button';
 
 interface FamilyScreenProps {
   onNavigate: (screen: ScreenName) => void;
@@ -103,9 +104,9 @@ const FamilyScreen: React.FC<FamilyScreenProps> = ({ onNavigate }) => {
 
   const getRoleLabel = (role: Role) => {
     switch (role) {
-      case 'child': return 'Child';
-      case 'spouse': return 'Spouse';
-      default: return 'Relative';
+      case 'child': return 'Ребёнок';
+      case 'spouse': return 'Супруг(а)';
+      default: return 'Родственник';
     }
   };
 
@@ -115,13 +116,13 @@ const FamilyScreen: React.FC<FamilyScreenProps> = ({ onNavigate }) => {
       case 'pending':
         return (
           <span className="flex items-center gap-1 text-[10px] font-bold bg-yellow-500/10 text-yellow-600 dark:text-yellow-500 px-2 py-0.5 rounded-full border border-yellow-500/20">
-            <Clock className="w-3 h-3" /> Pending
+            <Clock className="w-3 h-3" /> Ожидание
           </span>
         );
       case 'rejected':
         return (
           <span className="flex items-center gap-1 text-[10px] font-bold bg-red-500/10 text-red-600 dark:text-red-500 px-2 py-0.5 rounded-full border border-red-500/20">
-            <X className="w-3 h-3" /> Rejected
+            <X className="w-3 h-3" /> Отклонено
           </span>
         );
     }
@@ -135,7 +136,7 @@ const FamilyScreen: React.FC<FamilyScreenProps> = ({ onNavigate }) => {
           <button onClick={() => onNavigate('BACK')} className="p-2 -ml-2 rounded-full hover:bg-gray-100 dark:hover:bg-zinc-800 transition-colors">
             <ArrowLeft className="w-6 h-6 text-gray-700 dark:text-zinc-300" />
           </button>
-          <h1 className="text-xl font-black text-gray-900 dark:text-white italic uppercase tracking-tighter">Family</h1>
+          <h1 className="text-xl font-black text-gray-900 dark:text-white italic uppercase tracking-tighter">Семья</h1>
         </div>
         <button
           onClick={() => setShowAddModal(true)}
@@ -155,9 +156,9 @@ const FamilyScreen: React.FC<FamilyScreenProps> = ({ onNavigate }) => {
               <Users className="w-6 h-6 text-white dark:text-cyan-300" />
             </div>
             <div>
-              <h2 className="font-bold text-lg leading-tight uppercase italic">Family Access</h2>
+              <h2 className="font-bold text-lg leading-tight uppercase italic">Семейный доступ</h2>
               <p className="text-xs text-blue-100 dark:text-cyan-200/80 mt-1 leading-relaxed">
-                Manage workouts for children and loved ones. Pay for their services from your account.
+                Управляйте тренировками детей и близких. Оплачивайте их услуги со своего аккаунта.
               </p>
             </div>
           </div>
@@ -167,7 +168,7 @@ const FamilyScreen: React.FC<FamilyScreenProps> = ({ onNavigate }) => {
         {members.length > 0 ? (
           <div className="space-y-4">
             <div className="flex justify-between items-center px-1">
-              <h3 className="font-bold text-gray-900 dark:text-white">My Family</h3>
+              <h3 className="font-bold text-gray-900 dark:text-white">Моя семья</h3>
               <span className="text-xs text-gray-500 dark:text-zinc-500">{members.length} / 5</span>
             </div>
 
@@ -208,7 +209,7 @@ const FamilyScreen: React.FC<FamilyScreenProps> = ({ onNavigate }) => {
                       )}
                       {member.status === 'active' && !member.tariff && (
                         <span className="text-[10px] bg-gray-100 dark:bg-zinc-800 text-gray-500 dark:text-zinc-500 px-2 py-0.5 rounded font-medium border border-gray-200 dark:border-zinc-700">
-                          No Tariff
+                          Нет тарифа
                         </span>
                       )}
                     </div>
@@ -220,7 +221,7 @@ const FamilyScreen: React.FC<FamilyScreenProps> = ({ onNavigate }) => {
                   <div className="mt-4 pt-3 border-t border-gray-100 dark:border-zinc-800 flex justify-between items-center">
                     <p className="text-[10px] text-gray-500 dark:text-zinc-500">Invitation sent</p>
                     <button className="text-xs font-bold text-cyan-600 dark:text-cyan-500 flex items-center gap-1 hover:text-cyan-500 dark:hover:text-cyan-400">
-                      <Share2 className="w-3 h-3" /> Resend
+                      <Share2 className="w-3 h-3" /> Повторить
                     </button>
                   </div>
                 )}
@@ -232,16 +233,13 @@ const FamilyScreen: React.FC<FamilyScreenProps> = ({ onNavigate }) => {
             <div className="w-20 h-20 bg-gray-200 dark:bg-zinc-900 rounded-full flex items-center justify-center mb-4 border border-gray-300 dark:border-zinc-800">
               <Users className="w-10 h-10 text-gray-400 dark:text-zinc-700" />
             </div>
-            <h3 className="text-lg font-bold text-gray-900 dark:text-white">List is empty</h3>
+            <h3 className="text-lg font-bold text-gray-900 dark:text-white">Список пуст</h3>
             <p className="text-sm text-gray-500 dark:text-zinc-500 max-w-[200px] mb-6">
-              Add family members to book workouts for them via your account.
+              Добавьте членов семьи, чтобы записывать их на тренировки через ваш аккаунт.
             </p>
-            <button
-              onClick={() => setShowAddModal(true)}
-              className="bg-cyan-600 text-white px-6 py-3 rounded-xl font-bold shadow-lg shadow-cyan-500/20 active:scale-95 transition-transform hover:bg-cyan-500"
-            >
-              Add First Member
-            </button>
+            <Button onClick={() => setShowAddModal(true)} icon={Plus} size="lg">
+              Добавить члена семьи
+            </Button>
           </div>
         )}
       </div>
@@ -253,7 +251,7 @@ const FamilyScreen: React.FC<FamilyScreenProps> = ({ onNavigate }) => {
           <div className="bg-white dark:bg-zinc-900 w-full max-w-sm rounded-3xl p-6 relative animate-in slide-in-from-bottom duration-300 shadow-2xl border border-gray-100 dark:border-zinc-800">
             <div className="flex justify-between items-center mb-6">
               <h2 className="text-xl font-bold text-gray-900 dark:text-white">
-                {addStep === 1 ? 'Who to add?' : 'Member Details'}
+                {addStep === 1 ? 'Кого добавить?' : 'Данные участника'}
               </h2>
               <button onClick={resetAddForm} className="p-2 bg-gray-100 dark:bg-zinc-800 rounded-full text-gray-500 dark:text-zinc-400 hover:bg-gray-200 dark:hover:bg-zinc-700 transition-colors">
                 <X className="w-5 h-5" />
@@ -270,8 +268,8 @@ const FamilyScreen: React.FC<FamilyScreenProps> = ({ onNavigate }) => {
                     <Baby className="w-6 h-6" />
                   </div>
                   <div className="text-left">
-                    <h3 className="font-bold text-gray-900 dark:text-white">Child</h3>
-                    <p className="text-xs text-gray-500 dark:text-zinc-500">Under 18. Managed by parent.</p>
+                    <h3 className="font-bold text-gray-900 dark:text-white">Ребёнок</h3>
+                    <p className="text-xs text-gray-500 dark:text-zinc-500">До 18 лет. Управляется родителем.</p>
                   </div>
                   <ChevronRight className="ml-auto w-5 h-5 text-gray-400 dark:text-zinc-700 group-hover:text-cyan-500" />
                 </button>
@@ -284,8 +282,8 @@ const FamilyScreen: React.FC<FamilyScreenProps> = ({ onNavigate }) => {
                     <User className="w-6 h-6" />
                   </div>
                   <div className="text-left">
-                    <h3 className="font-bold text-gray-900 dark:text-white">Adult</h3>
-                    <p className="text-xs text-gray-500 dark:text-zinc-500">Spouse or relative.</p>
+                    <h3 className="font-bold text-gray-900 dark:text-white">Взрослый</h3>
+                    <p className="text-xs text-gray-500 dark:text-zinc-500">Супруг(а) или родственник.</p>
                   </div>
                   <ChevronRight className="ml-auto w-5 h-5 text-gray-400 dark:text-zinc-700 group-hover:text-purple-500" />
                 </button>
@@ -293,7 +291,7 @@ const FamilyScreen: React.FC<FamilyScreenProps> = ({ onNavigate }) => {
             ) : (
               <div className="space-y-4">
                 <div>
-                  <label className="block text-xs font-bold text-gray-500 dark:text-zinc-500 uppercase mb-2">Full Name</label>
+                  <label className="block text-xs font-bold text-gray-500 dark:text-zinc-500 uppercase mb-2">ФИО</label>
                   <input
                     type="text"
                     value={newMemberName}
@@ -306,7 +304,7 @@ const FamilyScreen: React.FC<FamilyScreenProps> = ({ onNavigate }) => {
 
                 {newMemberRole === 'spouse' ? (
                   <div>
-                    <label className="block text-xs font-bold text-gray-500 dark:text-zinc-500 uppercase mb-2">Phone</label>
+                    <label className="block text-xs font-bold text-gray-500 dark:text-zinc-500 uppercase mb-2">Телефон</label>
                     <div className="relative">
                       <input
                         type="tel"
@@ -318,14 +316,14 @@ const FamilyScreen: React.FC<FamilyScreenProps> = ({ onNavigate }) => {
                       <Smartphone className="absolute left-3 top-3 w-4 h-4 text-gray-400 dark:text-zinc-500" />
                     </div>
                     <p className="text-[10px] text-gray-500 dark:text-zinc-500 mt-2">
-                      We will send an SMS invitation to join your family account.
+                      Мы отправим SMS-приглашение для подключения к семейному аккаунту.
                     </p>
                   </div>
                 ) : (
                   <div className="bg-yellow-50 dark:bg-yellow-500/10 p-3 rounded-xl border border-yellow-200 dark:border-yellow-500/20 flex gap-3 items-start">
                     <Info className="w-5 h-5 text-yellow-600 shrink-0 mt-0.5" />
                     <p className="text-xs text-yellow-800 dark:text-yellow-200/80 leading-snug">
-                      For children without a phone, confirmation occurs via the club administrator.
+                      Для детей без телефона подтверждение происходит через администратора клуба.
                     </p>
                   </div>
                 )}
@@ -335,14 +333,14 @@ const FamilyScreen: React.FC<FamilyScreenProps> = ({ onNavigate }) => {
                     onClick={() => setAddStep(1)}
                     className="flex-1 py-3 bg-gray-100 dark:bg-zinc-800 text-gray-500 dark:text-zinc-400 font-bold rounded-xl text-sm hover:bg-gray-200 dark:hover:bg-zinc-700 hover:text-gray-900 dark:hover:text-white"
                   >
-                    Back
+                    Назад
                   </button>
                   <button
                     onClick={handleAddSubmit}
                     disabled={!newMemberName}
                     className="flex-[2] py-3 bg-cyan-600 text-white font-bold rounded-xl text-sm shadow-lg shadow-cyan-500/20 disabled:opacity-50 hover:bg-cyan-500"
                   >
-                    {newMemberRole === 'spouse' ? 'Invite' : 'Create'}
+                    {newMemberRole === 'spouse' ? 'Пригласить' : 'Создать'}
                   </button>
                 </div>
               </div>
@@ -359,9 +357,9 @@ const FamilyScreen: React.FC<FamilyScreenProps> = ({ onNavigate }) => {
             <div className="w-16 h-16 bg-red-100 dark:bg-red-500/10 rounded-full flex items-center justify-center mx-auto mb-4 border border-red-200 dark:border-red-500/20">
               <ShieldAlert className="w-8 h-8 text-red-500" />
             </div>
-            <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-2">Delete Member?</h2>
+            <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-2">Удалить участника?</h2>
             <p className="text-sm text-gray-500 dark:text-zinc-500 mb-6 leading-relaxed">
-              You will lose the ability to book workouts for this person and pay their bills.
+              Вы потеряете возможность записывать этого человека на тренировки и оплачивать его счета.
             </p>
 
             <div className="grid grid-cols-2 gap-3">
@@ -369,13 +367,13 @@ const FamilyScreen: React.FC<FamilyScreenProps> = ({ onNavigate }) => {
                 onClick={() => setShowDeleteModal(null)}
                 className="py-3 rounded-xl font-bold text-gray-600 dark:text-zinc-300 bg-gray-100 dark:bg-zinc-800 hover:bg-gray-200 dark:hover:bg-zinc-700"
               >
-                Cancel
+                Отмена
               </button>
               <button
                 onClick={handleDelete}
                 className="py-3 rounded-xl font-bold text-white bg-red-600 hover:bg-red-700 shadow-lg shadow-red-500/20"
               >
-                Delete
+                Удалить
               </button>
             </div>
           </div>
