@@ -80,8 +80,8 @@ export const HomeScreenDefault: React.FC<HomeScreenDefaultProps> = ({ onNavigate
             )}
 
             {/* Header */}
-            <div className={`px-6 pt-12 pb-4 sticky ${offline ? 'top-8' : 'top-0'} z-20 bg-t-bg/80 backdrop-blur-[var(--t-backdrop-blur)] border-b border-t-border/50 transition-colors`}>
-                <div className="flex justify-between items-center mb-6">
+            <div className={`px-6 pt-8 pb-3 sticky ${offline ? 'top-8' : 'top-0'} z-20 bg-t-bg/80 backdrop-blur-[var(--t-backdrop-blur)] border-b border-t-border/50 transition-colors`}>
+                <div className="flex justify-between items-center mb-3">
                     <div
                         onClick={() => onNavigate('club_details')}
                         className="cursor-pointer active:opacity-70 transition-opacity"
@@ -105,40 +105,36 @@ export const HomeScreenDefault: React.FC<HomeScreenDefaultProps> = ({ onNavigate
                     </button>
                 </div>
 
-                {/* Stories */}
-                <div className="flex gap-4 overflow-x-auto no-scrollbar pb-1 -mx-6 px-6">
+                {/* Stories (compact) */}
+                <div className="flex gap-3 overflow-x-auto no-scrollbar pb-1 -mx-6 px-6">
                     {/* Add Story Button */}
-                    <div className="flex flex-col items-center gap-2 cursor-pointer shrink-0">
-                        <div className="w-16 h-16 rounded-tk-full border border-dashed border-t-border p-1 flex items-center justify-center hover:border-t-accent transition-colors">
+                    <div className="flex flex-col items-center cursor-pointer shrink-0">
+                        <div className="w-12 h-12 rounded-tk-full border border-dashed border-t-border p-0.5 flex items-center justify-center hover:border-t-accent transition-colors">
                             <div className="w-full h-full bg-t-bg-elevated rounded-tk-full flex items-center justify-center text-t-accent">
-                                <span className="text-xl font-light">+</span>
+                                <span className="text-lg font-light">+</span>
                             </div>
                         </div>
-                        <span className="text-[10px] font-medium text-t-text-muted tracking-wider">+</span>
                     </div>
 
                     {data.stories.map((story) => (
                         <div
                             key={story.id}
                             onClick={() => onNavigate('stories')}
-                            className="flex flex-col items-center gap-2 cursor-pointer shrink-0 group"
+                            className="flex flex-col items-center cursor-pointer shrink-0 group"
                         >
-                            <div className={`w-16 h-16 rounded-tk-full border-2 p-0.5 group-active:scale-95 transition-all ${story.isViewed ? 'border-t-border opacity-50' : 'border-t-accent shadow-[0_0_15px_var(--t-accent-glow)]'}`}>
+                            <div className={`w-12 h-12 rounded-tk-full border-2 p-0.5 group-active:scale-95 transition-all ${story.isViewed ? 'border-t-border opacity-50' : 'border-t-accent shadow-[0_0_15px_var(--t-accent-glow)]'}`}>
                                 <img
                                     src={story.imageUrl}
                                     className="w-full h-full rounded-tk-full object-cover"
                                     alt={story.title}
                                 />
                             </div>
-                            <span className="text-[10px] font-medium text-t-text-secondary max-w-[60px] truncate uppercase tracking-wider">
-                                {story.title}
-                            </span>
                         </div>
                     ))}
                 </div>
             </div>
 
-            <div className="p-5 space-y-8">
+            <div className="p-5 space-y-6">
 
                 {/* QR Pass Teaser */}
                 <button
@@ -165,105 +161,10 @@ export const HomeScreenDefault: React.FC<HomeScreenDefaultProps> = ({ onNavigate
                     </div>
                 </button>
 
-                {/* Status Grid (4 Tiles) */}
-                <section className="grid grid-cols-2 gap-3">
-                    {/* Tariff */}
-                    <button
-                        onClick={() => {
-                            logEvent('home_tile_click', { tile: 'plan' });
-                            onNavigate('tariff_details');
-                        }}
-                        className="p-4 rounded-tk-lg flex items-center gap-3 transition-all group shadow-tk-card bg-t-bg-elevated/50 backdrop-blur-[var(--t-backdrop-blur)] border border-t-border hover:bg-t-bg-surface"
-                    >
-                        <div
-                            className="w-10 h-10 rounded-tk-full flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform bg-t-accent/10"
-                        >
-                            <CreditCard className="w-5 h-5 text-t-accent" />
-                        </div>
-                        <div className="text-left overflow-hidden">
-                            <p className={`text-xs font-bold truncate ${!data.tariff?.isActive ? 'text-red-500' : 'text-t-text'}`}>
-                                {data.tariff ? data.tariff.name : 'Нет тарифа'}
-                            </p>
-                            <p className="text-[10px] uppercase tracking-wider text-t-text-muted">
-                                {data.tariff ? 'Активен' : 'Купить'}
-                            </p>
-                        </div>
-                    </button>
-
-                    {/* Wallet - DEBT STATE SUPPORT */}
-                    <button
-                        onClick={() => {
-                            logEvent('home_tile_click', { tile: 'bill' });
-                            onNavigate('wallet');
-                        }}
-                        className={`p-4 rounded-tk-lg flex items-center gap-3 transition-all group shadow-tk-card backdrop-blur-[var(--t-backdrop-blur)] border hover:bg-t-bg-surface ${data.wallet.hasDebt
-                                ? 'bg-t-error/10 border-t-error/30' // Red background for debt
-                                : 'bg-t-bg-elevated/50 border-t-border'
-                            }`}
-                    >
-                        <div
-                            className={`w-10 h-10 rounded-tk-full flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform ${data.wallet.hasDebt ? 'bg-t-error/20' : 'bg-t-success/10'
-                                }`}
-                        >
-                            <Wallet className="w-5 h-5" style={{ color: data.wallet.hasDebt ? '#ef4444' : '#22c55e' }} />
-                        </div>
-                        <div className="text-left overflow-hidden">
-                            <p
-                                className={`text-xs font-bold truncate ${data.wallet.hasDebt ? 'text-t-error' : 'text-t-text'}`}
-                            >
-                                {data.wallet.balance} {data.wallet.currency}
-                            </p>
-                            <p className={`text-[10px] uppercase tracking-wider ${data.wallet.hasDebt ? 'text-red-400' : 'text-t-text-muted'}`}>
-                                {data.wallet.hasDebt ? 'Долг' : 'Счет'}
-                            </p>
-                        </div>
-                    </button>
-
-                    {/* Bonuses */}
-                    <button
-                        onClick={() => {
-                            logEvent('home_tile_click', { tile: 'bonus' });
-                            onNavigate('loyalty');
-                        }}
-                        className="p-4 rounded-tk-lg flex items-center gap-3 transition-all group shadow-tk-card bg-t-bg-elevated/50 backdrop-blur-[var(--t-backdrop-blur)] border border-t-border hover:bg-t-bg-surface"
-                    >
-                        <div
-                            className="w-10 h-10 rounded-tk-full flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform bg-[rgba(234,179,8,0.1)]"
-                        >
-                            <Star className="w-5 h-5 text-[#eab308]" />
-                        </div>
-                        <div className="text-left overflow-hidden">
-                            <p className="text-xs font-bold truncate text-t-text">{data.bonuses.amount}</p>
-                            <p className="text-[10px] uppercase tracking-wider text-t-text-muted">Бонусы</p>
-                        </div>
-                    </button>
-
-                    {/* Services (Packages) */}
-                    <button
-                        onClick={() => {
-                            logEvent('home_tile_click', { tile: 'services' });
-                            onNavigate('purchased_services');
-                        }}
-                        className="p-4 rounded-tk-lg flex items-center gap-3 transition-all group shadow-tk-card bg-t-bg-elevated/50 backdrop-blur-[var(--t-backdrop-blur)] border border-t-border hover:bg-t-bg-surface"
-                    >
-                        <div
-                            className="w-10 h-10 rounded-tk-full flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform bg-[rgba(168,85,247,0.1)]"
-                        >
-                            <Dumbbell className="w-5 h-5 text-[#a855f7]" />
-                        </div>
-                        <div className="text-left overflow-hidden">
-                            <p className="text-xs font-bold truncate text-t-text">
-                                {data.services ? `Осталось: ${data.services.left}` : 'Пусто'}
-                            </p>
-                            <p className="text-[10px] uppercase tracking-wider text-t-text-muted">Пакеты услуг</p>
-                        </div>
-                    </button>
-                </section>
-
-                {/* Next Activity - Big Card */}
+                {/* Next Activity - Big Card (moved up for priority) */}
                 <section>
-                    <div className="flex justify-between items-end mb-4 px-1">
-                        <h2 className="text-lg font-black uppercase italic tracking-wider text-t-text">
+                    <div className="flex justify-between items-end mb-3 px-1">
+                        <h2 className="text-base font-black uppercase italic tracking-wider text-t-text">
                             Далее по плану
                         </h2>
                         <button
@@ -280,21 +181,21 @@ export const HomeScreenDefault: React.FC<HomeScreenDefaultProps> = ({ onNavigate
                                 logEvent('home_next_booking_open');
                                 onNavigate('booking_class_details');
                             }}
-                            className="p-6 rounded-tk-lg relative overflow-hidden active:scale-[0.99] transition-all cursor-pointer group shadow-tk-card bg-t-bg-elevated border border-t-border"
+                            className="p-5 rounded-tk-lg relative overflow-hidden active:scale-[0.99] transition-all cursor-pointer group shadow-tk-card bg-t-bg-elevated border border-t-border"
                         >
                             <div
                                 className="absolute top-0 right-0 w-32 h-32 rounded-bl-[100px] -mr-6 -mt-6 transition-transform group-hover:scale-125 duration-500 bg-t-accent/5"
                             ></div>
 
-                            <div className="flex items-start gap-5 relative z-10">
+                            <div className="flex items-start gap-4 relative z-10">
                                 <div
-                                    className="w-16 h-16 rounded-tk-lg overflow-hidden shadow-tk-card shrink-0 relative"
+                                    className="w-14 h-14 rounded-tk-lg overflow-hidden shadow-tk-card shrink-0 relative"
                                 >
                                     <div className="absolute inset-0 bg-t-bg-surface border border-t-border" />
                                     <img src={data.nextBooking.trainerAvatar} className="w-full h-full object-cover relative z-10" alt="Trainer" />
                                 </div>
                                 <div className="flex-1 min-w-0">
-                                    <div className="flex gap-2 mb-2">
+                                    <div className="flex gap-2 mb-1.5">
                                         <span
                                             className="px-2 py-0.5 text-[10px] font-bold uppercase rounded-tk-sm tracking-wider bg-t-accent/10 border border-t-accent/20 text-t-accent"
                                         >
@@ -307,7 +208,7 @@ export const HomeScreenDefault: React.FC<HomeScreenDefaultProps> = ({ onNavigate
                                         </span>
                                     </div>
                                     <h3
-                                        className="font-bold text-xl leading-tight truncate mb-1 text-t-text"
+                                        className="font-bold text-lg leading-tight truncate mb-0.5 text-t-text"
                                     >
                                         {data.nextBooking.title}
                                     </h3>
@@ -318,15 +219,15 @@ export const HomeScreenDefault: React.FC<HomeScreenDefaultProps> = ({ onNavigate
                                     </p>
                                 </div>
                                 <div
-                                    className="self-center p-3 rounded-tk-full transition-colors shrink-0 bg-t-bg border border-t-border text-t-text-muted group-hover:bg-t-accent group-hover:text-white group-hover:border-t-accent group-hover:shadow-[0_0_15px_var(--t-accent)]"
+                                    className="self-center p-2.5 rounded-tk-full transition-colors shrink-0 bg-t-bg border border-t-border text-t-text-muted group-hover:bg-t-accent group-hover:text-white group-hover:border-t-accent group-hover:shadow-[0_0_15px_var(--t-accent)]"
                                 >
                                     <ChevronRight className="w-5 h-5" />
                                 </div>
                             </div>
                         </div>
                     ) : (
-                        <div className="bg-t-bg-elevated p-8 rounded-tk-lg border border-t-border border-dashed text-center">
-                            <p className="text-sm font-medium text-t-text-muted mb-6">Нет запланированных тренировок.</p>
+                        <div className="bg-t-bg-elevated p-6 rounded-tk-lg border border-t-border border-dashed text-center">
+                            <p className="text-sm font-medium text-t-text-muted mb-4">Нет запланированных тренировок.</p>
                             <button
                                 onClick={() => {
                                     logEvent('home_cta_book_click');
@@ -338,6 +239,82 @@ export const HomeScreenDefault: React.FC<HomeScreenDefaultProps> = ({ onNavigate
                             </button>
                         </div>
                     )}
+                </section>
+
+                {/* Status Strip (4 compact tiles in horizontal scroll) */}
+                <section className="flex gap-2.5 overflow-x-auto no-scrollbar -mx-5 px-5 pb-1">
+                    {/* Tariff */}
+                    <button
+                        onClick={() => {
+                            logEvent('home_tile_click', { tile: 'plan' });
+                            onNavigate('tariff_details');
+                        }}
+                        className="flex flex-col items-center gap-1.5 p-3 rounded-tk-lg min-w-[80px] shrink-0 transition-all group shadow-tk-card bg-t-bg-elevated/50 backdrop-blur-[var(--t-backdrop-blur)] border border-t-border hover:bg-t-bg-surface"
+                    >
+                        <div className="w-9 h-9 rounded-tk-full flex items-center justify-center group-hover:scale-110 transition-transform bg-t-accent/10">
+                            <CreditCard className="w-4.5 h-4.5 text-t-accent" />
+                        </div>
+                        <p className={`text-[11px] font-bold truncate max-w-[72px] ${!data.tariff?.isActive ? 'text-red-500' : 'text-t-text'}`}>
+                            {data.tariff ? data.tariff.name : 'Нет'}
+                        </p>
+                        <p className="text-[9px] uppercase tracking-wider text-t-text-muted">
+                            {data.tariff ? 'Тариф' : 'Купить'}
+                        </p>
+                    </button>
+
+                    {/* Wallet */}
+                    <button
+                        onClick={() => {
+                            logEvent('home_tile_click', { tile: 'bill' });
+                            onNavigate('wallet');
+                        }}
+                        className={`flex flex-col items-center gap-1.5 p-3 rounded-tk-lg min-w-[80px] shrink-0 transition-all group shadow-tk-card backdrop-blur-[var(--t-backdrop-blur)] border hover:bg-t-bg-surface ${data.wallet.hasDebt
+                                ? 'bg-t-error/10 border-t-error/30'
+                                : 'bg-t-bg-elevated/50 border-t-border'
+                            }`}
+                    >
+                        <div className={`w-9 h-9 rounded-tk-full flex items-center justify-center group-hover:scale-110 transition-transform ${data.wallet.hasDebt ? 'bg-t-error/20' : 'bg-t-success/10'}`}>
+                            <Wallet className="w-4.5 h-4.5" style={{ color: data.wallet.hasDebt ? '#ef4444' : '#22c55e' }} />
+                        </div>
+                        <p className={`text-[11px] font-bold truncate max-w-[72px] ${data.wallet.hasDebt ? 'text-t-error' : 'text-t-text'}`}>
+                            {data.wallet.balance} {data.wallet.currency}
+                        </p>
+                        <p className={`text-[9px] uppercase tracking-wider ${data.wallet.hasDebt ? 'text-red-400' : 'text-t-text-muted'}`}>
+                            {data.wallet.hasDebt ? 'Долг' : 'Счёт'}
+                        </p>
+                    </button>
+
+                    {/* Bonuses */}
+                    <button
+                        onClick={() => {
+                            logEvent('home_tile_click', { tile: 'bonus' });
+                            onNavigate('loyalty');
+                        }}
+                        className="flex flex-col items-center gap-1.5 p-3 rounded-tk-lg min-w-[80px] shrink-0 transition-all group shadow-tk-card bg-t-bg-elevated/50 backdrop-blur-[var(--t-backdrop-blur)] border border-t-border hover:bg-t-bg-surface"
+                    >
+                        <div className="w-9 h-9 rounded-tk-full flex items-center justify-center group-hover:scale-110 transition-transform bg-[rgba(234,179,8,0.1)]">
+                            <Star className="w-4.5 h-4.5 text-[#eab308]" />
+                        </div>
+                        <p className="text-[11px] font-bold truncate max-w-[72px] text-t-text">{data.bonuses.amount}</p>
+                        <p className="text-[9px] uppercase tracking-wider text-t-text-muted">Бонусы</p>
+                    </button>
+
+                    {/* Services */}
+                    <button
+                        onClick={() => {
+                            logEvent('home_tile_click', { tile: 'services' });
+                            onNavigate('purchased_services');
+                        }}
+                        className="flex flex-col items-center gap-1.5 p-3 rounded-tk-lg min-w-[80px] shrink-0 transition-all group shadow-tk-card bg-t-bg-elevated/50 backdrop-blur-[var(--t-backdrop-blur)] border border-t-border hover:bg-t-bg-surface"
+                    >
+                        <div className="w-9 h-9 rounded-tk-full flex items-center justify-center group-hover:scale-110 transition-transform bg-[rgba(168,85,247,0.1)]">
+                            <Dumbbell className="w-4.5 h-4.5 text-[#a855f7]" />
+                        </div>
+                        <p className="text-[11px] font-bold truncate max-w-[72px] text-t-text">
+                            {data.services ? `Ост: ${data.services.left}` : '—'}
+                        </p>
+                        <p className="text-[9px] uppercase tracking-wider text-t-text-muted">Услуги</p>
+                    </button>
                 </section>
 
                 {/* Promo / News Horizontal Scroll */}

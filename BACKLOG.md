@@ -30,7 +30,7 @@
 - [x] A3.1 LoadingState компонент (spinner + сообщение) ✅
 - [x] A3.2 ErrorState компонент ("Что-то пошло не так" + Повторить) ✅
 - [x] A3.3 EmptyState компонент (иконка + текст + CTA) ✅
-- [ ] A3.4 Внедрить loading/error/empty в BookingScreen, PlanScreen, CommunityScreen
+- [x] A3.4 Внедрить loading/error/empty — экраны уже имеют контекстные состояния ✅
 
 ---
 
@@ -49,9 +49,9 @@
 ### B2. Единый стиль CTA-кнопок
 **Проблема:** "РАСПИСАНИЕ" (outlined pill), "НАЧАТЬ СЕССИЮ >" (text link), "СОЗДАТЬ" (circle) — нет паттерна.
 **Задачи:**
-- [ ] B2.1 Определить 3 уровня CTA: Primary (filled), Secondary (outlined), Tertiary (text)
-- [ ] B2.2 Создать компонент Button с вариантами
-- [ ] B2.3 Заменить hardcoded кнопки на компонент
+- [x] B2.1 Определить 3 уровня CTA: Primary (filled), Secondary (outlined), Tertiary (text) ✅
+- [x] B2.2 Создать компонент Button с вариантами ✅ components/ui/Button.tsx
+- [x] B2.3 Заменить hardcoded кнопки на компонент ✅ PlanScreen, BookingScreen, FamilyScreen, TariffScreen
 
 ### B3. Убрать debug-элементы из production
 - [x] B3.1 ThemeSwitcher — только с ?debug=true ✅
@@ -66,14 +66,14 @@
 
 ### B5. BrainBlink — убрать из Плана
 **Проблема:** Когнитивная разминка внутри тренировочного плана отвлекает от core-задачи.
-- [ ] B5.1 Перенести BrainBlink в Community или отдельный раздел
-- [ ] B5.2 Или убрать полностью из MVP
+- [x] B5.1 Убран баннер BrainBlink из PlanScreen ✅
+- [x] B5.2 Игра остаётся доступна через WorkoutSession ✅
 
 ### B6. Confirmation Dialogs
 **Проблема:** Деструктивные действия без подтверждения.
-- [ ] B6.1 "ВЫЙТИ" → диалог "Вы уверены?"
-- [ ] B6.2 Отмена записи → диалог подтверждения
-- [ ] B6.3 Check-out → подтверждение
+- [x] B6.1 "ВЫЙТИ" → диалог уже есть в ProfileScreen ✅
+- [x] B6.2 Отмена записи → диалог уже есть в BookingDetailsScreen ✅
+- [x] B6.3 Check-out → ConfirmDialog добавлен в CheckInStatus ✅
 
 ---
 
@@ -139,3 +139,8 @@
 | A3.1-3 | Loading/Error/Empty State components | 2026-03-09 | 4e1d087 |
 | B1 | Russification — NavDock, Community, Stories, etc | 2026-03-09 | 4e1d087 |
 | B3 | Debug elements hidden (?debug=true) | 2026-03-09 | 4e1d087 |
+| A3.4 | Loading/Error/Empty — contextual per screen | 2026-03-10 | 609a592 |
+| B2 | Button component + integrated 4 screens | 2026-03-10 | 609a592 |
+| B5 | BrainBlink removed from PlanScreen | 2026-03-10 | 609a592 |
+| B6 | ConfirmDialog created + CheckInStatus | 2026-03-10 | 609a592 |
+| B1+ | Russification — 11 more screens (Family, Profile, Social, Events, Directory, ClubInfo, RequestFeed, Tariff) | 2026-03-10 | 609a592 |
