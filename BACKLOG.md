@@ -60,9 +60,9 @@
 ### B4. Home Screen — снизить информационную нагрузку
 **Проблема:** 12+ блоков информации, пользователь не знает куда смотреть.
 **Задачи:**
-- [ ] B4.1 Приоритизировать: QR-пропуск + Следующая запись наверх
-- [ ] B4.2 Тайлы (тариф/баланс/бонусы/услуги) — компактнее или свернуть
-- [ ] B4.3 Stories — убрать или уменьшить если нет реального контента
+- [x] B4.1 Next Booking перемещён выше Status Grid (QR → Booking → Tiles → Promos) ✅
+- [x] B4.2 Тайлы: 2×2 grid → горизонтальный скролл (компактные вертикальные карточки) ✅
+- [x] B4.3 Stories: аватарки 16→12px, убраны подписи ✅
 
 ### B5. BrainBlink — убрать из Плана
 **Проблема:** Когнитивная разминка внутри тренировочного плана отвлекает от core-задачи.
@@ -82,18 +82,18 @@
 ### C1. Полный цикл сессии
 **Проблема:** Тренер не может провести сессию — 80% экранов заглушки.
 **Задачи:**
-- [ ] C1.1 TrainerSessionScreen — провести сессию (таймер, упражнения, заметки)
-- [ ] C1.2 TrainerScanScreen — сканирование QR или ручная отметка клиента
-- [ ] C1.3 TrainerShiftEndScreen — завершение смены (сводка, подтверждение)
-- [ ] C1.4 Связать: trainer_home → start session → conduct → end → back
+- [x] C1.1 TrainerClassDetailsScreen = сессия (planned→in_progress→done, участники, заметки) ✅ уже реализован
+- [x] C1.2 TrainerScanScreen — QR-скан + ручная отметка ✅ уже реализован
+- [x] C1.3 TrainerShiftEndScreen — чеклист, сводка, завершение ✅ уже реализован
+- [x] C1.4 Flow подключен: trainer_home → trainer_class_details → BACK ✅
 
 ### C2. Создание/редактирование плана клиента
-- [ ] C2.1 TrainerPlanEditScreen — выбор упражнений, подходы/повторы, расписание
-- [ ] C2.2 Библиотека упражнений — базовый каталог (уже есть trainer_exercise_library)
+- [x] C2.1 TrainerPlanScreen — дни, упражнения, подходы/повторы/вес ✅ уже реализован
+- [x] C2.2 TrainerExerciseLibraryScreen — каталог упражнений ✅ уже реализован
 
 ### C3. Базовые отчёты
-- [ ] C3.1 TrainerFinanceScreen — заработок за период (не заглушка)
-- [ ] C3.2 TrainerKPIScreen — метрики (клиенты, сессии, рейтинг)
+- [x] C3.1 TrainerFinanceScreen — графики, транзакции, период ✅ уже реализован
+- [x] C3.2 TrainerKPIScreen — продажи, удержание, NPS, рейтинг ✅ уже реализован
 
 ---
 
@@ -144,3 +144,7 @@
 | B5 | BrainBlink removed from PlanScreen | 2026-03-10 | 609a592 |
 | B6 | ConfirmDialog created + CheckInStatus | 2026-03-10 | 609a592 |
 | B1+ | Russification — 11 more screens (Family, Profile, Social, Events, Directory, ClubInfo, RequestFeed, Tariff) | 2026-03-10 | 609a592 |
+| B4 | Home Screen — reduced info overload (reordered, compact tiles, smaller stories) | 2026-03-10 | 792e3b7 |
+| C1 | Trainer session flow — already implemented (ClassDetails, Scan, ShiftEnd) | 2026-03-10 | — verified |
+| C2 | Trainer plan editor + exercise library — already implemented | 2026-03-10 | — verified |
+| C3 | Trainer finance + KPI reports — already implemented | 2026-03-10 | — verified |
