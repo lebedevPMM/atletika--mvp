@@ -1,5 +1,5 @@
 import React from 'react';
-import { Home, CalendarDays, User, Dumbbell, Users, LayoutGrid } from 'lucide-react';
+import { Home, CalendarDays, User, Dumbbell, Users, LayoutGrid, LayoutDashboard, BookOpen } from 'lucide-react';
 import { ScreenName } from '../../types';
 
 interface NavDockProps {
@@ -67,13 +67,41 @@ const trainerNavItems = [
   },
 ];
 
+const methodistNavItems = [
+  {
+    name: 'methodist_home',
+    label: 'Обзор',
+    icon: LayoutDashboard,
+    activeScreens: ['methodist_home', 'methodist_analytics'],
+  },
+  {
+    name: 'methodist_programs',
+    label: 'Программы',
+    icon: BookOpen,
+    activeScreens: ['methodist_programs', 'methodist_program_detail'],
+  },
+  {
+    name: 'methodist_trainers',
+    label: 'Тренеры',
+    icon: Users,
+    activeScreens: ['methodist_trainers', 'methodist_trainer_profile'],
+  },
+  {
+    name: 'methodist_settings',
+    label: 'Меню',
+    icon: LayoutGrid,
+    activeScreens: ['methodist_settings'],
+  },
+];
+
 /**
  * NavDock — standard bottom navigation bar.
  * Uses semantic theme tokens for colors.
  */
 const NavDock: React.FC<NavDockProps> = ({ currentScreen, onNavigate }) => {
+  const isMethodistMode = currentScreen.startsWith('methodist_');
   const isTrainerMode = currentScreen.startsWith('trainer_');
-  const navItems = isTrainerMode ? trainerNavItems : clientNavItems;
+  const navItems = isMethodistMode ? methodistNavItems : isTrainerMode ? trainerNavItems : clientNavItems;
 
   return (
     <div className="absolute bottom-0 left-0 right-0 bg-t-nav-bg backdrop-blur-md border-t border-t-nav-border px-4 py-3 flex justify-between items-center z-40 safe-area-bottom">

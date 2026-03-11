@@ -75,8 +75,14 @@ const TrainerLoginScreen: React.FC<TrainerLoginScreenProps> = ({ onNavigate }) =
         </div>
 
         <button
+          onClick={() => onNavigate('methodist_login')}
+          className="w-full py-3 text-purple-400 text-sm hover:text-purple-300 transition-colors"
+        >
+          Я методист
+        </button>
+        <button
           onClick={() => onNavigate('auth_phone')}
-          className="w-full py-4 text-gray-500 text-sm hover:text-white transition-colors"
+          className="w-full py-3 text-gray-500 text-sm hover:text-white transition-colors"
         >
           Вернуться к входу для клиентов
         </button>

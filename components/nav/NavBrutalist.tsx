@@ -1,5 +1,5 @@
 import React from 'react';
-import { Home, CalendarDays, User, Dumbbell, Users, LayoutGrid } from 'lucide-react';
+import { Home, CalendarDays, User, Dumbbell, Users, LayoutGrid, LayoutDashboard, BookOpen } from 'lucide-react';
 import { ScreenName } from '../../types';
 
 interface NavBrutalistProps {
@@ -67,13 +67,41 @@ const trainerNavItems = [
   },
 ];
 
+const methodistNavItems = [
+  {
+    name: 'methodist_home',
+    label: 'DASH',
+    icon: LayoutDashboard,
+    activeScreens: ['methodist_home', 'methodist_analytics'],
+  },
+  {
+    name: 'methodist_programs',
+    label: 'PROG',
+    icon: BookOpen,
+    activeScreens: ['methodist_programs', 'methodist_program_detail'],
+  },
+  {
+    name: 'methodist_trainers',
+    label: 'TEAM',
+    icon: Users,
+    activeScreens: ['methodist_trainers', 'methodist_trainer_profile'],
+  },
+  {
+    name: 'methodist_settings',
+    label: 'MENU',
+    icon: LayoutGrid,
+    activeScreens: ['methodist_settings'],
+  },
+];
+
 /**
  * NavBrutalist — editorial bottom nav with square icons, heavy borders.
  * Same tabs as NavDock, different visual style.
  */
 const NavBrutalist: React.FC<NavBrutalistProps> = ({ currentScreen, onNavigate }) => {
+  const isMethodistMode = currentScreen.startsWith('methodist_');
   const isTrainerMode = currentScreen.startsWith('trainer_');
-  const navItems = isTrainerMode ? trainerNavItems : clientNavItems;
+  const navItems = isMethodistMode ? methodistNavItems : isTrainerMode ? trainerNavItems : clientNavItems;
 
   return (
     <div

@@ -146,6 +146,19 @@ export type ScreenName =
   | 'trainer_community' // NEW 83
   | 'trainer_education' // NEW 84
 
+  // --- METHODIST APP SPECIFIC (89-99) ---
+  | 'methodist_login'
+  | 'methodist_otp'
+  | 'methodist_select_club'
+  | 'methodist_logout'
+  | 'methodist_home'
+  | 'methodist_programs'
+  | 'methodist_program_detail'
+  | 'methodist_trainers'
+  | 'methodist_trainer_profile'
+  | 'methodist_analytics'
+  | 'methodist_settings'
+
   // --- E-COMMERCE & CONTENT (85-88) ---
   | 'shop_product_details' // NEW 85
   | 'cart' // NEW 86

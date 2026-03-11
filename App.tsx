@@ -105,7 +105,18 @@ import TrainerPayrollHistoryScreen from './components/TrainerPayrollHistoryScree
 import TrainerCommunityScreen from './components/TrainerCommunityScreen';
 import TrainerEducationScreen from './components/TrainerEducationScreen';
 import TrainerAboutScreen from './components/TrainerAboutScreen';
-import TrainerLogoutScreen from './components/TrainerLogoutScreen'; // NEW
+import TrainerLogoutScreen from './components/TrainerLogoutScreen';
+import MethodistLoginScreen from './components/MethodistLoginScreen';
+import MethodistOtpScreen from './components/MethodistOtpScreen';
+import MethodistSelectClubScreen from './components/MethodistSelectClubScreen';
+import MethodistLogoutScreen from './components/MethodistLogoutScreen';
+import MethodistHomeScreen from './components/MethodistHomeScreen';
+import MethodistProgramsScreen from './components/MethodistProgramsScreen';
+import MethodistTrainersScreen from './components/MethodistTrainersScreen';
+import MethodistSettingsScreen from './components/MethodistSettingsScreen';
+import MethodistProgramDetailScreen from './components/MethodistProgramDetailScreen';
+import MethodistTrainerProfileScreen from './components/MethodistTrainerProfileScreen';
+import MethodistAnalyticsScreen from './components/MethodistAnalyticsScreen';
 import TrainerOtpScreen from './components/TrainerOtpScreen'; // NEW
 import TrainerPreferencesScreen from './components/TrainerPreferencesScreen'; // NEW
 import ShopProductDetailsScreen from './components/ShopProductDetailsScreen';
@@ -144,7 +155,8 @@ const App: React.FC = () => {
     // Root Tabs - Reset Stack
     const rootTabs: ScreenName[] = [
       'home', 'plan', 'booking_schedule', 'chat_list', 'profile', // Client Tabs
-      'trainer_home', 'trainer_schedule', 'trainer_clients_list', 'trainer_settings' // Trainer Tabs
+      'trainer_home', 'trainer_schedule', 'trainer_clients_list', 'trainer_settings', // Trainer Tabs
+      'methodist_home', 'methodist_programs', 'methodist_trainers', 'methodist_settings' // Methodist Tabs
     ];
 
     if (rootTabs.includes(screen)) {
@@ -341,6 +353,19 @@ const App: React.FC = () => {
       case 'trainer_community': return <TrainerCommunityScreen onNavigate={handleNavigate} />;
       case 'trainer_education': return <TrainerEducationScreen onNavigate={handleNavigate} />;
 
+      // --- METHODIST APP ---
+      case 'methodist_login': return <MethodistLoginScreen onNavigate={handleNavigate} />;
+      case 'methodist_otp': return <MethodistOtpScreen onNavigate={handleNavigate} />;
+      case 'methodist_select_club': return <MethodistSelectClubScreen onNavigate={handleNavigate} />;
+      case 'methodist_logout': return <MethodistLogoutScreen onNavigate={handleNavigate} />;
+      case 'methodist_home': return <MethodistHomeScreen onNavigate={handleNavigate} />;
+      case 'methodist_programs': return <MethodistProgramsScreen onNavigate={handleNavigate} />;
+      case 'methodist_program_detail': return <MethodistProgramDetailScreen onNavigate={handleNavigate} />;
+      case 'methodist_trainers': return <MethodistTrainersScreen onNavigate={handleNavigate} />;
+      case 'methodist_trainer_profile': return <MethodistTrainerProfileScreen onNavigate={handleNavigate} />;
+      case 'methodist_analytics': return <MethodistAnalyticsScreen onNavigate={handleNavigate} />;
+      case 'methodist_settings': return <MethodistSettingsScreen onNavigate={handleNavigate} />;
+
       // NEW CLIENT SCREENS
       case 'shop_product_details': return <ShopProductDetailsScreen onNavigate={handleNavigate} />;
       case 'cart': return <CartScreen onNavigate={handleNavigate} />;
@@ -370,6 +395,11 @@ const App: React.FC = () => {
     currentScreen === 'trainer_otp' ||
     currentScreen === 'trainer_select_club' ||
     currentScreen === 'trainer_scan' ||
+    // Methodist auth screens (no nav)
+    currentScreen === 'methodist_login' ||
+    currentScreen === 'methodist_otp' ||
+    currentScreen === 'methodist_select_club' ||
+    currentScreen === 'methodist_logout' ||
     // trainer_home, trainer_schedule, etc DO HAVE NAV now
 
     currentScreen === 'stories' ||
