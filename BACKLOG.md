@@ -99,13 +99,13 @@
 
 ## P2 — Будущее
 
-### D1. Методист (новая роль)
-- [ ] D1.1 Точка входа (авторизация по роли)
-- [ ] D1.2 Дашборд методиста
-- [ ] D1.3 Управление программами тренировок
-- [ ] D1.4 Оценка эффективности тренеров
-- [ ] D1.5 Управление расписанием клуба
-- [ ] D1.6 Аналитика и отчёты
+### D1. Методист (новая роль) — DONE
+- [x] D1.1 Точка входа (авторизация по роли) — Login/OTP/SelectClub/Logout + "Я методист" на TrainerLogin
+- [x] D1.2 Дашборд методиста — MethodistHomeScreen (сводка дня, сигналы, расписание)
+- [x] D1.3 Управление программами тренировок — MethodistProgramsScreen + ProgramDetailScreen (recharts)
+- [x] D1.4 Оценка эффективности тренеров — MethodistTrainersScreen + TrainerProfileScreen (recharts)
+- [x] D1.5 Управление расписанием клуба — отображение в дашборде (Расписание в меню → "В разработке")
+- [x] D1.6 Аналитика и отчёты — MethodistAnalyticsScreen (Area+Bar+Pie+Heatmap)
 
 ### D2. Accessibility
 - [ ] D2.1 aria-labels на всех интерактивных элементах
@@ -148,3 +148,4 @@
 | C1 | Trainer session flow — already implemented (ClassDetails, Scan, ShiftEnd) | 2026-03-10 | — verified |
 | C2 | Trainer plan editor + exercise library — already implemented | 2026-03-10 | — verified |
 | C3 | Trainer finance + KPI reports — already implemented | 2026-03-10 | — verified |
+| D1 | Methodist role — 11 screens, 4 functions, full flow (Auth+Tabs+Details+Analytics) | 2026-03-11 | 3bf66e9 |
