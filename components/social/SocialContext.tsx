@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { UserProfile, RaidBoss, SocialStatus, BusinessRequest, CommunityEvent, BuddyConnection, OpenWorkout, BuddySuggestion, BlockedUser, ReportReason, UserReport, Challenge } from './types';
-import { MOCK_USERS, CURRENT_USER_MOCK, MOCK_REQUESTS, MOCK_EVENTS, MOCK_BUDDY_CONNECTIONS, MOCK_OPEN_WORKOUTS, MOCK_BUDDY_SUGGESTIONS, MOCK_CHALLENGES } from './mockData';
+import { UserProfile, RaidBoss, SocialStatus, BusinessRequest, CommunityEvent, BuddyConnection, OpenWorkout, BuddySuggestion, BlockedUser, ReportReason, UserReport, Challenge, BuddyChat, Badge, SocialStreak } from './types';
+import { MOCK_USERS, CURRENT_USER_MOCK, MOCK_REQUESTS, MOCK_EVENTS, MOCK_BUDDY_CONNECTIONS, MOCK_OPEN_WORKOUTS, MOCK_BUDDY_SUGGESTIONS, MOCK_CHALLENGES, MOCK_BUDDY_CHATS, MOCK_BADGES, MOCK_STREAKS } from './mockData';
 
 interface SocialContextType {
     currentUser: UserProfile | null;
@@ -45,6 +45,15 @@ interface SocialContextType {
     reportUser: (targetUserId: string, reason: ReportReason, description?: string) => void;
     toggleGhostMode: () => void;
     toggleShowRevenue: () => void;
+
+    // F3.7: Buddy Chat
+    buddyChats: BuddyChat[];
+    sendBuddyMessage: (chatId: string, text: string) => void;
+    getBuddyChatForUser: (userId: string) => BuddyChat | undefined;
+
+    // F3.8: Gamification Badges & Streaks
+    badges: Badge[];
+    streaks: SocialStreak[];
 }
 
 const SocialContext = createContext<SocialContextType | undefined>(undefined);
@@ -75,6 +84,13 @@ export const SocialProvider: React.FC<{ children: React.ReactNode }> = ({ childr
 
     // F3.3: Challenge Teams state
     const [challenges, setChallenges] = useState<Challenge[]>(MOCK_CHALLENGES);
+
+    // F3.7: Buddy Chat state
+    const [buddyChats, setBuddyChats] = useState<BuddyChat[]>(MOCK_BUDDY_CHATS);
+
+    // F3.8: Gamification Badges & Streaks state
+    const [badges] = useState<Badge[]>(MOCK_BADGES);
+    const [streaks] = useState<SocialStreak[]>(MOCK_STREAKS);
 
     // F3.5: Privacy & Safety state
     const [blockedUsers, setBlockedUsers] = useState<BlockedUser[]>([]);
@@ -287,6 +303,36 @@ export const SocialProvider: React.FC<{ children: React.ReactNode }> = ({ childr
         }
     };
 
+    // F3.7: Buddy Chat methods
+    const sendBuddyMessage = (chatId: string, text: string) => {
+        if (!currentUser) return;
+        const newMessage = {
+            id: `msg_${Date.now()}`,
+            senderId: currentUser.id,
+            text,
+            timestamp: new Date().toISOString(),
+            type: 'text' as const,
+        };
+        setBuddyChats(prev =>
+            prev.map(chat => {
+                if (chat.id === chatId) {
+                    return {
+                        ...chat,
+                        messages: [...chat.messages, newMessage],
+                        lastMessageAt: newMessage.timestamp,
+                    };
+                }
+                return chat;
+            })
+        );
+    };
+
+    const getBuddyChatForUser = (userId: string): BuddyChat | undefined => {
+        return buddyChats.find(chat =>
+            chat.participants.includes(userId) && chat.participants.includes(currentUser?.id || 'me')
+        );
+    };
+
     const isGuest = currentUser?.verificationStatus === 'guest';
 
     const submitApplication = async (data: any) => {
@@ -345,6 +391,15 @@ export const SocialProvider: React.FC<{ children: React.ReactNode }> = ({ childr
             reportUser,
             toggleGhostMode,
             toggleShowRevenue,
+
+            // F3.7: Buddy Chat
+            buddyChats,
+            sendBuddyMessage,
+            getBuddyChatForUser,
+
+            // F3.8: Gamification Badges & Streaks
+            badges,
+            streaks,
         }}>
             {children}
         </SocialContext.Provider>

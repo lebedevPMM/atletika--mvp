@@ -19,7 +19,7 @@ const REPORT_REASONS: { value: ReportReason; label: string }[] = [
 ];
 
 const SocialProfileScreen: React.FC<SocialProfileScreenProps> = ({ onNavigate, userId }) => {
-    const { allMembers, blockUser, reportUser, blockedUsers } = useSocial();
+    const { allMembers, blockUser, reportUser, blockedUsers, badges } = useSocial();
     const { theme } = useTheme();
     const isDark = theme === 'dark';
 
@@ -71,7 +71,7 @@ const SocialProfileScreen: React.FC<SocialProfileScreenProps> = ({ onNavigate, u
                 <h2 className="text-3xl font-black mb-1 text-center tracking-tight">{targetUser.firstName} {targetUser.lastName}</h2>
                 <p className={`text-sm mb-4 ${isDark ? 'text-zinc-400' : 'text-gray-500'}`}>@{targetUser.nickname}</p>
 
-                <div className="flex items-center gap-3 mb-8">
+                <div className="flex items-center gap-3 mb-4">
                     <span className={`px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider ${isDark ? 'bg-zinc-800 text-zinc-300' : 'bg-gray-200 text-gray-600'}`}>
                         {targetUser.role}
                     </span>
@@ -79,6 +79,29 @@ const SocialProfileScreen: React.FC<SocialProfileScreenProps> = ({ onNavigate, u
                         <Trophy className="w-3 h-3" /> Karma {targetUser.stats.reputation}
                     </span>
                 </div>
+
+                {/* F3.8: Badges entry point */}
+                <button
+                    onClick={() => onNavigate('badges')}
+                    className={`w-full mb-8 flex items-center justify-between p-4 rounded-2xl border transition-colors ${isDark ? 'bg-zinc-900 border-zinc-800 hover:bg-zinc-800' : 'bg-white border-gray-200 shadow-sm hover:bg-gray-50'}`}
+                >
+                    <div className="flex items-center gap-3">
+                        <div className={`w-10 h-10 rounded-full flex items-center justify-center ${isDark ? 'bg-yellow-500/10' : 'bg-yellow-50'}`}>
+                            <Trophy className="w-5 h-5 text-yellow-500" />
+                        </div>
+                        <div className="text-left">
+                            <p className={`text-sm font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>Достижения</p>
+                            <p className={`text-xs ${isDark ? 'text-zinc-400' : 'text-gray-500'}`}>
+                                {badges.filter(b => b.unlockedAt).length} из {badges.length} открыто
+                            </p>
+                        </div>
+                    </div>
+                    <div className="flex -space-x-1">
+                        {badges.filter(b => b.unlockedAt).slice(0, 4).map(b => (
+                            <span key={b.id} className="text-lg">{b.icon}</span>
+                        ))}
+                    </div>
+                </button>
 
                 {/* Business DNA Card */}
                 <div className={`w-full p-6 rounded-3xl mb-4 relative overflow-hidden ${isDark ? 'bg-zinc-900 border border-zinc-800' : 'bg-white shadow-xl shadow-gray-200/50'}`}>

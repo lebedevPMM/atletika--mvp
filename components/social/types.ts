@@ -209,3 +209,49 @@ export interface UserReport {
     createdAt: string; // ISO
     status: 'pending' | 'reviewed' | 'resolved';
 }
+
+// === F3.7: Buddy Chat Types ===
+
+export interface BuddyChatMessage {
+    id: string;
+    senderId: string;
+    text: string;
+    timestamp: string; // ISO
+    type: 'text' | 'workout_invite' | 'challenge_update';
+    metadata?: {
+        workoutId?: string;
+        challengeId?: string;
+    };
+}
+
+export interface BuddyChat {
+    id: string;
+    participants: [string, string]; // exactly 2 user IDs
+    messages: BuddyChatMessage[];
+    lastMessageAt: string; // ISO
+    unreadCount: number;
+}
+
+// === F3.8: Gamification Badges & Streaks Types ===
+
+export type BadgeCategory = 'social' | 'training' | 'streak' | 'challenge' | 'community';
+export type BadgeRarity = 'common' | 'rare' | 'epic' | 'legendary';
+
+export interface Badge {
+    id: string;
+    name: string;
+    description: string;
+    icon: string; // emoji
+    category: BadgeCategory;
+    rarity: BadgeRarity;
+    unlockedAt?: string; // ISO — undefined = locked
+    progress?: number; // 0-100 for partially completed
+    requirement: string; // "5 совместных тренировок"
+}
+
+export interface SocialStreak {
+    type: 'buddy_workout' | 'daily_checkin' | 'challenge_participation';
+    currentStreak: number;
+    bestStreak: number;
+    lastActivityDate: string; // ISO
+}

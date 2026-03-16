@@ -110,6 +110,8 @@ export type ScreenName =
   | 'open_workouts' // F3: Open Workouts
   | 'open_workout_create' // F3: Create Open Workout
   | 'challenge_teams' // F3.3: Challenge Teams
+  | 'buddy_chat' // F3.7: Buddy Chat
+  | 'badges' // F3.8: Gamification Badges
 
   // --- TRAINER APP SPECIFIC (55-84) ---
   | 'trainer_login'

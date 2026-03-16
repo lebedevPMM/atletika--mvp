@@ -1,4 +1,4 @@
-import { UserProfile, FitnessPassport, BuddyConnection, OpenWorkout, BuddySuggestion, Challenge } from './types';
+import { UserProfile, FitnessPassport, BuddyConnection, OpenWorkout, BuddySuggestion, Challenge, BuddyChat, Badge, SocialStreak } from './types';
 
 export const MOCK_USERS: UserProfile[] = [
     {
@@ -608,5 +608,249 @@ export const MOCK_CHALLENGES: Challenge[] = [
         teams: [],
         creatorId: 'u2',
         prizeDescription: 'Бесплатный протеиновый коктейль для каждого в команде-победителе',
+    },
+];
+
+// === F3.7: Buddy Chats ===
+
+export const MOCK_BUDDY_CHATS: BuddyChat[] = [
+    {
+        id: 'bchat1',
+        participants: ['me', 'u1'],
+        lastMessageAt: '2026-03-17T11:15:00Z',
+        unreadCount: 1,
+        messages: [
+            {
+                id: 'msg1',
+                senderId: 'u1',
+                text: 'Завтра в 19:00 на силовую? Буду делать присед и жим.',
+                timestamp: '2026-03-16T18:30:00Z',
+                type: 'text',
+            },
+            {
+                id: 'msg2',
+                senderId: 'me',
+                text: 'Давай! Буду к 18:50, разомнусь пока.',
+                timestamp: '2026-03-16T18:35:00Z',
+                type: 'text',
+            },
+            {
+                id: 'msg3',
+                senderId: 'u1',
+                text: 'Отлично. Я сегодня новый PR на жиме поставил — 110 кг!',
+                timestamp: '2026-03-16T20:10:00Z',
+                type: 'text',
+            },
+            {
+                id: 'msg4',
+                senderId: 'me',
+                text: 'Красава! Я пока на 90 застрял, поможешь со страховкой?',
+                timestamp: '2026-03-16T20:15:00Z',
+                type: 'text',
+            },
+            {
+                id: 'msg5',
+                senderId: 'u1',
+                text: 'Конечно, подстрахую. Попробуем 95 завтра.',
+                timestamp: '2026-03-17T09:00:00Z',
+                type: 'text',
+            },
+            {
+                id: 'msg6',
+                senderId: 'u1',
+                text: 'Как тренировка вчера прошла кстати? Видел тебя на кардио.',
+                timestamp: '2026-03-17T11:15:00Z',
+                type: 'text',
+            },
+        ],
+    },
+    {
+        id: 'bchat2',
+        participants: ['me', 'u2'],
+        lastMessageAt: '2026-03-17T08:20:00Z',
+        unreadCount: 0,
+        messages: [
+            {
+                id: 'msg7',
+                senderId: 'u2',
+                text: 'Привет! Бежим в субботу утром? Набережная, 5 км.',
+                timestamp: '2026-03-15T14:00:00Z',
+                type: 'text',
+            },
+            {
+                id: 'msg8',
+                senderId: 'me',
+                text: 'Да, я в деле. Во сколько стартуем?',
+                timestamp: '2026-03-15T14:10:00Z',
+                type: 'text',
+            },
+            {
+                id: 'msg9',
+                senderId: 'u2',
+                text: 'Присоединяйся к утреннему кардио!',
+                timestamp: '2026-03-16T19:00:00Z',
+                type: 'workout_invite',
+                metadata: {
+                    workoutId: 'ow2',
+                },
+            },
+            {
+                id: 'msg10',
+                senderId: 'me',
+                text: 'Записался! Буду в 7 на набережной.',
+                timestamp: '2026-03-17T08:20:00Z',
+                type: 'text',
+            },
+        ],
+    },
+];
+
+// === F3.8: Gamification Badges ===
+
+export const MOCK_BADGES: Badge[] = [
+    // Unlocked (5)
+    {
+        id: 'b1',
+        name: 'Первый контакт',
+        description: 'Начало пути в сообществе',
+        icon: '\u{1F91D}',
+        category: 'social',
+        rarity: 'common',
+        unlockedAt: '2026-02-15T10:00:00Z',
+        requirement: 'Добавить первого напарника',
+    },
+    {
+        id: 'b2',
+        name: 'Двойной удар',
+        description: 'Тренировки в паре — двойная мотивация',
+        icon: '\u{1F4AA}',
+        category: 'training',
+        rarity: 'common',
+        unlockedAt: '2026-03-01T14:30:00Z',
+        requirement: '5 совместных тренировок',
+    },
+    {
+        id: 'b3',
+        name: 'Завсегдатай',
+        description: 'Регулярность — ключ к результату',
+        icon: '\u{1F525}',
+        category: 'streak',
+        rarity: 'rare',
+        unlockedAt: '2026-03-10T08:00:00Z',
+        requirement: '7-дневный streak посещений',
+    },
+    {
+        id: 'b4',
+        name: 'Командный игрок',
+        description: 'Соревнования делают сильнее',
+        icon: '\u{1F3AF}',
+        category: 'challenge',
+        rarity: 'common',
+        unlockedAt: '2026-03-05T16:00:00Z',
+        requirement: 'Участие в первом вызове',
+    },
+    {
+        id: 'b5',
+        name: 'Популярный',
+        description: 'Круг общения растёт',
+        icon: '\u{2B50}',
+        category: 'community',
+        rarity: 'rare',
+        unlockedAt: '2026-03-12T12:00:00Z',
+        requirement: '3+ напарника',
+    },
+
+    // Locked with progress (4)
+    {
+        id: 'b6',
+        name: 'Железный дуэт',
+        description: 'Настоящее партнёрство проверяется временем',
+        icon: '\u{1F3CB}',
+        category: 'training',
+        rarity: 'rare',
+        progress: 60,
+        requirement: '20 совместных тренировок',
+    },
+    {
+        id: 'b7',
+        name: 'Марафонец',
+        description: 'Дисциплина превращается в привычку',
+        icon: '\u{26A1}',
+        category: 'streak',
+        rarity: 'epic',
+        progress: 23,
+        requirement: '30-дневный streak',
+    },
+    {
+        id: 'b8',
+        name: 'Чемпион',
+        description: 'Побеждать снова и снова',
+        icon: '\u{1F3C6}',
+        category: 'challenge',
+        rarity: 'epic',
+        progress: 33,
+        requirement: 'Выиграть 3 вызова',
+    },
+    {
+        id: 'b9',
+        name: 'Инфлюенсер',
+        description: 'Ты — центр сообщества',
+        icon: '\u{1F451}',
+        category: 'community',
+        rarity: 'epic',
+        progress: 30,
+        requirement: '10+ напарников',
+    },
+
+    // Locked, no progress (3)
+    {
+        id: 'b10',
+        name: 'Легенда зала',
+        description: 'Имя, которое знают все',
+        icon: '\u{1F947}',
+        category: 'training',
+        rarity: 'legendary',
+        requirement: '100 совместных тренировок',
+    },
+    {
+        id: 'b11',
+        name: 'Несгибаемый',
+        description: 'Абсолютная дисциплина',
+        icon: '\u{1F48E}',
+        category: 'streak',
+        rarity: 'legendary',
+        requirement: '100-дневный streak',
+    },
+    {
+        id: 'b12',
+        name: 'Основатель',
+        description: 'Создавай тренировки — строй сообщество',
+        icon: '\u{1F680}',
+        category: 'community',
+        rarity: 'legendary',
+        requirement: 'Создать 10 открытых тренировок',
+    },
+];
+
+// === F3.8: Social Streaks ===
+
+export const MOCK_STREAKS: SocialStreak[] = [
+    {
+        type: 'buddy_workout',
+        currentStreak: 3,
+        bestStreak: 8,
+        lastActivityDate: '2026-03-16T19:00:00Z',
+    },
+    {
+        type: 'daily_checkin',
+        currentStreak: 12,
+        bestStreak: 15,
+        lastActivityDate: '2026-03-17T08:00:00Z',
+    },
+    {
+        type: 'challenge_participation',
+        currentStreak: 1,
+        bestStreak: 3,
+        lastActivityDate: '2026-03-15T16:00:00Z',
     },
 ];

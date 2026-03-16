@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSocial } from './SocialContext';
 import { useTheme } from '../ThemeContext';
-import { ArrowLeft, UserCheck, UserPlus, Users, ChevronRight, X, Check, Dumbbell } from 'lucide-react';
+import { ArrowLeft, UserCheck, UserPlus, Users, ChevronRight, X, Check, Dumbbell, MessageCircle } from 'lucide-react';
 import { ScreenName } from '../../types';
 
 interface BuddyListScreenProps {
@@ -189,33 +189,49 @@ const BuddyListScreen: React.FC<BuddyListScreenProps> = ({ onNavigate }) => {
                                 const user = getBuddyUser(conn);
                                 if (!user) return null;
                                 return (
-                                    <button
+                                    <div
                                         key={conn.id}
-                                        onClick={() => onNavigate('social_profile')}
-                                        className={`w-full p-4 rounded-2xl flex items-center gap-3 text-left active:scale-[0.98] transition-all ${isDark ? 'bg-zinc-900 border border-zinc-800 hover:bg-zinc-800/50' : 'bg-white shadow-sm hover:bg-gray-50'}`}
+                                        className={`p-4 rounded-2xl flex items-center gap-3 ${isDark ? 'bg-zinc-900 border border-zinc-800' : 'bg-white shadow-sm'}`}
                                     >
-                                        <div className="relative">
-                                            <img
-                                                src={user.avatarUrl || `https://api.dicebear.com/7.x/initials/svg?seed=${user.nickname}`}
-                                                className="w-12 h-12 rounded-full bg-gray-200 object-cover"
-                                                alt={user.firstName}
+                                        <button
+                                            onClick={() => onNavigate('social_profile')}
+                                            className="flex items-center gap-3 flex-1 min-w-0 text-left active:scale-[0.98] transition-all"
+                                        >
+                                            <div className="relative">
+                                                <img
+                                                    src={user.avatarUrl || `https://api.dicebear.com/7.x/initials/svg?seed=${user.nickname}`}
+                                                    className="w-12 h-12 rounded-full bg-gray-200 object-cover"
+                                                    alt={user.firstName}
+                                                />
+                                                <div className={`absolute -bottom-0.5 -right-0.5 w-4 h-4 rounded-full border-2 ${isDark ? 'border-zinc-900' : 'border-white'} ${user.status === 'green' ? 'bg-green-500' : user.status === 'yellow' ? 'bg-yellow-500' : 'bg-red-500'}`} />
+                                            </div>
+                                            <div className="flex-1 min-w-0">
+                                                <p className="font-bold text-sm truncate">{user.firstName} {user.lastName}</p>
+                                                <div className="flex items-center gap-2 mt-0.5">
+                                                    <Dumbbell className={`w-3 h-3 ${isDark ? 'text-zinc-500' : 'text-gray-400'}`} />
+                                                    <span className={`text-xs ${isDark ? 'text-zinc-400' : 'text-gray-500'}`}>
+                                                        {conn.sharedWorkouts} совместных
+                                                    </span>
+                                                </div>
+                                                <div className="mt-2">
+                                                    <BondLevelBar level={conn.bondLevel} />
+                                                </div>
+                                            </div>
+                                        </button>
+                                        <div className="flex items-center gap-1.5">
+                                            <button
+                                                onClick={() => onNavigate('buddy_chat')}
+                                                className={`p-2.5 rounded-full transition-all active:scale-[0.95] ${isDark ? 'bg-cyan-600/20 text-cyan-400 hover:bg-cyan-600/30' : 'bg-cyan-50 text-cyan-600 hover:bg-cyan-100'}`}
+                                                title="Написать"
+                                            >
+                                                <MessageCircle className="w-4.5 h-4.5" />
+                                            </button>
+                                            <ChevronRight
+                                                className={`w-5 h-5 ${isDark ? 'text-zinc-600' : 'text-gray-400'} cursor-pointer`}
+                                                onClick={() => onNavigate('social_profile')}
                                             />
-                                            <div className={`absolute -bottom-0.5 -right-0.5 w-4 h-4 rounded-full border-2 ${isDark ? 'border-zinc-900' : 'border-white'} ${user.status === 'green' ? 'bg-green-500' : user.status === 'yellow' ? 'bg-yellow-500' : 'bg-red-500'}`} />
                                         </div>
-                                        <div className="flex-1 min-w-0">
-                                            <p className="font-bold text-sm truncate">{user.firstName} {user.lastName}</p>
-                                            <div className="flex items-center gap-2 mt-0.5">
-                                                <Dumbbell className={`w-3 h-3 ${isDark ? 'text-zinc-500' : 'text-gray-400'}`} />
-                                                <span className={`text-xs ${isDark ? 'text-zinc-400' : 'text-gray-500'}`}>
-                                                    {conn.sharedWorkouts} совместных
-                                                </span>
-                                            </div>
-                                            <div className="mt-2">
-                                                <BondLevelBar level={conn.bondLevel} />
-                                            </div>
-                                        </div>
-                                        <ChevronRight className={`w-5 h-5 ${isDark ? 'text-zinc-600' : 'text-gray-400'}`} />
-                                    </button>
+                                    </div>
                                 );
                             })}
                         </div>

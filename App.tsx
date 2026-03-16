@@ -135,6 +135,8 @@ import OnboardingApplicationScreen from './components/social/OnboardingApplicati
 import BuddyListScreen from './components/social/BuddyListScreen';
 import OpenWorkoutsScreen from './components/social/OpenWorkoutsScreen';
 import ChallengeScreen from './components/social/ChallengeScreen';
+import BuddyChatScreen from './components/social/BuddyChatScreen';
+import BadgesScreen from './components/social/BadgesScreen';
 import PrivacyScreen from './components/PrivacyScreen';
 import ClubOccupancyScreen from './components/ClubOccupancyScreen';
 import BottomNav from './components/BottomNav';
@@ -252,6 +254,8 @@ const App: React.FC = () => {
       case 'open_workout_create':
         return <OpenWorkoutsScreen onNavigate={handleNavigate} />;
       case 'challenge_teams': return <ChallengeScreen onNavigate={handleNavigate} />;
+      case 'buddy_chat': return <BuddyChatScreen onNavigate={handleNavigate} />;
+      case 'badges': return <BadgesScreen onNavigate={handleNavigate} />;
       case 'chat_room': return <ChatRoomScreen onNavigate={handleNavigate} />;
 
       // --- CLUB INFO & REVIEWS ---
@@ -434,6 +438,8 @@ const App: React.FC = () => {
     currentScreen === 'open_workouts' ||
     currentScreen === 'open_workout_create' ||
     currentScreen === 'challenge_teams' ||
+    currentScreen === 'buddy_chat' ||
+    currentScreen === 'badges' ||
     currentScreen === 'chat_room' ||
     currentScreen === 'complaint' ||
     currentScreen === 'change_password' ||

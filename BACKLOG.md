@@ -149,7 +149,7 @@
 - [x] F1.2 OccupancyWidget на HomeScreen (80px compact, 5 уровней, цветовая шкала) ✅
 - [x] F1.3 ClubOccupancyScreen — детальный вид (почасовой график, зоны, прогноз) ✅
 - [x] F1.4 Интеграция с GymActiveUsersList (фактические данные) ✅
-- [ ] F1.5 Heatmap в MethodistAnalyticsScreen (уже есть данные)
+- [x] F1.5 Heatmap в MethodistAnalyticsScreen (данные из occupancy-engine) ✅
 
 ### F2. Оферта при регистрации (MVP 1)
 **Описание:** Юридически корректное принятие оферты с trust-building UX.
@@ -171,9 +171,9 @@
 **Задачи:**
 - [x] F3.1 Open Workouts — публичные тренировки с присоединением ✅
 - [x] F3.2 Suggested Buddies — алгоритм подбора по расписанию/уровню/целям ✅
-- [ ] F3.3 Challenge Teams — командные вызовы (2-5 чел, 7 дней)
+- [x] F3.3 Challenge Teams — командные вызовы (2-5 чел, 7 дней) ✅
 - [x] F3.4 Enhanced Profiles — фитнес-интересы, предпочтения, "ищу напарника" ✅
-- [ ] F3.5 Privacy & Safety — ghost mode, блокировка, отчёты, opt-in
+- [x] F3.5 Privacy & Safety — ghost mode, блокировка, отчёты, opt-in ✅
 - [x] F3.6 Social Feed на CommunityScreen (вкладка "Поиск" + buddy/workouts) ✅
 - [ ] F3.7 Buddy Chat — чат между matched пользователями
 - [ ] F3.8 Gamification — бейджи за социальную активность, streak за тренировки с buddy
@@ -242,3 +242,6 @@
 | F1 | Gym Occupancy — types, mock engine, widget, detail screen, HomeScreen integration | 2026-03-16 | — |
 | F2 | Offer/Agreement — 3 checkboxes, timestamps, Summary Card, expandable text, version badge | 2026-03-16 | — |
 | F3.1-4,6 | Community Social — buddy system, open workouts, suggested buddies, CommunityScreen tab | 2026-03-16 | — |
+| F1.5 | Occupancy Heatmap — MethodistAnalytics now uses occupancy-engine data | 2026-03-17 | faa193b |
+| F3.3 | Challenge Teams — types, mocks, ChallengeScreen, App.tsx routing | 2026-03-17 | faa193b |
+| F3.5 | Privacy & Safety — ghost mode, block/report in SocialProfile, PrivacyScreen toggles | 2026-03-17 | faa193b |
