@@ -99,43 +99,84 @@
 
 ## P1 — Фитнес-Карта Клиента (ClientCard)
 
-### E1. Типы и модель данных
+### E1. Типы и модель данных — DONE
 **Описание:** Центральная сущность — единая точка правды по клиенту для 3 ролей.
 **Docs:** `docs/plans/2026-03-16-client-card-entity-design.md`, `docs/product/client-card.md`
 **Задачи:**
-- [ ] E1.1 Branded ID types + ClientCard aggregate root (`types/client-card.ts`)
-- [ ] E1.2 PersonalInfo, MembershipInfo, ServiceLimits, FreezeInfo
-- [ ] E1.3 HealthProfile + HealthVisibility + HealthSource
-- [ ] E1.4 PurchasedService, UpcomingBooking (P0 sub-resources)
-- [ ] E1.5 BodyMeasurement, TrainingPlan, Checkpoint (P1 sub-resources)
-- [ ] E1.6 VisitRecord, ClientNote (lazy sub-resources)
-- [ ] E1.7 VisitSummary, ProgressSummary (computed summaries)
-- [ ] E1.8 Role-based permissions (CARD_PERMISSIONS)
+- [x] E1.1 Branded ID types + ClientCard aggregate root (`types/client-card.ts`) ✅
+- [x] E1.2 PersonalInfo, MembershipInfo, ServiceLimits, FreezeInfo ✅
+- [x] E1.3 HealthProfile + HealthVisibility + HealthSource ✅
+- [x] E1.4 PurchasedService, UpcomingBooking (P0 sub-resources) ✅
+- [x] E1.5 BodyMeasurement, TrainingPlan, Checkpoint (P1 sub-resources) ✅
+- [x] E1.6 VisitRecord, ClientNote (lazy sub-resources) ✅
+- [x] E1.7 VisitSummary, ProgressSummary (computed summaries) ✅
+- [x] E1.8 Role-based permissions (CARD_PERMISSIONS) ✅
 
-### E2. Mock Data + Hooks
+### E2. Mock Data + Hooks — DONE
 **Описание:** Централизованная mock-база вместо inline моков в компонентах.
 **Задачи:**
-- [ ] E2.1 `mocks/client-card-db.ts` — in-memory database
-- [ ] E2.2 `mocks/client-card-factories.ts` — factory functions
-- [ ] E2.3 `mocks/seeds/clients.ts` — 5 pre-seeded клиентов
-- [ ] E2.4 `hooks/useClientCard.ts` — aggregate root hook
-- [ ] E2.5 `hooks/useClientPurchases.ts`, `useClientBookings.ts` — P0 hooks
-- [ ] E2.6 `hooks/useClientMeasurements.ts`, `useClientNotes.ts`, `useClientVisits.ts` — lazy hooks
+- [x] E2.1 `mocks/client-card-db.ts` — in-memory database ✅
+- [x] E2.2 `mocks/client-card-factories.ts` — factory functions ✅
+- [x] E2.3 `mocks/seeds/clients.ts` — 5 pre-seeded клиентов ✅
+- [x] E2.4 `hooks/useClientCard.ts` — aggregate root hook ✅
+- [x] E2.5 `hooks/useClientPurchases.ts`, `useClientBookings.ts` — P0 hooks ✅
+- [x] E2.6 `hooks/useClientMeasurements.ts`, `useClientNotes.ts`, `useClientVisits.ts` — lazy hooks ✅
 
-### E3. Экраны — обновление существующих
+### E3. Экраны — обновление существующих — DONE
 **Описание:** Подключить существующие экраны к новым типам и mock data.
 **Задачи:**
-- [ ] E3.1 TrainerClientProfileScreen — 4 таба (Обзор/Здоровье/Прогресс/Заметки) + ClientCard types
-- [ ] E3.2 TrainerClientProgressScreen — BodyMeasurement[] из mock db
-- [ ] E3.3 MeasurementsScreen — BodyMeasurement types
-- [ ] E3.4 ContraindicationsScreen — HealthProfile types
+- [x] E3.1 TrainerClientProfileScreen — 4 таба (Обзор/Здоровье/История/Заметки) + ClientCard types ✅
+- [x] E3.3 MeasurementsScreen — BodyMeasurement types + useClientMeasurements hook ✅
+- [x] E3.4 ContraindicationsScreen — HealthProfile types + useClientCard hook ✅
 
-### E4. Экраны — новые
+### E4. Экраны — новые — DONE
 **Описание:** Новые экраны для клиентского вида и чекапа.
 **Задачи:**
-- [ ] E4.1 ClientCardScreen — хаб карточки для клиента (план, прогресс, здоровье, записи)
-- [ ] E4.2 CheckupScreen — заполнение анамнеза + противопоказаний
-- [ ] E4.3 Регистрация ScreenNames в types.ts + routing в App.tsx
+- [x] E4.1 ClientCardScreen — хаб карточки для клиента (план, прогресс, здоровье, записи) ✅
+- [x] E4.2 CheckupScreen — 3-step wizard (противопоказания → аллергии → согласие) ✅
+- [x] E4.3 Регистрация ScreenNames в types.ts + routing в App.tsx ✅
+
+---
+
+## P1 — Новые фичи (исследование 2026-03-16)
+
+### F1. Счётчик загрузки клуба (MVP 1)
+**Описание:** Реальтайм виджет загруженности зала — влияет на решение "идти сейчас или позже".
+**Research:** `docs/research/2026-03-16-gym-occupancy-counter-research.md`
+**Retention impact:** +8-15% визитов (перераспределение в off-peak), +12% DAU (привычка проверять)
+**Задачи:**
+- [ ] F1.1 Типы и mock-движок загруженности (OccupancyLevel, зоны, почасовые кривые)
+- [ ] F1.2 OccupancyWidget на HomeScreen (80px compact, 5 уровней, цветовая шкала)
+- [ ] F1.3 ClubOccupancyScreen — детальный вид (почасовой график, зоны, прогноз)
+- [ ] F1.4 Интеграция с GymActiveUsersList (фактические данные)
+- [ ] F1.5 Heatmap в MethodistAnalyticsScreen (уже есть данные)
+
+### F2. Оферта при регистрации (MVP 1)
+**Описание:** Юридически корректное принятие оферты с trust-building UX.
+**Research:** `docs/research/2026-03-16-offer-agreement-ux-research.md`
+**Критические проблемы:** Объединённый чекбокс (нарушение ФЗ-152), отсутствие timestamp
+**Задачи:**
+- [ ] F2.1 Разделить чекбоксы (оферта + ПДн отдельно) — P0 юридическое
+- [ ] F2.2 Сохранять timestamp акцепта в store — P0 юридическое
+- [ ] F2.3 Summary Card с 4 ключевыми пунктами (вместо wall of text)
+- [ ] F2.4 Expandable полный текст (collapsed по умолчанию)
+- [ ] F2.5 docsUpdated diff — "Что изменилось" при обновлении оферты
+- [ ] F2.6 Версионирование (v1.0, v1.1)
+
+### F3. Коммьюнити / Социальная механика (MVP 2)
+**Описание:** Activity-Based Matching (НЕ Tinder-swipe) — знакомства через совместные тренировки.
+**Research:** `docs/research/2026-03-16-community-social-tinder-strategy.md`
+**Retention impact:** +16-30% retention, +27-55% LTV (консервативно-агрессивно)
+**North Star:** SAU (Social Active Users) >= 40% MAU к 6 месяцам
+**Задачи:**
+- [ ] F3.1 Open Workouts — публичные тренировки с присоединением
+- [ ] F3.2 Suggested Buddies — алгоритм подбора по расписанию/уровню/целям
+- [ ] F3.3 Challenge Teams — командные вызовы (2-5 чел, 7 дней)
+- [ ] F3.4 Enhanced Profiles — фитнес-интересы, предпочтения, "ищу напарника"
+- [ ] F3.5 Privacy & Safety — ghost mode, блокировка, отчёты, opt-in
+- [ ] F3.6 Social Feed на CommunityScreen (активности, достижения, вызовы)
+- [ ] F3.7 Buddy Chat — чат между matched пользователями
+- [ ] F3.8 Gamification — бейджи за социальную активность, streak за тренировки с buddy
 
 ---
 
@@ -191,3 +232,10 @@
 | C2 | Trainer plan editor + exercise library — already implemented | 2026-03-10 | — verified |
 | C3 | Trainer finance + KPI reports — already implemented | 2026-03-10 | — verified |
 | D1 | Methodist role — 11 screens, 4 functions, full flow (Auth+Tabs+Details+Analytics) | 2026-03-11 | 3bf66e9 |
+| E1 | ClientCard types — 239 lines, branded IDs, 20 interfaces, CARD_PERMISSIONS | 2026-03-16 | — |
+| E2 | ClientCard mocks + hooks — db, factories, 5 seeds, 7 hooks | 2026-03-16 | — |
+| E3 | Screens updated — TrainerClientProfile (4 tabs), Measurements, Contraindications | 2026-03-16 | — |
+| E4 | New screens — ClientCardScreen (client hub), CheckupScreen (3-step wizard) + routing | 2026-03-16 | — |
+| F1-R | Research: Gym Occupancy Counter — 11 секций, психология, 3 подхода, mock-движок | 2026-03-16 | — |
+| F2-R | Research: Offer/Agreement UX — юридика (ФЗ-152, ФЗ-63), 3 подхода, wireframe | 2026-03-16 | — |
+| F3-R | Research: Community/Social — Activity-Based Matching, challenge system, ROI модель | 2026-03-16 | — |

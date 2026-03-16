@@ -1,24 +1,41 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ScreenName } from '../types';
+import type { CardId, BodyMeasurement } from '../types/client-card';
+import { useClientMeasurements } from '../hooks/useClientCard';
 import { ArrowLeft, Save, Calendar, Ruler, History, TrendingDown, TrendingUp, Minus } from 'lucide-react';
 
 interface MeasurementsScreenProps {
   onNavigate: (screen: ScreenName) => void;
 }
 
+const DEMO_CARD_ID = 'card-001' as CardId;
+
 const MeasurementsScreen: React.FC<MeasurementsScreenProps> = ({ onNavigate }) => {
+  const { measurements, loading } = useClientMeasurements(DEMO_CARD_ID);
+  const latest = measurements[0] as BodyMeasurement | undefined;
+
   const [activeTab, setActiveTab] = useState<'input' | 'history'>('input');
   const [date, setDate] = useState('2024-09-12');
-  
+
   // Values
-  const [weight, setWeight] = useState('65.5');
-  const [chest, setChest] = useState('92');
-  const [waist, setWaist] = useState('68');
-  const [hips, setHips] = useState('94');
+  const [weight, setWeight] = useState('');
+  const [chest, setChest] = useState('');
+  const [waist, setWaist] = useState('');
+  const [hips, setHips] = useState('');
+
+  // Pre-fill from latest measurement
+  useEffect(() => {
+    if (latest && !weight) {
+      setWeight(String(latest.weight));
+      if (latest.chest) setChest(String(latest.chest));
+      if (latest.waist) setWaist(String(latest.waist));
+      if (latest.hips) setHips(String(latest.hips));
+    }
+  }, [latest]);
 
   // BMI Calculation
   const height = 1.70; // Mock height from profile
-  const bmi = (Number(weight) / (height * height)).toFixed(1);
+  const bmi = weight ? (Number(weight) / (height * height)).toFixed(1) : '0.0';
 
   const getBmiStatus = (val: number) => {
     if (val < 18.5) return { label: 'Ниже нормы', color: 'text-blue-600' };
@@ -29,15 +46,17 @@ const MeasurementsScreen: React.FC<MeasurementsScreenProps> = ({ onNavigate }) =
 
   const bmiStatus = getBmiStatus(Number(bmi));
 
-  const history = [
-    { date: '12 Сен', weight: 65.5, delta: -0.5 },
-    { date: '05 Сен', weight: 66.0, delta: -0.2 },
-    { date: '29 Авг', weight: 66.2, delta: 0 },
-  ];
-
   const handleSave = () => {
     onNavigate('plan'); // Return to Plan to see results
   };
+
+  if (loading) {
+    return (
+      <div className="bg-gray-50 min-h-screen flex items-center justify-center">
+        <div className="animate-spin w-8 h-8 border-2 border-blue-600 border-t-transparent rounded-full" />
+      </div>
+    );
+  }
 
   return (
     <div className="bg-gray-50 min-h-screen flex flex-col">
@@ -49,7 +68,7 @@ const MeasurementsScreen: React.FC<MeasurementsScreenProps> = ({ onNavigate }) =
           </button>
           <h1 className="text-xl font-bold text-gray-900">Замеры тела</h1>
         </div>
-        <button 
+        <button
           onClick={() => setActiveTab(activeTab === 'input' ? 'history' : 'input')}
           className="p-2 bg-gray-100 rounded-full text-gray-600 hover:bg-gray-200 transition-colors"
         >
@@ -58,7 +77,7 @@ const MeasurementsScreen: React.FC<MeasurementsScreenProps> = ({ onNavigate }) =
       </div>
 
       <div className="p-4 flex-1 overflow-y-auto pb-24">
-        
+
         {activeTab === 'input' ? (
           <>
             {/* BMI Card */}
@@ -80,8 +99,8 @@ const MeasurementsScreen: React.FC<MeasurementsScreenProps> = ({ onNavigate }) =
                </div>
                <div className="flex-1">
                  <label className="text-[10px] text-gray-400 font-bold uppercase block">Дата замера</label>
-                 <input 
-                   type="date" 
+                 <input
+                   type="date"
                    value={date}
                    onChange={(e) => setDate(e.target.value)}
                    className="font-bold text-gray-900 text-sm bg-transparent focus:outline-none w-full mt-0.5"
@@ -97,8 +116,8 @@ const MeasurementsScreen: React.FC<MeasurementsScreenProps> = ({ onNavigate }) =
                      <span className="font-bold text-gray-900">Вес</span>
                   </div>
                   <div className="flex items-baseline gap-2">
-                     <input 
-                       type="number" 
+                     <input
+                       type="number"
                        value={weight}
                        onChange={(e) => setWeight(e.target.value)}
                        className="w-20 text-right font-extrabold text-2xl text-gray-900 bg-transparent border-b border-gray-200 focus:border-blue-500 focus:outline-none py-1"
@@ -120,8 +139,8 @@ const MeasurementsScreen: React.FC<MeasurementsScreenProps> = ({ onNavigate }) =
                        <span className="font-bold text-gray-900">{item.label}</span>
                     </div>
                     <div className="flex items-baseline gap-2">
-                       <input 
-                         type="number" 
+                       <input
+                         type="number"
                          value={item.val}
                          onChange={(e) => item.set(e.target.value)}
                          className="w-20 text-right font-extrabold text-2xl text-gray-900 bg-transparent border-b border-gray-200 focus:border-blue-500 focus:outline-none py-1"
@@ -141,16 +160,20 @@ const MeasurementsScreen: React.FC<MeasurementsScreenProps> = ({ onNavigate }) =
                    <span className="text-center">Вес</span>
                    <span className="text-right">Изм.</span>
                 </div>
-                {history.map((item, idx) => (
-                  <div key={idx} className="grid grid-cols-3 p-4 border-b border-gray-50 items-center">
-                     <span className="text-sm font-medium text-gray-900">{item.date}</span>
-                     <span className="text-center font-bold text-gray-900">{item.weight} кг</span>
-                     <div className={`flex justify-end items-center gap-1 text-sm font-bold ${item.delta < 0 ? 'text-green-600' : item.delta > 0 ? 'text-red-500' : 'text-gray-400'}`}>
-                        {item.delta < 0 ? <TrendingDown className="w-4 h-4" /> : item.delta > 0 ? <TrendingUp className="w-4 h-4" /> : <Minus className="w-4 h-4" />}
-                        {Math.abs(item.delta)}
-                     </div>
-                  </div>
-                ))}
+                {measurements.map((m, idx) => {
+                  const prev = measurements[idx + 1];
+                  const delta = prev ? m.weight - prev.weight : 0;
+                  return (
+                    <div key={m.id} className="grid grid-cols-3 p-4 border-b border-gray-50 items-center">
+                       <span className="text-sm font-medium text-gray-900">{new Date(m.date).toLocaleDateString('ru-RU', { day: 'numeric', month: 'short' })}</span>
+                       <span className="text-center font-bold text-gray-900">{m.weight} кг</span>
+                       <div className={`flex justify-end items-center gap-1 text-sm font-bold ${delta < 0 ? 'text-green-600' : delta > 0 ? 'text-red-500' : 'text-gray-400'}`}>
+                          {delta < 0 ? <TrendingDown className="w-4 h-4" /> : delta > 0 ? <TrendingUp className="w-4 h-4" /> : <Minus className="w-4 h-4" />}
+                          {Math.abs(delta).toFixed(1)}
+                       </div>
+                    </div>
+                  );
+                })}
              </div>
           </div>
         )}
@@ -158,7 +181,7 @@ const MeasurementsScreen: React.FC<MeasurementsScreenProps> = ({ onNavigate }) =
 
       {activeTab === 'input' && (
         <div className="p-4 bg-white border-t border-gray-100 safe-area-bottom">
-          <button 
+          <button
             onClick={handleSave}
             className="w-full bg-gray-900 text-white py-4 rounded-xl font-bold shadow-lg active:scale-[0.98] transition-transform flex items-center justify-center gap-2"
           >

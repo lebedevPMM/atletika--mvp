@@ -62,6 +62,8 @@ export type ScreenName =
   | 'trackers'
   | 'contraindications'
   | 'measurements'
+  | 'client_card'
+  | 'checkup'
 
   // --- WALLET & FINANCE (36-45) ---
   | 'wallet'

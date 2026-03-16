@@ -51,6 +51,8 @@ import StoriesScreen from './components/StoriesScreen';
 import ProfileEditScreen from './components/ProfileEditScreen';
 import TrackersScreen from './components/TrackersScreen';
 import ContraindicationsScreen from './components/ContraindicationsScreen';
+import ClientCardScreen from './components/ClientCardScreen';
+import CheckupScreen from './components/CheckupScreen';
 import TrainerClassDetailsScreen from './components/TrainerClassDetailsScreen';
 import PaymentSBPScreen from './components/PaymentSBPScreen';
 import TrainerSettingsScreen from './components/TrainerSettingsScreen';
@@ -306,6 +308,8 @@ const App: React.FC = () => {
       case 'measurements': return <MeasurementsScreen onNavigate={handleNavigate} />;
       case 'trackers': return <TrackersScreen onNavigate={handleNavigate} />;
       case 'contraindications': return <ContraindicationsScreen onNavigate={handleNavigate} />;
+      case 'client_card': return <ClientCardScreen onNavigate={handleNavigate} />;
+      case 'checkup': return <CheckupScreen onNavigate={handleNavigate} />;
       case 'guest_visit': return <GuestVisitScreen onNavigate={handleNavigate} />;
       case 'achievements': return <AchievementsScreen onNavigate={handleNavigate} />;
       case 'complaint': return <ComplaintScreen onNavigate={handleNavigate} />;

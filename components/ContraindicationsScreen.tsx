@@ -1,18 +1,36 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { ScreenName } from '../types';
+import type { CardId } from '../types/client-card';
+import { useClientCard } from '../hooks/useClientCard';
 import { ArrowLeft, Plus, X, ShieldAlert, FileHeart, Stethoscope } from 'lucide-react';
 
 interface ContraindicationsScreenProps {
   onNavigate: (screen: ScreenName) => void;
 }
 
+const DEMO_CARD_ID = 'card-001' as CardId;
+
 const ContraindicationsScreen: React.FC<ContraindicationsScreenProps> = ({ onNavigate }) => {
-  const [conditions, setConditions] = useState([
-    { id: 1, title: 'Грыжа межпозвоночного диска L5-S1', type: 'injury' },
-    { id: 2, title: 'Сезонная аллергия', type: 'chronic' },
-    { id: 3, title: 'Травма колена (2022)', type: 'injury' }
-  ]);
+  const { card, loading } = useClientCard(DEMO_CARD_ID);
+  const hp = card?.healthProfile;
+
+  const initialConditions = useMemo(() => {
+    if (!hp) return [];
+    const items: { id: number; title: string; type: string }[] = [];
+    hp.contraindications.forEach((c, i) => items.push({ id: i + 1, title: c, type: 'chronic' }));
+    hp.injuries.forEach((inj, i) => items.push({ id: 100 + i, title: inj, type: 'injury' }));
+    if (hp.allergiesText) items.push({ id: 200, title: hp.allergiesText, type: 'allergy' });
+    return items;
+  }, [hp]);
+
+  const [conditions, setConditions] = useState<{ id: number; title: string; type: string }[]>([]);
   const [newCondition, setNewCondition] = useState('');
+
+  useEffect(() => {
+    if (initialConditions.length > 0 && conditions.length === 0) {
+      setConditions(initialConditions);
+    }
+  }, [initialConditions]);
 
   const handleAdd = () => {
     if (newCondition.trim()) {
@@ -25,6 +43,14 @@ const ContraindicationsScreen: React.FC<ContraindicationsScreenProps> = ({ onNav
     setConditions(conditions.filter(c => c.id !== id));
   };
 
+  if (loading || !card) {
+    return (
+      <div className="bg-gray-50 min-h-screen flex items-center justify-center">
+        <div className="animate-spin w-8 h-8 border-2 border-blue-600 border-t-transparent rounded-full" />
+      </div>
+    );
+  }
+
   return (
     <div className="bg-gray-50 min-h-screen pb-24">
       {/* Header */}
@@ -36,7 +62,7 @@ const ContraindicationsScreen: React.FC<ContraindicationsScreenProps> = ({ onNav
       </div>
 
       <div className="p-4 space-y-6">
-        
+
         {/* Privacy Alert */}
         <div className="bg-white p-5 rounded-2xl shadow-sm border border-red-100 flex gap-4 relative overflow-hidden">
           <div className="absolute left-0 top-0 bottom-0 w-1 bg-red-500"></div>
@@ -57,15 +83,15 @@ const ContraindicationsScreen: React.FC<ContraindicationsScreenProps> = ({ onNav
              </h2>
              <span className="bg-gray-200 text-gray-600 px-2 py-0.5 rounded text-[10px] font-bold">{conditions.length}</span>
           </div>
-          
+
           <div className="space-y-3">
             {conditions.map((item) => (
               <div key={item.id} className="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex justify-between items-center group transition-all hover:border-blue-200">
                  <div className="flex items-center gap-3">
-                    <div className={`w-2 h-2 rounded-full ${item.type === 'injury' ? 'bg-red-500' : 'bg-yellow-500'}`}></div>
+                    <div className={`w-2 h-2 rounded-full ${item.type === 'allergy' ? 'bg-purple-500' : item.type === 'injury' ? 'bg-red-500' : 'bg-yellow-500'}`}></div>
                     <span className="font-medium text-gray-900 text-sm">{item.title}</span>
                  </div>
-                 <button 
+                 <button
                    onClick={() => handleRemove(item.id)}
                    className="p-2 bg-gray-50 text-gray-400 rounded-lg hover:bg-red-50 hover:text-red-500 transition-colors"
                  >
@@ -76,19 +102,29 @@ const ContraindicationsScreen: React.FC<ContraindicationsScreenProps> = ({ onNav
           </div>
         </div>
 
+        {/* Health Limits */}
+        {hp?.limitsText && (
+          <div className="bg-white p-4 rounded-2xl shadow-sm border border-blue-100">
+            <h3 className="text-xs font-bold text-gray-400 uppercase mb-2 flex items-center gap-2">
+              <ShieldAlert className="w-4 h-4 text-blue-500" /> Ограничения
+            </h3>
+            <p className="text-sm text-gray-700 leading-relaxed">{hp.limitsText}</p>
+          </div>
+        )}
+
         {/* Add New */}
         <div className="bg-white p-4 rounded-2xl shadow-sm border border-gray-100">
            <label className="text-xs font-bold text-gray-400 uppercase mb-2 block ml-1">Добавить запись</label>
            <div className="flex gap-2">
-             <input 
-               type="text" 
+             <input
+               type="text"
                value={newCondition}
                onChange={(e) => setNewCondition(e.target.value)}
                placeholder="Например: Астма"
                className="flex-1 bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-blue-500 focus:bg-white transition-all"
                onKeyDown={(e) => e.key === 'Enter' && handleAdd()}
              />
-             <button 
+             <button
                onClick={handleAdd}
                disabled={!newCondition.trim()}
                className="bg-gray-900 text-white px-4 rounded-xl shadow-md disabled:opacity-50 transition-all active:scale-95"
