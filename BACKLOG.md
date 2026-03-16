@@ -145,10 +145,10 @@
 **Research:** `docs/research/2026-03-16-gym-occupancy-counter-research.md`
 **Retention impact:** +8-15% визитов (перераспределение в off-peak), +12% DAU (привычка проверять)
 **Задачи:**
-- [ ] F1.1 Типы и mock-движок загруженности (OccupancyLevel, зоны, почасовые кривые)
-- [ ] F1.2 OccupancyWidget на HomeScreen (80px compact, 5 уровней, цветовая шкала)
-- [ ] F1.3 ClubOccupancyScreen — детальный вид (почасовой график, зоны, прогноз)
-- [ ] F1.4 Интеграция с GymActiveUsersList (фактические данные)
+- [x] F1.1 Типы и mock-движок загруженности (OccupancyLevel, зоны, почасовые кривые) ✅
+- [x] F1.2 OccupancyWidget на HomeScreen (80px compact, 5 уровней, цветовая шкала) ✅
+- [x] F1.3 ClubOccupancyScreen — детальный вид (почасовой график, зоны, прогноз) ✅
+- [x] F1.4 Интеграция с GymActiveUsersList (фактические данные) ✅
 - [ ] F1.5 Heatmap в MethodistAnalyticsScreen (уже есть данные)
 
 ### F2. Оферта при регистрации (MVP 1)
@@ -156,12 +156,12 @@
 **Research:** `docs/research/2026-03-16-offer-agreement-ux-research.md`
 **Критические проблемы:** Объединённый чекбокс (нарушение ФЗ-152), отсутствие timestamp
 **Задачи:**
-- [ ] F2.1 Разделить чекбоксы (оферта + ПДн отдельно) — P0 юридическое
-- [ ] F2.2 Сохранять timestamp акцепта в store — P0 юридическое
-- [ ] F2.3 Summary Card с 4 ключевыми пунктами (вместо wall of text)
-- [ ] F2.4 Expandable полный текст (collapsed по умолчанию)
-- [ ] F2.5 docsUpdated diff — "Что изменилось" при обновлении оферты
-- [ ] F2.6 Версионирование (v1.0, v1.1)
+- [x] F2.1 Разделить чекбоксы (оферта + ПДн + здоровье отдельно) — P0 юридическое ✅
+- [x] F2.2 Сохранять timestamp акцепта в store — P0 юридическое ✅
+- [x] F2.3 Summary Card с 4 ключевыми пунктами (вместо wall of text) ✅
+- [x] F2.4 Expandable полный текст (collapsed по умолчанию) ✅
+- [x] F2.5 docsUpdated diff — "Что изменилось" при обновлении оферты ✅
+- [x] F2.6 Версионирование (v1.0, v1.1) ✅
 
 ### F3. Коммьюнити / Социальная механика (MVP 2)
 **Описание:** Activity-Based Matching (НЕ Tinder-swipe) — знакомства через совместные тренировки.
@@ -169,12 +169,12 @@
 **Retention impact:** +16-30% retention, +27-55% LTV (консервативно-агрессивно)
 **North Star:** SAU (Social Active Users) >= 40% MAU к 6 месяцам
 **Задачи:**
-- [ ] F3.1 Open Workouts — публичные тренировки с присоединением
-- [ ] F3.2 Suggested Buddies — алгоритм подбора по расписанию/уровню/целям
+- [x] F3.1 Open Workouts — публичные тренировки с присоединением ✅
+- [x] F3.2 Suggested Buddies — алгоритм подбора по расписанию/уровню/целям ✅
 - [ ] F3.3 Challenge Teams — командные вызовы (2-5 чел, 7 дней)
-- [ ] F3.4 Enhanced Profiles — фитнес-интересы, предпочтения, "ищу напарника"
+- [x] F3.4 Enhanced Profiles — фитнес-интересы, предпочтения, "ищу напарника" ✅
 - [ ] F3.5 Privacy & Safety — ghost mode, блокировка, отчёты, opt-in
-- [ ] F3.6 Social Feed на CommunityScreen (активности, достижения, вызовы)
+- [x] F3.6 Social Feed на CommunityScreen (вкладка "Поиск" + buddy/workouts) ✅
 - [ ] F3.7 Buddy Chat — чат между matched пользователями
 - [ ] F3.8 Gamification — бейджи за социальную активность, streak за тренировки с buddy
 
@@ -239,3 +239,6 @@
 | F1-R | Research: Gym Occupancy Counter — 11 секций, психология, 3 подхода, mock-движок | 2026-03-16 | — |
 | F2-R | Research: Offer/Agreement UX — юридика (ФЗ-152, ФЗ-63), 3 подхода, wireframe | 2026-03-16 | — |
 | F3-R | Research: Community/Social — Activity-Based Matching, challenge system, ROI модель | 2026-03-16 | — |
+| F1 | Gym Occupancy — types, mock engine, widget, detail screen, HomeScreen integration | 2026-03-16 | — |
+| F2 | Offer/Agreement — 3 checkboxes, timestamps, Summary Card, expandable text, version badge | 2026-03-16 | — |
+| F3.1-4,6 | Community Social — buddy system, open workouts, suggested buddies, CommunityScreen tab | 2026-03-16 | — |

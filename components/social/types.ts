@@ -116,3 +116,48 @@ export interface CommunityEvent {
     attendees: string[]; // User IDs
     isOfficial?: boolean;
 }
+
+// === F3: Community Social Foundation Types ===
+
+export type TrainingStyle = 'strength' | 'cardio' | 'group' | 'yoga' | 'crossfit' | 'swimming' | 'martial_arts' | 'flexibility';
+export type FitnessGoal = 'lose_weight' | 'gain_muscle' | 'endurance' | 'flexibility' | 'health' | 'social' | 'competitive';
+export type BuddyStatus = 'pending' | 'accepted' | 'declined';
+
+export interface FitnessPassport {
+    trainingStyles: TrainingStyle[];
+    goals: FitnessGoal[];
+    experienceYears: number;
+    preferredSchedule: Array<{ day: string; time: string }>; // [{day: 'Вт', time: '18:00'}, ...]
+    lookingFor: 'buddy' | 'group' | 'mentor' | 'none';
+    bio: string; // Short fitness bio
+}
+
+export interface BuddyConnection {
+    id: string;
+    userId: string;
+    buddyId: string;
+    status: BuddyStatus;
+    createdAt: string; // ISO
+    sharedWorkouts: number;
+    bondLevel: number; // 0-100
+}
+
+export interface OpenWorkout {
+    id: string;
+    creatorId: string;
+    title: string;
+    description: string;
+    date: string; // ISO
+    time: string; // "18:00"
+    maxParticipants: number;
+    participants: string[]; // user IDs
+    trainingStyle: TrainingStyle;
+    level: 'any' | 'beginner' | 'intermediate' | 'advanced';
+    isRecurring: boolean;
+}
+
+export interface BuddySuggestion {
+    userId: string;
+    compatibilityScore: number; // 0-100
+    matchReasons: string[]; // ["Силовые тренировки", "Вт, Чт, Сб вечером", "3 общих buddy"]
+}

@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { UserProfile, RaidBoss, SocialStatus, BusinessRequest, CommunityEvent } from './types';
-import { MOCK_USERS, CURRENT_USER_MOCK, MOCK_REQUESTS, MOCK_EVENTS } from './mockData';
+import { UserProfile, RaidBoss, SocialStatus, BusinessRequest, CommunityEvent, BuddyConnection, OpenWorkout, BuddySuggestion } from './types';
+import { MOCK_USERS, CURRENT_USER_MOCK, MOCK_REQUESTS, MOCK_EVENTS, MOCK_BUDDY_CONNECTIONS, MOCK_OPEN_WORKOUTS, MOCK_BUDDY_SUGGESTIONS } from './mockData';
 
 interface SocialContextType {
     currentUser: UserProfile | null;
@@ -21,6 +21,17 @@ interface SocialContextType {
     toggleEventAttendance: (eventId: string) => void;
     isGuest: boolean;
     submitApplication: (data: any) => Promise<void>;
+
+    // F3: Buddy System
+    buddyConnections: BuddyConnection[];
+    openWorkouts: OpenWorkout[];
+    buddySuggestions: BuddySuggestion[];
+    addBuddy: (userId: string) => void;
+    removeBuddy: (connectionId: string) => void;
+    acceptBuddy: (connectionId: string) => void;
+    createOpenWorkout: (workout: Omit<OpenWorkout, 'id' | 'participants'>) => void;
+    joinOpenWorkout: (workoutId: string) => void;
+    leaveOpenWorkout: (workoutId: string) => void;
 }
 
 const SocialContext = createContext<SocialContextType | undefined>(undefined);
@@ -43,6 +54,11 @@ export const SocialProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     const [selectedEventId, setSelectedEventId] = useState<string | null>(null);
     const [activeUsers, setActiveUsers] = useState<UserProfile[]>([]);
     const [raidBoss, setRaidBoss] = useState<RaidBoss | null>(INITIAL_BOSS);
+
+    // F3: Buddy System state
+    const [buddyConnections, setBuddyConnections] = useState<BuddyConnection[]>(MOCK_BUDDY_CONNECTIONS);
+    const [openWorkouts, setOpenWorkouts] = useState<OpenWorkout[]>(MOCK_OPEN_WORKOUTS);
+    const [buddySuggestions] = useState<BuddySuggestion[]>(MOCK_BUDDY_SUGGESTIONS);
 
     // Simulation: Filter users who are "Geofenced" and NOT "Ghost"
     useEffect(() => {
@@ -110,6 +126,65 @@ export const SocialProvider: React.FC<{ children: React.ReactNode }> = ({ childr
         }));
     };
 
+    // F3: Buddy System methods
+    const addBuddy = (userId: string) => {
+        if (!currentUser) return;
+        const newConnection: BuddyConnection = {
+            id: `bc_${Date.now()}`,
+            userId: currentUser.id,
+            buddyId: userId,
+            status: 'pending',
+            createdAt: new Date().toISOString(),
+            sharedWorkouts: 0,
+            bondLevel: 0,
+        };
+        setBuddyConnections(prev => [...prev, newConnection]);
+    };
+
+    const removeBuddy = (connectionId: string) => {
+        setBuddyConnections(prev => prev.filter(c => c.id !== connectionId));
+    };
+
+    const acceptBuddy = (connectionId: string) => {
+        setBuddyConnections(prev =>
+            prev.map(c => c.id === connectionId ? { ...c, status: 'accepted' as const } : c)
+        );
+    };
+
+    const createOpenWorkout = (workout: Omit<OpenWorkout, 'id' | 'participants'>) => {
+        if (!currentUser) return;
+        const newWorkout: OpenWorkout = {
+            ...workout,
+            id: `ow_${Date.now()}`,
+            participants: [currentUser.id],
+        };
+        setOpenWorkouts(prev => [...prev, newWorkout]);
+    };
+
+    const joinOpenWorkout = (workoutId: string) => {
+        if (!currentUser) return;
+        setOpenWorkouts(prev =>
+            prev.map(w => {
+                if (w.id === workoutId && !w.participants.includes(currentUser.id) && w.participants.length < w.maxParticipants) {
+                    return { ...w, participants: [...w.participants, currentUser.id] };
+                }
+                return w;
+            })
+        );
+    };
+
+    const leaveOpenWorkout = (workoutId: string) => {
+        if (!currentUser) return;
+        setOpenWorkouts(prev =>
+            prev.map(w => {
+                if (w.id === workoutId) {
+                    return { ...w, participants: w.participants.filter(id => id !== currentUser.id) };
+                }
+                return w;
+            })
+        );
+    };
+
     const isGuest = currentUser?.verificationStatus === 'guest';
 
     const submitApplication = async (data: any) => {
@@ -144,7 +219,17 @@ export const SocialProvider: React.FC<{ children: React.ReactNode }> = ({ childr
             addRequest,
             toggleEventAttendance,
             isGuest,
-            submitApplication
+            submitApplication,
+            // F3: Buddy System
+            buddyConnections,
+            openWorkouts,
+            buddySuggestions,
+            addBuddy,
+            removeBuddy,
+            acceptBuddy,
+            createOpenWorkout,
+            joinOpenWorkout,
+            leaveOpenWorkout,
         }}>
             {children}
         </SocialContext.Provider>

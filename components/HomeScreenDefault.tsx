@@ -13,6 +13,7 @@ import {
     Dumbbell
 } from 'lucide-react';
 import { useHomeData } from '../hooks/useHomeData';
+import OccupancyWidget from './OccupancyWidget';
 
 interface HomeScreenDefaultProps {
     onNavigate: (screen: string) => void;
@@ -160,6 +161,9 @@ export const HomeScreenDefault: React.FC<HomeScreenDefaultProps> = ({ onNavigate
                         <ChevronRight className="w-5 h-5 text-white" />
                     </div>
                 </button>
+
+                {/* Occupancy Widget */}
+                <OccupancyWidget onNavigate={onNavigate as (screen: import('../types').ScreenName) => void} />
 
                 {/* Next Activity - Big Card (moved up for priority) */}
                 <section>

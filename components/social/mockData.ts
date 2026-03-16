@@ -1,4 +1,4 @@
-import { UserProfile } from './types';
+import { UserProfile, FitnessPassport, BuddyConnection, OpenWorkout, BuddySuggestion } from './types';
 
 export const MOCK_USERS: UserProfile[] = [
     {
@@ -285,4 +285,228 @@ export const MOCK_EVENTS: import('./types').CommunityEvent[] = [
         attendees: ['u1', 'u2', 'u3', 'u4', 'u5'],
         isOfficial: true
     }
+];
+
+// === F3: Fitness Passports ===
+
+export const MOCK_FITNESS_PASSPORTS: Record<string, FitnessPassport> = {
+    'u1': {
+        trainingStyles: ['crossfit', 'strength'],
+        goals: ['gain_muscle', 'competitive'],
+        experienceYears: 5,
+        preferredSchedule: [
+            { day: 'Пн', time: '07:00' },
+            { day: 'Ср', time: '07:00' },
+            { day: 'Пт', time: '07:00' },
+        ],
+        lookingFor: 'buddy',
+        bio: 'Утренний кроссфитер. Ищу напарника на WOD и силовые.',
+    },
+    'u2': {
+        trainingStyles: ['cardio', 'yoga', 'swimming'],
+        goals: ['endurance', 'health'],
+        experienceYears: 8,
+        preferredSchedule: [
+            { day: 'Вт', time: '18:00' },
+            { day: 'Чт', time: '18:00' },
+            { day: 'Сб', time: '10:00' },
+        ],
+        lookingFor: 'group',
+        bio: 'Триатлонистка. Бег, плавание, йога — в любом порядке.',
+    },
+    'u3': {
+        trainingStyles: ['strength'],
+        goals: ['gain_muscle', 'competitive'],
+        experienceYears: 3,
+        preferredSchedule: [
+            { day: 'Пн', time: '19:00' },
+            { day: 'Ср', time: '19:00' },
+            { day: 'Пт', time: '19:00' },
+            { day: 'Сб', time: '11:00' },
+        ],
+        lookingFor: 'buddy',
+        bio: 'Пауэрлифтинг. Нужен страхующий на жим и присед.',
+    },
+    'u4': {
+        trainingStyles: ['swimming', 'flexibility'],
+        goals: ['health', 'social'],
+        experienceYears: 1,
+        preferredSchedule: [
+            { day: 'Вт', time: '08:00' },
+            { day: 'Сб', time: '09:00' },
+        ],
+        lookingFor: 'mentor',
+        bio: 'Начинающий. Хочу освоить плавание и улучшить гибкость.',
+    },
+    'u5': {
+        trainingStyles: ['crossfit', 'cardio', 'martial_arts'],
+        goals: ['endurance', 'competitive'],
+        experienceYears: 12,
+        preferredSchedule: [
+            { day: 'Пн', time: '06:00' },
+            { day: 'Вт', time: '06:00' },
+            { day: 'Ср', time: '06:00' },
+            { day: 'Чт', time: '06:00' },
+            { day: 'Пт', time: '06:00' },
+        ],
+        lookingFor: 'none',
+        bio: 'Тренируюсь одна. Не подходите.',
+    },
+    'me': {
+        trainingStyles: ['cardio', 'strength', 'crossfit'],
+        goals: ['gain_muscle', 'endurance'],
+        experienceYears: 2,
+        preferredSchedule: [
+            { day: 'Вт', time: '18:00' },
+            { day: 'Чт', time: '18:00' },
+            { day: 'Сб', time: '10:00' },
+        ],
+        lookingFor: 'buddy',
+        bio: 'Бег + силовые. Ищу напарника для регулярных тренировок.',
+    },
+};
+
+// === F3: Buddy Connections ===
+
+export const MOCK_BUDDY_CONNECTIONS: BuddyConnection[] = [
+    {
+        id: 'bc1',
+        userId: 'me',
+        buddyId: 'u1',
+        status: 'accepted',
+        createdAt: '2026-02-15T10:00:00Z',
+        sharedWorkouts: 12,
+        bondLevel: 65,
+    },
+    {
+        id: 'bc2',
+        userId: 'me',
+        buddyId: 'u2',
+        status: 'accepted',
+        createdAt: '2026-01-20T14:00:00Z',
+        sharedWorkouts: 8,
+        bondLevel: 45,
+    },
+    {
+        id: 'bc3',
+        userId: 'me',
+        buddyId: 'u3',
+        status: 'pending',
+        createdAt: '2026-03-14T09:00:00Z',
+        sharedWorkouts: 0,
+        bondLevel: 0,
+    },
+    {
+        id: 'bc4',
+        userId: 'u4',
+        buddyId: 'me',
+        status: 'pending',
+        createdAt: '2026-03-15T16:00:00Z',
+        sharedWorkouts: 0,
+        bondLevel: 0,
+    },
+    {
+        id: 'bc5',
+        userId: 'u1',
+        buddyId: 'u3',
+        status: 'accepted',
+        createdAt: '2026-01-10T08:00:00Z',
+        sharedWorkouts: 20,
+        bondLevel: 80,
+    },
+    {
+        id: 'bc6',
+        userId: 'u2',
+        buddyId: 'u5',
+        status: 'accepted',
+        createdAt: '2025-12-01T06:00:00Z',
+        sharedWorkouts: 35,
+        bondLevel: 92,
+    },
+];
+
+// === F3: Open Workouts ===
+
+export const MOCK_OPEN_WORKOUTS: OpenWorkout[] = [
+    {
+        id: 'ow1',
+        creatorId: 'u1',
+        title: 'Вечерняя силовая',
+        description: 'Базовые упражнения: присед, жим, тяга. Берём рабочие веса, страхуем друг друга.',
+        date: '2026-03-17',
+        time: '19:00',
+        maxParticipants: 4,
+        participants: ['u1', 'u3'],
+        trainingStyle: 'strength',
+        level: 'intermediate',
+        isRecurring: true,
+    },
+    {
+        id: 'ow2',
+        creatorId: 'u2',
+        title: 'Утреннее кардио в парке',
+        description: 'Бег 5 км по набережной + растяжка. Темп разговорный, подходит всем.',
+        date: '2026-03-18',
+        time: '07:00',
+        maxParticipants: 8,
+        participants: ['u2'],
+        trainingStyle: 'cardio',
+        level: 'any',
+        isRecurring: true,
+    },
+    {
+        id: 'ow3',
+        creatorId: 'u3',
+        title: 'Группа растяжки',
+        description: 'Час на мобильность и растяжку. Фоам-роллер, стретчинг, дыхание. Идеально после тяжёлой недели.',
+        date: '2026-03-19',
+        time: '18:00',
+        maxParticipants: 6,
+        participants: ['u3', 'u4', 'u2'],
+        trainingStyle: 'flexibility',
+        level: 'any',
+        isRecurring: false,
+    },
+    {
+        id: 'ow4',
+        creatorId: 'me',
+        title: 'Кроссфит WOD субботний',
+        description: 'AMRAP 20 минут. Бёрпи, подтягивания, выпады. Командный формат.',
+        date: '2026-03-22',
+        time: '10:00',
+        maxParticipants: 6,
+        participants: ['me', 'u1'],
+        trainingStyle: 'crossfit',
+        level: 'intermediate',
+        isRecurring: true,
+    },
+];
+
+// === F3: Buddy Suggestions (daily) ===
+
+export const MOCK_BUDDY_SUGGESTIONS: BuddySuggestion[] = [
+    {
+        userId: 'u3',
+        compatibilityScore: 82,
+        matchReasons: ['Силовые тренировки', 'Пн, Ср, Пт вечером', 'Ищет напарника'],
+    },
+    {
+        userId: 'u1',
+        compatibilityScore: 75,
+        matchReasons: ['Кроссфит', 'Утренние тренировки', '2 общих buddy'],
+    },
+    {
+        userId: 'u4',
+        compatibilityScore: 48,
+        matchReasons: ['Сб утром', 'Плавание', 'Ищет ментора'],
+    },
+];
+
+// === F3: Weekly Circle Stats (for YourCircleWidget) ===
+
+export const MOCK_WEEKLY_CIRCLE: Array<{ userId: string; workoutsThisWeek: number }> = [
+    { userId: 'u1', workoutsThisWeek: 4 },
+    { userId: 'u2', workoutsThisWeek: 3 },
+    { userId: 'u3', workoutsThisWeek: 3 },
+    { userId: 'me', workoutsThisWeek: 1 },
 ];

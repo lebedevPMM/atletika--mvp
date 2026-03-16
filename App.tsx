@@ -132,7 +132,10 @@ import DirectoryScreen from './components/DirectoryScreen';
 import SocialProfileScreen from './components/social/SocialProfileScreen';
 import RequestCreateScreen from './components/social/RequestCreateScreen';
 import OnboardingApplicationScreen from './components/social/OnboardingApplicationScreen';
+import BuddyListScreen from './components/social/BuddyListScreen';
+import OpenWorkoutsScreen from './components/social/OpenWorkoutsScreen';
 import PrivacyScreen from './components/PrivacyScreen';
+import ClubOccupancyScreen from './components/ClubOccupancyScreen';
 import BottomNav from './components/BottomNav';
 import { ThemeProvider, useTheme } from './components/ThemeContext';
 import ThemeSwitcher from './components/ThemeSwitcher';
@@ -243,6 +246,10 @@ const App: React.FC = () => {
       case 'community': return <CommunityScreen onNavigate={handleNavigate} />;
       case 'social_profile': return <SocialProfileScreen onNavigate={handleNavigate} userId="u2" />;
       case 'request_create': return <RequestCreateScreen onNavigate={handleNavigate} />;
+      case 'buddy_list': return <BuddyListScreen onNavigate={handleNavigate} />;
+      case 'open_workouts':
+      case 'open_workout_create':
+        return <OpenWorkoutsScreen onNavigate={handleNavigate} />;
       case 'chat_room': return <ChatRoomScreen onNavigate={handleNavigate} />;
 
       // --- CLUB INFO & REVIEWS ---
@@ -252,6 +259,7 @@ const App: React.FC = () => {
       case 'club_select': return <ClubSelectScreen onNavigate={handleNavigate} />;
       case 'club_news': return <ClubNewsScreen onNavigate={handleNavigate} />;
       case 'news_detail': return <NewsDetailScreen onNavigate={handleNavigate} />;
+      case 'club_occupancy': return <ClubOccupancyScreen onNavigate={handleNavigate} />;
       case 'event_details': return <EventDetailsScreen onNavigate={handleNavigate} />;
       case 'stories': return <StoriesScreen onNavigate={handleNavigate} />;
 
@@ -420,6 +428,9 @@ const App: React.FC = () => {
     // New additions for full screen mode
     currentScreen === 'social_profile' ||
     currentScreen === 'request_create' ||
+    currentScreen === 'buddy_list' ||
+    currentScreen === 'open_workouts' ||
+    currentScreen === 'open_workout_create' ||
     currentScreen === 'chat_room' ||
     currentScreen === 'complaint' ||
     currentScreen === 'change_password' ||
@@ -443,7 +454,8 @@ const App: React.FC = () => {
     currentScreen === 'document_view' ||
     currentScreen === 'brain_blink_game' ||
     currentScreen === 'workout_session' ||
-    currentScreen === 'nutrition_plan';
+    currentScreen === 'nutrition_plan' ||
+    currentScreen === 'club_occupancy';
 
   return (
     <ThemeProvider>

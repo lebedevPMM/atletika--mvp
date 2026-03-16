@@ -22,6 +22,7 @@ export type ScreenName =
   | 'notifications'
   | 'stories'
   | 'qr_pass'
+  | 'club_occupancy'
 
   // --- CLUB INFO (11-15) ---
   | 'club_select'
@@ -105,6 +106,9 @@ export type ScreenName =
   | 'directory' // NEW
   | 'social_profile'
   | 'request_create' // NEW
+  | 'buddy_list' // F3: Buddy List
+  | 'open_workouts' // F3: Open Workouts
+  | 'open_workout_create' // F3: Create Open Workout
 
   // --- TRAINER APP SPECIFIC (55-84) ---
   | 'trainer_login'
