@@ -97,6 +97,48 @@
 
 ---
 
+## P1 — Фитнес-Карта Клиента (ClientCard)
+
+### E1. Типы и модель данных
+**Описание:** Центральная сущность — единая точка правды по клиенту для 3 ролей.
+**Docs:** `docs/plans/2026-03-16-client-card-entity-design.md`, `docs/product/client-card.md`
+**Задачи:**
+- [ ] E1.1 Branded ID types + ClientCard aggregate root (`types/client-card.ts`)
+- [ ] E1.2 PersonalInfo, MembershipInfo, ServiceLimits, FreezeInfo
+- [ ] E1.3 HealthProfile + HealthVisibility + HealthSource
+- [ ] E1.4 PurchasedService, UpcomingBooking (P0 sub-resources)
+- [ ] E1.5 BodyMeasurement, TrainingPlan, Checkpoint (P1 sub-resources)
+- [ ] E1.6 VisitRecord, ClientNote (lazy sub-resources)
+- [ ] E1.7 VisitSummary, ProgressSummary (computed summaries)
+- [ ] E1.8 Role-based permissions (CARD_PERMISSIONS)
+
+### E2. Mock Data + Hooks
+**Описание:** Централизованная mock-база вместо inline моков в компонентах.
+**Задачи:**
+- [ ] E2.1 `mocks/client-card-db.ts` — in-memory database
+- [ ] E2.2 `mocks/client-card-factories.ts` — factory functions
+- [ ] E2.3 `mocks/seeds/clients.ts` — 5 pre-seeded клиентов
+- [ ] E2.4 `hooks/useClientCard.ts` — aggregate root hook
+- [ ] E2.5 `hooks/useClientPurchases.ts`, `useClientBookings.ts` — P0 hooks
+- [ ] E2.6 `hooks/useClientMeasurements.ts`, `useClientNotes.ts`, `useClientVisits.ts` — lazy hooks
+
+### E3. Экраны — обновление существующих
+**Описание:** Подключить существующие экраны к новым типам и mock data.
+**Задачи:**
+- [ ] E3.1 TrainerClientProfileScreen — 4 таба (Обзор/Здоровье/Прогресс/Заметки) + ClientCard types
+- [ ] E3.2 TrainerClientProgressScreen — BodyMeasurement[] из mock db
+- [ ] E3.3 MeasurementsScreen — BodyMeasurement types
+- [ ] E3.4 ContraindicationsScreen — HealthProfile types
+
+### E4. Экраны — новые
+**Описание:** Новые экраны для клиентского вида и чекапа.
+**Задачи:**
+- [ ] E4.1 ClientCardScreen — хаб карточки для клиента (план, прогресс, здоровье, записи)
+- [ ] E4.2 CheckupScreen — заполнение анамнеза + противопоказаний
+- [ ] E4.3 Регистрация ScreenNames в types.ts + routing в App.tsx
+
+---
+
 ## P2 — Будущее
 
 ### D1. Методист (новая роль) — DONE
