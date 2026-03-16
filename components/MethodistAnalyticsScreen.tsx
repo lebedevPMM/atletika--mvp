@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { ScreenName } from '../types';
+import { getHeatmapForWeek, getOccupancyColorFromPercent } from '../mocks/occupancy-engine';
 import {
   ArrowLeft,
   Activity,
@@ -53,28 +54,12 @@ const trainerLoad = [
   { name: 'Другие', value: 36, color: '#E9D5FF' },
 ];
 
-const heatmapDays = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'];
-const heatmapTimes = ['7:00', '9:00', '12:00', '15:00', '18:00', '20:00'];
-const heatmapData = [
-  [30, 25, 35, 28, 20, 15, 10],
-  [65, 70, 60, 68, 55, 40, 20],
-  [50, 55, 45, 52, 48, 30, 15],
-  [40, 45, 38, 42, 35, 25, 12],
-  [90, 95, 85, 92, 88, 60, 35],
-  [75, 80, 70, 78, 72, 45, 25],
-];
-
-function getHeatmapColor(value: number): string {
-  if (value <= 20) return 'bg-purple-100';
-  if (value <= 35) return 'bg-purple-200';
-  if (value <= 50) return 'bg-purple-300';
-  if (value <= 65) return 'bg-purple-400';
-  if (value <= 80) return 'bg-purple-500';
-  return 'bg-purple-600';
-}
+// Heatmap data derived from the occupancy engine curves
+const weekHeatmap = getHeatmapForWeek([7, 9, 12, 15, 18, 20]);
 
 function getHeatmapTextColor(value: number): string {
-  return value > 50 ? 'text-white' : 'text-purple-900';
+  // Dark text on light backgrounds (green shades), white on dark (orange/red)
+  return value > 60 ? 'text-white' : 'text-gray-900';
 }
 
 const MethodistAnalyticsScreen: React.FC<MethodistAnalyticsScreenProps> = ({ onNavigate }) => {
@@ -255,7 +240,7 @@ const MethodistAnalyticsScreen: React.FC<MethodistAnalyticsScreenProps> = ({ onN
           </ResponsiveContainer>
         </div>
 
-        {/* Peak hours heatmap */}
+        {/* Peak hours heatmap — data from occupancy engine */}
         <div className="bg-gray-50 rounded-2xl p-4 shadow-sm">
           <h2 className="text-base font-semibold text-gray-900 mb-3">Пиковые часы</h2>
           <div className="overflow-x-auto">
@@ -263,7 +248,7 @@ const MethodistAnalyticsScreen: React.FC<MethodistAnalyticsScreenProps> = ({ onN
               <thead>
                 <tr>
                   <th className="text-xs text-gray-400 font-medium pb-2 text-left w-12"></th>
-                  {heatmapDays.map((day) => (
+                  {weekHeatmap.days.map((day) => (
                     <th key={day} className="text-xs text-gray-400 font-medium pb-2 text-center px-1">
                       {day}
                     </th>
@@ -271,15 +256,16 @@ const MethodistAnalyticsScreen: React.FC<MethodistAnalyticsScreenProps> = ({ onN
                 </tr>
               </thead>
               <tbody>
-                {heatmapTimes.map((time, rowIdx) => (
+                {weekHeatmap.hours.map((time, rowIdx) => (
                   <tr key={time}>
                     <td className="text-xs text-gray-500 font-medium pr-2 py-1">{time}</td>
-                    {heatmapData[rowIdx].map((val, colIdx) => (
+                    {weekHeatmap.data[rowIdx].map((val, colIdx) => (
                       <td key={colIdx} className="p-0.5">
                         <div
-                          className={`w-full aspect-square rounded-md flex items-center justify-center text-[10px] font-medium ${getHeatmapColor(val)} ${getHeatmapTextColor(val)}`}
+                          className={`w-full aspect-square rounded-md flex items-center justify-center text-[10px] font-medium ${getHeatmapTextColor(val)}`}
+                          style={{ backgroundColor: getOccupancyColorFromPercent(val) }}
                         >
-                          {val}
+                          {val}%
                         </div>
                       </td>
                     ))}

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ScreenName } from '../types';
+import { useSocial } from './social/SocialContext';
 import {
     ArrowLeft,
     FileText,
@@ -12,7 +13,10 @@ import {
     Bell,
     AlertTriangle,
     Loader2,
-    WifiOff
+    WifiOff,
+    Ghost,
+    DollarSign,
+    Ban
 } from 'lucide-react';
 
 interface PrivacyScreenProps {
@@ -20,6 +24,7 @@ interface PrivacyScreenProps {
 }
 
 const PrivacyScreen: React.FC<PrivacyScreenProps> = ({ onNavigate }) => {
+    const { currentUser, blockedUsers, toggleGhostMode, toggleShowRevenue } = useSocial();
     const [isOffline, setIsOffline] = useState(false); // Mock offline state
 
     // Toggles
@@ -118,6 +123,71 @@ const PrivacyScreen: React.FC<PrivacyScreenProps> = ({ onNavigate }) => {
                                 </div>
                             </div>
                             <ChevronRight className="w-4 h-4 text-gray-400" />
+                        </div>
+                    </div>
+                </section>
+
+                {/* Social Privacy Section (F3.5) */}
+                <section>
+                    <h2 className="text-xs font-bold text-gray-400 uppercase tracking-wide mb-3 ml-1">Приватность в клубе</h2>
+                    <div className="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 divide-y divide-gray-100">
+                        {/* Ghost Mode Toggle */}
+                        <div className="p-4 flex items-center justify-between">
+                            <div className="flex gap-3 items-center">
+                                <div className="w-8 h-8 rounded-full bg-violet-50 flex items-center justify-center text-violet-600">
+                                    <Ghost className="w-4 h-4" />
+                                </div>
+                                <div>
+                                    <p className="font-medium text-gray-900 text-sm">Режим невидимки</p>
+                                    <p className="text-xs text-gray-400 mt-0.5">Вас не видят в зале и списках</p>
+                                </div>
+                            </div>
+                            <button
+                                onClick={toggleGhostMode}
+                                className={`w-10 h-6 rounded-full transition-colors relative ${currentUser?.privacy.isGhostMode ? 'bg-blue-600' : 'bg-gray-200'}`}
+                            >
+                                <div className={`absolute top-1 w-4 h-4 bg-white rounded-full transition-all shadow-sm ${currentUser?.privacy.isGhostMode ? 'left-5' : 'left-1'}`}></div>
+                            </button>
+                        </div>
+
+                        {/* Show Revenue Toggle */}
+                        <div className="p-4 flex items-center justify-between">
+                            <div className="flex gap-3 items-center">
+                                <div className="w-8 h-8 rounded-full bg-emerald-50 flex items-center justify-center text-emerald-600">
+                                    <DollarSign className="w-4 h-4" />
+                                </div>
+                                <div>
+                                    <p className="font-medium text-gray-900 text-sm">Показывать доход</p>
+                                    <p className="text-xs text-gray-400 mt-0.5">Видимость финансов в профиле</p>
+                                </div>
+                            </div>
+                            <button
+                                onClick={toggleShowRevenue}
+                                className={`w-10 h-6 rounded-full transition-colors relative ${currentUser?.privacy.showRevenue ? 'bg-blue-600' : 'bg-gray-200'}`}
+                            >
+                                <div className={`absolute top-1 w-4 h-4 bg-white rounded-full transition-all shadow-sm ${currentUser?.privacy.showRevenue ? 'left-5' : 'left-1'}`}></div>
+                            </button>
+                        </div>
+
+                        {/* Blocked Users Link */}
+                        <div
+                            onClick={() => onNavigate('privacy_settings')}
+                            className="p-4 flex items-center justify-between cursor-pointer active:bg-gray-50"
+                        >
+                            <div className="flex gap-3 items-center">
+                                <div className="w-8 h-8 rounded-full bg-red-50 flex items-center justify-center text-red-500">
+                                    <Ban className="w-4 h-4" />
+                                </div>
+                                <p className="font-medium text-gray-900 text-sm">Заблокированные</p>
+                            </div>
+                            <div className="flex items-center gap-2">
+                                {blockedUsers.length > 0 && (
+                                    <span className="min-w-[20px] h-5 px-1.5 bg-red-100 text-red-600 rounded-full text-xs font-bold flex items-center justify-center">
+                                        {blockedUsers.length}
+                                    </span>
+                                )}
+                                <ChevronRight className="w-4 h-4 text-gray-400" />
+                            </div>
                         </div>
                     </div>
                 </section>

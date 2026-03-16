@@ -8,7 +8,7 @@ const CLUB_ID = 'club-001';
 
 // --- Occupancy curves per day-of-week (0=Sun, 1=Mon ... 6=Sat) ---
 // Values = percentage of total capacity (0-100) for each hour 0-23
-const HOURLY_CURVES: Record<number, number[]> = {
+export const HOURLY_CURVES: Record<number, number[]> = {
   // hour:  0   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17  18  19  20  21  22  23
   0: [  2,  1,  1,  1,  1,  2,  5, 10, 22, 40, 50, 48, 42, 35, 28, 22, 18, 14, 10,  8,  5,  3,  2,  2], // Вс
   1: [  2,  1,  1,  1,  1,  3, 12, 42, 65, 50, 38, 32, 45, 40, 22, 20, 30, 55, 82, 85, 72, 50, 22,  5], // Пн
@@ -65,6 +65,34 @@ export function getOccupancyLabel(level: OccupancyLevel): string {
     case 'busy':     return 'Много людей';
     case 'packed':   return 'Полная загрузка';
   }
+}
+
+/**
+ * Generate a heatmap matrix for the week.
+ * Returns { days, hours, data } where data[rowIdx][colIdx] = occupancy percentage.
+ * Days: Пн–Вс, Hours: selected time slots from the curves.
+ */
+export function getHeatmapForWeek(
+  hours: number[] = [7, 9, 12, 15, 18, 20]
+): { days: string[]; hours: string[]; data: number[][] } {
+  // Map day-of-week index (JS: 0=Sun) to display order Пн–Вс
+  const dayOrder = [1, 2, 3, 4, 5, 6, 0]; // Mon=1, Tue=2 ... Sun=0
+  const dayLabels = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'];
+  const hourLabels = hours.map((h) => `${h}:00`);
+
+  const data: number[][] = hours.map((hour) =>
+    dayOrder.map((dayIdx) => {
+      const curve = HOURLY_CURVES[dayIdx] || HOURLY_CURVES[1];
+      return curve[hour] ?? 0;
+    })
+  );
+
+  return { days: dayLabels, hours: hourLabels, data };
+}
+
+/** Get the occupancy color directly from a percentage value */
+export function getOccupancyColorFromPercent(percent: number): string {
+  return getOccupancyColor(getLevel(percent));
 }
 
 /** Interpolate between the current hour curve value and the next hour */

@@ -8,7 +8,7 @@ import StatusBeaconSelector from './social/StatusBeaconSelector';
 import ChatListScreen from './ChatListScreen';
 import RequestFeed from './social/RequestFeed';
 import EventsList from './social/EventsList';
-import { Users, MessageCircle, Briefcase, Calendar, Compass } from 'lucide-react';
+import { Users, MessageCircle, Briefcase, Calendar, Compass, Trophy } from 'lucide-react';
 import SuggestedBuddiesWidget from './social/SuggestedBuddiesWidget';
 import YourCircleWidget from './social/YourCircleWidget';
 import { ScreenName } from '../types';
@@ -159,6 +159,24 @@ const CommunityScreen: React.FC<CommunityScreenProps> = ({ onNavigate }) => {
                                     <p className="font-bold text-sm">Мои напарники</p>
                                     <p className={`text-xs ${isDark ? 'text-zinc-400' : 'text-gray-500'}`}>
                                         Управление связями и запросами
+                                    </p>
+                                </div>
+                            </div>
+                        </button>
+
+                        {/* Challenge Teams link */}
+                        <button
+                            onClick={() => onNavigate('challenge_teams')}
+                            className={`w-full p-4 rounded-2xl text-left active:scale-[0.98] transition-all ${isDark ? 'bg-zinc-900 border border-zinc-800 hover:bg-zinc-800/50' : 'bg-white shadow-sm hover:bg-gray-50'}`}
+                        >
+                            <div className="flex items-center gap-3">
+                                <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${isDark ? 'bg-yellow-500/10' : 'bg-yellow-50'}`}>
+                                    <Trophy className={`w-5 h-5 ${isDark ? 'text-yellow-400' : 'text-yellow-600'}`} />
+                                </div>
+                                <div>
+                                    <p className="font-bold text-sm">Вызовы</p>
+                                    <p className={`text-xs ${isDark ? 'text-zinc-400' : 'text-gray-500'}`}>
+                                        Командные соревнования на неделю
                                     </p>
                                 </div>
                             </div>

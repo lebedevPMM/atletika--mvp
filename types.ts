@@ -109,6 +109,7 @@ export type ScreenName =
   | 'buddy_list' // F3: Buddy List
   | 'open_workouts' // F3: Open Workouts
   | 'open_workout_create' // F3: Create Open Workout
+  | 'challenge_teams' // F3.3: Challenge Teams
 
   // --- TRAINER APP SPECIFIC (55-84) ---
   | 'trainer_login'

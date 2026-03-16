@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { UserProfile, RaidBoss, SocialStatus, BusinessRequest, CommunityEvent, BuddyConnection, OpenWorkout, BuddySuggestion } from './types';
-import { MOCK_USERS, CURRENT_USER_MOCK, MOCK_REQUESTS, MOCK_EVENTS, MOCK_BUDDY_CONNECTIONS, MOCK_OPEN_WORKOUTS, MOCK_BUDDY_SUGGESTIONS } from './mockData';
+import { UserProfile, RaidBoss, SocialStatus, BusinessRequest, CommunityEvent, BuddyConnection, OpenWorkout, BuddySuggestion, BlockedUser, ReportReason, UserReport, Challenge } from './types';
+import { MOCK_USERS, CURRENT_USER_MOCK, MOCK_REQUESTS, MOCK_EVENTS, MOCK_BUDDY_CONNECTIONS, MOCK_OPEN_WORKOUTS, MOCK_BUDDY_SUGGESTIONS, MOCK_CHALLENGES } from './mockData';
 
 interface SocialContextType {
     currentUser: UserProfile | null;
@@ -32,6 +32,19 @@ interface SocialContextType {
     createOpenWorkout: (workout: Omit<OpenWorkout, 'id' | 'participants'>) => void;
     joinOpenWorkout: (workoutId: string) => void;
     leaveOpenWorkout: (workoutId: string) => void;
+
+    // F3.3: Challenge Teams
+    challenges: Challenge[];
+    joinChallenge: (challengeId: string, teamId: string) => void;
+    createChallenge: (challenge: Omit<Challenge, 'id' | 'status' | 'teams'>) => void;
+
+    // F3.5: Privacy & Safety
+    blockedUsers: BlockedUser[];
+    blockUser: (userId: string, reason?: string) => void;
+    unblockUser: (userId: string) => void;
+    reportUser: (targetUserId: string, reason: ReportReason, description?: string) => void;
+    toggleGhostMode: () => void;
+    toggleShowRevenue: () => void;
 }
 
 const SocialContext = createContext<SocialContextType | undefined>(undefined);
@@ -60,12 +73,24 @@ export const SocialProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     const [openWorkouts, setOpenWorkouts] = useState<OpenWorkout[]>(MOCK_OPEN_WORKOUTS);
     const [buddySuggestions] = useState<BuddySuggestion[]>(MOCK_BUDDY_SUGGESTIONS);
 
-    // Simulation: Filter users who are "Geofenced" and NOT "Ghost"
+    // F3.3: Challenge Teams state
+    const [challenges, setChallenges] = useState<Challenge[]>(MOCK_CHALLENGES);
+
+    // F3.5: Privacy & Safety state
+    const [blockedUsers, setBlockedUsers] = useState<BlockedUser[]>([]);
+    const [reports, setReports] = useState<UserReport[]>([]);
+
+    // Simulation: Filter users who are "Geofenced" and NOT "Ghost", excluding blocked users
     useEffect(() => {
-        // In a real app, this would query the backend for users in the same location
-        const visibleUsers = allMembers.filter(u => u.isGeofenced && !u.privacy.isGhostMode);
+        const blockedIds = new Set(blockedUsers.map(b => b.userId));
+        const visibleUsers = allMembers.filter(u =>
+            u.isGeofenced &&
+            !u.privacy.isGhostMode &&
+            !blockedIds.has(u.id) &&
+            !(currentUser?.privacy.isGhostMode && u.id === currentUser.id)
+        );
         setActiveUsers(visibleUsers);
-    }, [allMembers]);
+    }, [allMembers, blockedUsers, currentUser]);
 
     // Simulate Geofence Check-in/Check-out
     const checkIn = () => {
@@ -185,6 +210,83 @@ export const SocialProvider: React.FC<{ children: React.ReactNode }> = ({ childr
         );
     };
 
+    // F3.3: Challenge Teams methods
+    const joinChallenge = (challengeId: string, teamId: string) => {
+        if (!currentUser) return;
+        setChallenges(prev =>
+            prev.map(ch => {
+                if (ch.id === challengeId) {
+                    return {
+                        ...ch,
+                        teams: ch.teams.map(team => {
+                            if (team.id === teamId && !team.members.includes(currentUser.id) && team.members.length < 5) {
+                                return { ...team, members: [...team.members, currentUser.id] };
+                            }
+                            return team;
+                        }),
+                    };
+                }
+                return ch;
+            })
+        );
+    };
+
+    const createChallenge = (challenge: Omit<Challenge, 'id' | 'status' | 'teams'>) => {
+        const newChallenge: Challenge = {
+            ...challenge,
+            id: `ch_${Date.now()}`,
+            status: 'upcoming',
+            teams: [],
+        };
+        setChallenges(prev => [...prev, newChallenge]);
+    };
+
+    // F3.5: Privacy & Safety methods
+    const blockUser = (userId: string, reason?: string) => {
+        const newBlock: BlockedUser = {
+            userId,
+            blockedAt: new Date().toISOString(),
+            reason,
+        };
+        setBlockedUsers(prev => [...prev, newBlock]);
+    };
+
+    const unblockUser = (userId: string) => {
+        setBlockedUsers(prev => prev.filter(b => b.userId !== userId));
+    };
+
+    const reportUser = (targetUserId: string, reason: ReportReason, description?: string) => {
+        if (!currentUser) return;
+        const newReport: UserReport = {
+            id: `report_${Date.now()}`,
+            reporterId: currentUser.id,
+            targetUserId,
+            reason,
+            description,
+            createdAt: new Date().toISOString(),
+            status: 'pending',
+        };
+        setReports(prev => [...prev, newReport]);
+    };
+
+    const toggleGhostMode = () => {
+        if (currentUser) {
+            setCurrentUser({
+                ...currentUser,
+                privacy: { ...currentUser.privacy, isGhostMode: !currentUser.privacy.isGhostMode },
+            });
+        }
+    };
+
+    const toggleShowRevenue = () => {
+        if (currentUser) {
+            setCurrentUser({
+                ...currentUser,
+                privacy: { ...currentUser.privacy, showRevenue: !currentUser.privacy.showRevenue },
+            });
+        }
+    };
+
     const isGuest = currentUser?.verificationStatus === 'guest';
 
     const submitApplication = async (data: any) => {
@@ -230,6 +332,19 @@ export const SocialProvider: React.FC<{ children: React.ReactNode }> = ({ childr
             createOpenWorkout,
             joinOpenWorkout,
             leaveOpenWorkout,
+
+            // F3.3: Challenge Teams
+            challenges,
+            joinChallenge,
+            createChallenge,
+
+            // F3.5: Privacy & Safety
+            blockedUsers,
+            blockUser,
+            unblockUser,
+            reportUser,
+            toggleGhostMode,
+            toggleShowRevenue,
         }}>
             {children}
         </SocialContext.Provider>

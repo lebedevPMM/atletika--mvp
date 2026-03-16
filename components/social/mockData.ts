@@ -1,4 +1,4 @@
-import { UserProfile, FitnessPassport, BuddyConnection, OpenWorkout, BuddySuggestion } from './types';
+import { UserProfile, FitnessPassport, BuddyConnection, OpenWorkout, BuddySuggestion, Challenge } from './types';
 
 export const MOCK_USERS: UserProfile[] = [
     {
@@ -509,4 +509,104 @@ export const MOCK_WEEKLY_CIRCLE: Array<{ userId: string; workoutsThisWeek: numbe
     { userId: 'u2', workoutsThisWeek: 3 },
     { userId: 'u3', workoutsThisWeek: 3 },
     { userId: 'me', workoutsThisWeek: 1 },
+];
+
+// === F3.3: Challenge Teams Mock Data ===
+
+const now = new Date();
+const day4Start = new Date(now);
+day4Start.setDate(now.getDate() - 3);
+const day4End = new Date(day4Start);
+day4End.setDate(day4Start.getDate() + 7);
+
+const day2Start = new Date(now);
+day2Start.setDate(now.getDate() - 1);
+const day2End = new Date(day2Start);
+day2End.setDate(day2Start.getDate() + 7);
+
+const upcomingStart = new Date(now);
+upcomingStart.setDate(now.getDate() + 3);
+const upcomingEnd = new Date(upcomingStart);
+upcomingEnd.setDate(upcomingStart.getDate() + 7);
+
+export const MOCK_CHALLENGES: Challenge[] = [
+    {
+        id: 'ch1',
+        title: 'Неделя движения',
+        description: 'Кто наберёт больше шагов за неделю? Командный зачёт — каждый шаг на счету!',
+        category: 'steps',
+        target: 70000,
+        unit: 'шагов',
+        startDate: day4Start.toISOString(),
+        endDate: day4End.toISOString(),
+        status: 'active',
+        teams: [
+            {
+                id: 'ct1',
+                name: 'Шагоходы',
+                members: ['me', 'u1', 'u2'],
+                score: 42500,
+                avatar: '\u{1F6B6}',
+            },
+            {
+                id: 'ct2',
+                name: 'Марафонцы',
+                members: ['u3', 'u4', 'u5'],
+                score: 38200,
+                avatar: '\u{1F3C3}',
+            },
+        ],
+        creatorId: 'u1',
+        prizeDescription: 'Проигравшая команда ставит смузи',
+    },
+    {
+        id: 'ch2',
+        title: 'Марафон тренировок',
+        description: 'Больше тренировок — больше очков. Групповые, персональные, самостоятельные — всё считается!',
+        category: 'workouts',
+        target: 20,
+        unit: 'тренировок',
+        startDate: day2Start.toISOString(),
+        endDate: day2End.toISOString(),
+        status: 'active',
+        teams: [
+            {
+                id: 'ct3',
+                name: 'Iron Squad',
+                members: ['u1', 'u3'],
+                score: 6,
+                avatar: '\u{1F4AA}',
+            },
+            {
+                id: 'ct4',
+                name: 'Cardio Kings',
+                members: ['u2', 'u5'],
+                score: 5,
+                avatar: '\u{1F451}',
+            },
+            {
+                id: 'ct5',
+                name: 'Flex Team',
+                members: ['me', 'u4'],
+                score: 4,
+                avatar: '\u{26A1}',
+            },
+        ],
+        creatorId: 'me',
+        prizeDescription: 'Победители получают гостевой пасс на друга',
+    },
+    {
+        id: 'ch3',
+        title: 'Кардио-битва',
+        description: 'Неделя кардио! Бег, велосипед, эллипс, плавание — засчитываются минуты активности.',
+        category: 'minutes',
+        target: 500,
+        unit: 'минут',
+        startDate: upcomingStart.toISOString(),
+        endDate: upcomingEnd.toISOString(),
+        status: 'upcoming',
+        teams: [],
+        creatorId: 'u2',
+        prizeDescription: 'Бесплатный протеиновый коктейль для каждого в команде-победителе',
+    },
 ];

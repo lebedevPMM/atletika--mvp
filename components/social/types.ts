@@ -161,3 +161,51 @@ export interface BuddySuggestion {
     compatibilityScore: number; // 0-100
     matchReasons: string[]; // ["Силовые тренировки", "Вт, Чт, Сб вечером", "3 общих buddy"]
 }
+
+// === F3.3: Challenge Teams Types ===
+
+export type ChallengeCategory = 'steps' | 'workouts' | 'calories' | 'minutes' | 'custom';
+export type ChallengeStatus = 'upcoming' | 'active' | 'completed';
+
+export interface ChallengeTeam {
+    id: string;
+    name: string;
+    members: string[]; // user IDs
+    score: number;
+    avatar?: string; // team emoji or URL
+}
+
+export interface Challenge {
+    id: string;
+    title: string;
+    description: string;
+    category: ChallengeCategory;
+    target: number; // e.g. 10000 steps, 5 workouts
+    unit: string; // "шагов", "тренировок", "минут"
+    startDate: string; // ISO
+    endDate: string; // ISO
+    status: ChallengeStatus;
+    teams: ChallengeTeam[];
+    creatorId: string;
+    prizeDescription?: string;
+}
+
+// === F3.5: Privacy & Safety Types ===
+
+export type ReportReason = 'spam' | 'harassment' | 'inappropriate' | 'fake_profile' | 'other';
+
+export interface BlockedUser {
+    userId: string;
+    blockedAt: string; // ISO
+    reason?: string;
+}
+
+export interface UserReport {
+    id: string;
+    reporterId: string;
+    targetUserId: string;
+    reason: ReportReason;
+    description?: string;
+    createdAt: string; // ISO
+    status: 'pending' | 'reviewed' | 'resolved';
+}
